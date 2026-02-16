@@ -7,8 +7,7 @@
 		<RootNamespace>TrainingTracker.App</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
+
 
 		<!-- Display name -->
 		<ApplicationTitle>TrainingTracker.App</ApplicationTitle>
@@ -21,6 +20,12 @@
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
+
+		<!-- Suppress analyzer rules incompatible with MAUI conventions:
+		     CA1515: MAUI requires public types for XAML-bound partial classes
+		     CA1711: AppDelegate naming is an iOS platform convention
+		     CA1724: App class name conflicts with namespace (MAUI template pattern) -->
+		<NoWarn>CA1515;CA1711;CA1724</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
