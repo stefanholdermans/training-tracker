@@ -22,4 +22,4 @@ The application displays a training programme in a calendar view, showing planne
 
 ## Current Status
 
-Currently in the planning phase.
+Implementation for a first release is underway.
