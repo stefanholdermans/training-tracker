@@ -52,7 +52,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\TrainingTracker.Application\TrainingTracker.Application.csproj" />
+	  <ProjectReference Include="..\TrainingTracker.Presentation\TrainingTracker.Presentation.csproj" />
 	</ItemGroup>
 
 </Project>

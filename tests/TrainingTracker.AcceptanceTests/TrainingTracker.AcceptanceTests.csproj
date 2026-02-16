@@ -18,7 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\TrainingTracker.Application\TrainingTracker.Application.csproj" />
+    <ProjectReference Include="..\..\src\TrainingTracker.Presentation\TrainingTracker.Presentation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NSubstitute" Version="5.3.0" />
   </ItemGroup>
 
 </Project>

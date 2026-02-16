@@ -48,27 +48,29 @@ We apply Clean Architecture principles to maintain separation of concerns and en
 
 #### Layers (from innermost to outermost)
 
-1. **Domain Layer (Entities)**
+1. **Domain Layer** (`TrainingTracker.Domain`)
    - Core business logic and domain models
    - No dependencies on outer layers
    - Framework-agnostic
    - Contains entities, value objects, domain events, and domain services
 
-2. **Application Layer (Use Cases)**
+2. **Application Layer** (`TrainingTracker.Application`)
    - Application-specific business rules
    - Orchestrates the flow of data to and from entities
    - Depends only on the Domain Layer
    - Contains use cases, application services, and DTOs
 
-3. **Interface Adapters Layer**
-   - Converts data between use cases and external agencies
-   - Contains controllers, presenters, gateways
-   - Depends on Application Layer
+3. **Presentation Layer** (`TrainingTracker.Presentation`)
+   - Adapts Application-layer output for the UI
+   - Contains ViewModels, commands, and view model base classes
+   - Depends on the Application Layer
+   - Targets plain `net10.0` so ViewModels can be unit tested without a device or simulator
 
-4. **Infrastructure Layer**
-   - External concerns: UI, database, web frameworks, external services
+4. **Infrastructure Layer** (`TrainingTracker.App`)
+   - MAUI application shell: XAML views, DI wiring, platform entry points
    - Implements interfaces defined in inner layers
-   - Depends on all inner layers
+   - Depends on the Presentation Layer (which transitively includes Application and Domain)
+   - Should contain as little logic as possible — all testable logic belongs in the Presentation Layer
 
 #### Key Principles
 
@@ -119,13 +121,21 @@ We strictly apply the **Red-Green-Refactor** cycle:
 - **Purpose**: Test individual components in isolation
 - **Scope**: Single class or small group of collaborating classes
 - **Speed**: Fast (milliseconds)
-- **Test Doubles**: Use mocks, stubs, and fakes as needed
+- **Test Doubles**: Use NSubstitute for mocks, stubs, and fakes
 - **Coverage**: Written before implementation code (TDD)
 - **Commit Policy**: **Must pass before committing**
 
+#### Test Tiers
+
+| Project | Scope | What it verifies |
+|---|---|---|
+| `TrainingTracker.Domain.Tests` | Entities, value objects, domain services | Pure domain logic; no fakes needed |
+| `TrainingTracker.Application.Tests` | Use cases, application services | Orchestration with NSubstitute fakes for repository interfaces |
+| `TrainingTracker.Presentation.Tests` | ViewModels, commands | ViewModel state and behaviour with faked Application-layer interfaces |
+
 ### Acceptance Tests
 
-Acceptance tests verify that user stories are implemented correctly. We follow Behaviour-Driven Development (BDD) principles:
+Acceptance tests verify that user stories are implemented correctly. They exercise the **Presentation Layer** (ViewModels), mapping user stories directly to ViewModel construction, commands, and property assertions. We follow Behaviour-Driven Development (BDD) principles.
 
 #### Writing Acceptance Tests
 
@@ -143,6 +153,12 @@ Given [initial context]
 When [event occurs]
 Then [expected outcome]
 ```
+
+Map these directly to ViewModel interactions:
+
+- **Given** = set up Application-layer fakes and seed data
+- **When** = construct a ViewModel or invoke a command
+- **Then** = assert ViewModel properties
 
 #### Commit Policy
 
