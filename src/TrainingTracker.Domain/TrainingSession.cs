@@ -1,6 +1,4 @@
-using TrainingTracker.Domain;
-
-namespace TrainingTracker.Application;
+namespace TrainingTracker.Domain;
 
 /// <summary>
 /// A training session: its type and planned distance.

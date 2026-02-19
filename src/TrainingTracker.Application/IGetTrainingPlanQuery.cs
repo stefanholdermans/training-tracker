@@ -5,5 +5,5 @@ namespace TrainingTracker.Application;
 /// </summary>
 public interface IGetTrainingPlanQuery
 {
-    TrainingPlan Execute();
+    TrainingCalendar Execute();
 }

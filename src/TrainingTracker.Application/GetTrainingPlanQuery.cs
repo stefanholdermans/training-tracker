@@ -1,3 +1,5 @@
+using TrainingTracker.Domain;
+
 namespace TrainingTracker.Application;
 
 /// <summary>
@@ -6,7 +8,7 @@ namespace TrainingTracker.Application;
 public class GetTrainingPlanQuery(ITrainingPlanRepository repository)
     : IGetTrainingPlanQuery
 {
-    public TrainingPlan Execute()
+    public TrainingCalendar Execute()
     {
         _ = repository.GetAll();  // Stub; will group sessions into weeks.
         return new([]);

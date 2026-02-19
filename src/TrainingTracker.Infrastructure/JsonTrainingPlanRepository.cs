@@ -1,4 +1,5 @@
 using TrainingTracker.Application;
+using TrainingTracker.Domain;
 
 namespace TrainingTracker.Infrastructure;
 

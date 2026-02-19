@@ -14,11 +14,12 @@ format, so that I can see what's coming up and plan my week accordingly.
 
 ## Tasks
 
-- [ ] Define `TrainingType` enum in Domain layer
-- [ ] Define `TrainingPlan`, `TrainingWeek`, `TrainingDay`, and
-      `TrainingSession` DTOs in Application layer
-- [ ] Define `IGetTrainingPlanQuery` in Application layer
-- [ ] Implement `TrainingPlanViewModel`
-- [ ] Implement `WeekViewModel`
-- [ ] Implement `DayViewModel`
-- [ ] Implement `SessionViewModel`
+- [x] Define `TrainingType` in Domain layer
+- [x] Define `TrainingSession` and `ScheduledSession` value objects in Domain layer
+- [x] Define `TrainingCalendar`, `TrainingWeek`, and `TrainingDay` DTOs in
+      Application layer
+- [x] Define `ITrainingPlanRepository` and `IGetTrainingPlanQuery` in
+      Application layer
+- [ ] Implement `JsonTrainingPlanRepository` (read and parse training-plan.json)
+- [ ] Implement `GetTrainingPlanQuery` (group sessions into calendar weeks)
+- [ ] Implement `TrainingPlanViewModel` (map `TrainingCalendar` to ViewModels)

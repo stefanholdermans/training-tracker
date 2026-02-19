@@ -9,7 +9,7 @@ public class TrainingPlanViewModel(IGetTrainingPlanQuery query)
 {
     public IReadOnlyList<WeekViewModel> Weeks { get; } = MapWeeks(query.Execute());
 
-    private static IReadOnlyList<WeekViewModel> MapWeeks(TrainingPlan plan)
+    private static IReadOnlyList<WeekViewModel> MapWeeks(TrainingCalendar plan)
     {
         _ = plan;  // Stub; will map training weeks to ViewModels.
         return [];

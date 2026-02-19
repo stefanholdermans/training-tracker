@@ -1,4 +1,4 @@
-namespace TrainingTracker.Application;
+namespace TrainingTracker.Domain;
 
 /// <summary>
 /// A training session scheduled on a specific date.
