@@ -18,11 +18,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\TrainingTracker.Infrastructure\TrainingTracker.Infrastructure.csproj" />
     <ProjectReference Include="..\..\src\TrainingTracker.Presentation\TrainingTracker.Presentation.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NSubstitute" Version="5.3.0" />
+    <Content Include="training-plan.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

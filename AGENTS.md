@@ -135,7 +135,11 @@ We strictly apply the **Red-Green-Refactor** cycle:
 
 ### Acceptance Tests
 
-Acceptance tests verify that user stories are implemented correctly. They exercise the **Presentation Layer** (ViewModels), mapping user stories directly to ViewModel construction, commands, and property assertions. We follow Behaviour-Driven Development (BDD) principles.
+Acceptance tests verify that user stories are implemented correctly. They
+exercise the full stack end-to-end — from the Infrastructure layer (file
+reading) through the Application layer (use cases) to the Presentation layer
+(ViewModels) — with no test doubles. We follow Behaviour-Driven Development
+(BDD) principles.
 
 #### Writing Acceptance Tests
 
@@ -154,11 +158,16 @@ When [event occurs]
 Then [expected outcome]
 ```
 
-Map these directly to ViewModel interactions:
+Map these to real objects, not test doubles:
 
-- **Given** = set up Application-layer fakes and seed data
-- **When** = construct a ViewModel or invoke a command
+- **Given** = a JSON fixture file (checked into the test project) containing
+  the training plan data for the scenario
+- **When** = wire up the real `JsonTrainingPlanRepository` → real use case →
+  real ViewModel, then observe the ViewModel
 - **Then** = assert ViewModel properties
+
+Test doubles (NSubstitute) are used only in **unit tests**, never in
+acceptance tests.
 
 #### Commit Policy
 

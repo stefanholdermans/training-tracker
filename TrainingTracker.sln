@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingTracker.Presentation.Tests", "tests\TrainingTracker.Presentation.Tests\TrainingTracker.Presentation.Tests.csproj", "{EDF0C29F-6068-4AC0-8DCA-D72716E82E21}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingTracker.Infrastructure", "src\TrainingTracker.Infrastructure\TrainingTracker.Infrastructure.csproj", "{7CD62C33-2BFE-4091-8CE4-B75B2C7BCEEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,18 @@ Global
 		{EDF0C29F-6068-4AC0-8DCA-D72716E82E21}.Release|x64.Build.0 = Release|Any CPU
 		{EDF0C29F-6068-4AC0-8DCA-D72716E82E21}.Release|x86.ActiveCfg = Release|Any CPU
 		{EDF0C29F-6068-4AC0-8DCA-D72716E82E21}.Release|x86.Build.0 = Release|Any CPU
+		{7CD62C33-2BFE-4091-8CE4-B75B2C7BCEEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CD62C33-2BFE-4091-8CE4-B75B2C7BCEEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CD62C33-2BFE-4091-8CE4-B75B2C7BCEEB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7CD62C33-2BFE-4091-8CE4-B75B2C7BCEEB}.Debug|x64.Build.0 = Debug|Any CPU
+		{7CD62C33-2BFE-4091-8CE4-B75B2C7BCEEB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7CD62C33-2BFE-4091-8CE4-B75B2C7BCEEB}.Debug|x86.Build.0 = Debug|Any CPU
+		{7CD62C33-2BFE-4091-8CE4-B75B2C7BCEEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CD62C33-2BFE-4091-8CE4-B75B2C7BCEEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CD62C33-2BFE-4091-8CE4-B75B2C7BCEEB}.Release|x64.ActiveCfg = Release|Any CPU
+		{7CD62C33-2BFE-4091-8CE4-B75B2C7BCEEB}.Release|x64.Build.0 = Release|Any CPU
+		{7CD62C33-2BFE-4091-8CE4-B75B2C7BCEEB}.Release|x86.ActiveCfg = Release|Any CPU
+		{7CD62C33-2BFE-4091-8CE4-B75B2C7BCEEB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -142,5 +156,6 @@ Global
 		{5F1F6545-2900-42DC-8F1C-178847830951} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{03D783E8-055F-4374-B46D-7DB969D6C3FD} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{EDF0C29F-6068-4AC0-8DCA-D72716E82E21} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+		{7CD62C33-2BFE-4091-8CE4-B75B2C7BCEEB} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 EndGlobal
