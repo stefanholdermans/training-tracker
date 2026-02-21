@@ -23,3 +23,10 @@ format, so that I can see what's coming up and plan my week accordingly.
 - [ ] Implement `JsonTrainingPlanRepository` (read and parse training-plan.json)
 - [ ] Implement `GetTrainingPlanQuery` (group sessions into calendar weeks)
 - [ ] Implement `TrainingPlanViewModel` (map `TrainingCalendar` to ViewModels)
+- [ ] Create a full marathon training plan JSON file and bundle it as a MAUI asset
+      in the App project (separate from the minimal acceptance-test fixture)
+- [ ] Wire up services in `MauiProgram.cs` (`JsonTrainingPlanRepository` with the
+      bundled asset path, `GetTrainingPlanQuery`, `TrainingPlanViewModel`)
+- [ ] Create `TrainingPlanPage` (XAML + code-behind) bound to `TrainingPlanViewModel`,
+      showing weeks and days with session type and distance
+- [ ] Update `AppShell.xaml` to route to `TrainingPlanPage` on launch
