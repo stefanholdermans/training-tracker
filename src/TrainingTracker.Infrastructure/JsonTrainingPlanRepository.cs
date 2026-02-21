@@ -1,3 +1,5 @@
+using System.Globalization;
+using System.Text.Json;
 using TrainingTracker.Application;
 using TrainingTracker.Domain;
 
@@ -10,7 +12,22 @@ public class JsonTrainingPlanRepository(string filePath) : ITrainingPlanReposito
 {
     public IReadOnlyList<ScheduledSession> GetAll()
     {
-        _ = filePath;  // Stub; will read and parse the JSON file.
-        return [];
+        using var stream = File.OpenRead(filePath);
+        using var document = JsonDocument.Parse(stream);
+
+        return [..document.RootElement.GetProperty("sessions").EnumerateArray().Select(ParseSession)];
+    }
+
+    private static ScheduledSession ParseSession(JsonElement element)
+    {
+        var date = element.GetProperty("date").GetString()
+            ?? throw new InvalidOperationException("Session 'date' is null.");
+        var type = element.GetProperty("type").GetString()
+            ?? throw new InvalidOperationException("Session 'type' is null.");
+        var distanceKm = element.GetProperty("distanceKm").GetDecimal();
+
+        return new ScheduledSession(
+            DateOnly.Parse(date, CultureInfo.InvariantCulture),
+            new TrainingSession(Enum.Parse<TrainingType>(type), distanceKm));
     }
 }
