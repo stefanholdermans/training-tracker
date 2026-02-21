@@ -73,8 +73,29 @@ public class TrainingPlanViewModelTests
         var daySession = new TrainingPlanViewModel(_query).Weeks[0].Days[0].Session;
 
         daySession.Should().NotBeNull();
-        daySession?.Type.Should().Be(TrainingType.Intervals);
+        daySession?.DisplayName.Should().Be("Intervals");
         daySession?.DistanceKm.Should().Be(8.0m);
+    }
+
+    [Theory]
+    [InlineData(TrainingType.EasyRun, "Easy Run")]
+    [InlineData(TrainingType.ThresholdRun, "Threshold Run")]
+    [InlineData(TrainingType.Repetitions, "Repetitions")]
+    [InlineData(TrainingType.Intervals, "Intervals")]
+    [InlineData(TrainingType.LongRun, "Long Run")]
+    public void MapsTrainingTypeToDisplayName(TrainingType type, string expectedDisplayName)
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            new TrainingWeek(new DateOnly(2026, 3, 2),
+            [
+                new TrainingDay(new DateOnly(2026, 3, 2), new TrainingSession(type, 10.0m))
+            ])
+        ]));
+
+        var displayName = new TrainingPlanViewModel(_query).Weeks[0].Days[0].Session?.DisplayName;
+
+        displayName.Should().Be(expectedDisplayName);
     }
 
     [Fact]

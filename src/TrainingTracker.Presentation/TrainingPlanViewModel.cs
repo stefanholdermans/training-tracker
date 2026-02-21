@@ -30,7 +30,15 @@ public class TrainingPlanViewModel(IGetTrainingPlanQuery query)
     private static SessionViewModel MapSession(TrainingSession session) =>
         new()
         {
-            Type = session.Type,
+            DisplayName = session.Type switch
+            {
+                TrainingType.EasyRun => "Easy Run",
+                TrainingType.ThresholdRun => "Threshold Run",
+                TrainingType.Repetitions => "Repetitions",
+                TrainingType.Intervals => "Intervals",
+                TrainingType.LongRun => "Long Run",
+                _ => session.Type.ToString()
+            },
             DistanceKm = session.DistanceKm
         };
 }

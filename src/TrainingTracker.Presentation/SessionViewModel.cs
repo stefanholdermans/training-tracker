@@ -1,5 +1,3 @@
-using TrainingTracker.Domain;
-
 namespace TrainingTracker.Presentation;
 
 /// <summary>
@@ -7,7 +5,7 @@ namespace TrainingTracker.Presentation;
 /// </summary>
 public class SessionViewModel
 {
-    public required TrainingType Type { get; init; }
+    public required string DisplayName { get; init; }
 
     public required decimal DistanceKm { get; init; }
 }
