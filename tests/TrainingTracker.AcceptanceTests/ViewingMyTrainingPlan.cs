@@ -1,6 +1,5 @@
 using FluentAssertions;
 using TrainingTracker.Application;
-using TrainingTracker.Domain;
 using TrainingTracker.Infrastructure;
 using TrainingTracker.Presentation;
 
@@ -34,8 +33,9 @@ public class ViewingMyTrainingPlan
         DayViewModel thursday = _viewModel.Weeks[0].Days
             .Single(d => d.Date == new DateOnly(2026, 3, 5));
         thursday.Session.Should().NotBeNull();
-        thursday.Session!.Type.Should().Be(TrainingType.Intervals);
-        thursday.Session!.DistanceKm.Should().Be(8m);
+        thursday.Session.DisplayName.Should().Be("Intervals");
+        thursday.Session.Color.Should().Be("#7050C0");
+        thursday.Session.DistanceKm.Should().Be(8m);
     }
 
     [Fact]

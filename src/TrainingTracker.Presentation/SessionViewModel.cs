@@ -7,5 +7,7 @@ public class SessionViewModel
 {
     public required string DisplayName { get; init; }
 
+    public required string Color { get; init; }
+
     public required decimal DistanceKm { get; init; }
 }

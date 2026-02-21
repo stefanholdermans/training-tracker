@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TrainingTracker.App"
              x:Class="TrainingTracker.App.TrainingPlanPage"
              Title="Training Plan">
+
+    <ContentPage.Resources>
+        <local:HexToColorConverter x:Key="HexToColorConverter" />
+    </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto,*">
 
@@ -32,8 +37,15 @@
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[0].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontSize="11" TextColor="Gray" />
-                                <Label Text="{Binding Days[0].Session.Type}"
-                                       FontAttributes="Bold" FontSize="13" />
+                                <Border BackgroundColor="{Binding Days[0].Session.Color, Converter={StaticResource HexToColorConverter}}"
+                                        StrokeThickness="0"
+                                        Padding="4,2">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="4" />
+                                    </Border.StrokeShape>
+                                    <Label Text="{Binding Days[0].Session.DisplayName}"
+                                           TextColor="White" FontAttributes="Bold" FontSize="13" />
+                                </Border>
                                 <Label Text="{Binding Days[0].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
                             </VerticalStackLayout>
@@ -44,8 +56,15 @@
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[1].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontSize="11" TextColor="Gray" />
-                                <Label Text="{Binding Days[1].Session.Type}"
-                                       FontAttributes="Bold" FontSize="13" />
+                                <Border BackgroundColor="{Binding Days[1].Session.Color, Converter={StaticResource HexToColorConverter}}"
+                                        StrokeThickness="0"
+                                        Padding="4,2">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="4" />
+                                    </Border.StrokeShape>
+                                    <Label Text="{Binding Days[1].Session.DisplayName}"
+                                           TextColor="White" FontAttributes="Bold" FontSize="13" />
+                                </Border>
                                 <Label Text="{Binding Days[1].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
                             </VerticalStackLayout>
@@ -56,8 +75,15 @@
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[2].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontSize="11" TextColor="Gray" />
-                                <Label Text="{Binding Days[2].Session.Type}"
-                                       FontAttributes="Bold" FontSize="13" />
+                                <Border BackgroundColor="{Binding Days[2].Session.Color, Converter={StaticResource HexToColorConverter}}"
+                                        StrokeThickness="0"
+                                        Padding="4,2">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="4" />
+                                    </Border.StrokeShape>
+                                    <Label Text="{Binding Days[2].Session.DisplayName}"
+                                           TextColor="White" FontAttributes="Bold" FontSize="13" />
+                                </Border>
                                 <Label Text="{Binding Days[2].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
                             </VerticalStackLayout>
@@ -68,8 +94,15 @@
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[3].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontSize="11" TextColor="Gray" />
-                                <Label Text="{Binding Days[3].Session.Type}"
-                                       FontAttributes="Bold" FontSize="13" />
+                                <Border BackgroundColor="{Binding Days[3].Session.Color, Converter={StaticResource HexToColorConverter}}"
+                                        StrokeThickness="0"
+                                        Padding="4,2">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="4" />
+                                    </Border.StrokeShape>
+                                    <Label Text="{Binding Days[3].Session.DisplayName}"
+                                           TextColor="White" FontAttributes="Bold" FontSize="13" />
+                                </Border>
                                 <Label Text="{Binding Days[3].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
                             </VerticalStackLayout>
@@ -80,8 +113,15 @@
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[4].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontSize="11" TextColor="Gray" />
-                                <Label Text="{Binding Days[4].Session.Type}"
-                                       FontAttributes="Bold" FontSize="13" />
+                                <Border BackgroundColor="{Binding Days[4].Session.Color, Converter={StaticResource HexToColorConverter}}"
+                                        StrokeThickness="0"
+                                        Padding="4,2">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="4" />
+                                    </Border.StrokeShape>
+                                    <Label Text="{Binding Days[4].Session.DisplayName}"
+                                           TextColor="White" FontAttributes="Bold" FontSize="13" />
+                                </Border>
                                 <Label Text="{Binding Days[4].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
                             </VerticalStackLayout>
@@ -92,8 +132,15 @@
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[5].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontSize="11" TextColor="Gray" />
-                                <Label Text="{Binding Days[5].Session.Type}"
-                                       FontAttributes="Bold" FontSize="13" />
+                                <Border BackgroundColor="{Binding Days[5].Session.Color, Converter={StaticResource HexToColorConverter}}"
+                                        StrokeThickness="0"
+                                        Padding="4,2">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="4" />
+                                    </Border.StrokeShape>
+                                    <Label Text="{Binding Days[5].Session.DisplayName}"
+                                           TextColor="White" FontAttributes="Bold" FontSize="13" />
+                                </Border>
                                 <Label Text="{Binding Days[5].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
                             </VerticalStackLayout>
@@ -104,8 +151,15 @@
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[6].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontSize="11" TextColor="Gray" />
-                                <Label Text="{Binding Days[6].Session.Type}"
-                                       FontAttributes="Bold" FontSize="13" />
+                                <Border BackgroundColor="{Binding Days[6].Session.Color, Converter={StaticResource HexToColorConverter}}"
+                                        StrokeThickness="0"
+                                        Padding="4,2">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="4" />
+                                    </Border.StrokeShape>
+                                    <Label Text="{Binding Days[6].Session.DisplayName}"
+                                           TextColor="White" FontAttributes="Bold" FontSize="13" />
+                                </Border>
                                 <Label Text="{Binding Days[6].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
                             </VerticalStackLayout>

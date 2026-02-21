@@ -40,6 +40,16 @@ public class TrainingPlanViewModel(IGetTrainingPlanQuery query)
                 TrainingType.Race => "Race",
                 _ => session.Type.ToString()
             },
+            Color = session.Type switch
+            {
+                TrainingType.EasyRun => "#4CAF80",
+                TrainingType.ThresholdRun => "#E07820",
+                TrainingType.Repetitions => "#C04040",
+                TrainingType.Intervals => "#7050C0",
+                TrainingType.LongRun => "#4080C0",
+                TrainingType.Race => "#C09020",
+                _ => "#808080"
+            },
             DistanceKm = session.DistanceKm
         };
 }
