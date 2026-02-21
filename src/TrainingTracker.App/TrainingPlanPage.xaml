@@ -30,7 +30,7 @@
                         <!-- Monday -->
                         <Border Grid.Column="0" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
                             <VerticalStackLayout>
-                                <Label Text="{Binding Days[0].Date, StringFormat='{0:%d}'}"
+                                <Label Text="{Binding Days[0].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[0].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
@@ -42,7 +42,7 @@
                         <!-- Tuesday -->
                         <Border Grid.Column="1" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
                             <VerticalStackLayout>
-                                <Label Text="{Binding Days[1].Date, StringFormat='{0:%d}'}"
+                                <Label Text="{Binding Days[1].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[1].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
@@ -54,7 +54,7 @@
                         <!-- Wednesday -->
                         <Border Grid.Column="2" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
                             <VerticalStackLayout>
-                                <Label Text="{Binding Days[2].Date, StringFormat='{0:%d}'}"
+                                <Label Text="{Binding Days[2].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[2].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
@@ -66,7 +66,7 @@
                         <!-- Thursday -->
                         <Border Grid.Column="3" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
                             <VerticalStackLayout>
-                                <Label Text="{Binding Days[3].Date, StringFormat='{0:%d}'}"
+                                <Label Text="{Binding Days[3].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[3].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
@@ -78,7 +78,7 @@
                         <!-- Friday -->
                         <Border Grid.Column="4" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
                             <VerticalStackLayout>
-                                <Label Text="{Binding Days[4].Date, StringFormat='{0:%d}'}"
+                                <Label Text="{Binding Days[4].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[4].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
@@ -90,7 +90,7 @@
                         <!-- Saturday -->
                         <Border Grid.Column="5" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
                             <VerticalStackLayout>
-                                <Label Text="{Binding Days[5].Date, StringFormat='{0:%d}'}"
+                                <Label Text="{Binding Days[5].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[5].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
@@ -102,7 +102,7 @@
                         <!-- Sunday -->
                         <Border Grid.Column="6" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
                             <VerticalStackLayout>
-                                <Label Text="{Binding Days[6].Date, StringFormat='{0:%d}'}"
+                                <Label Text="{Binding Days[6].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[6].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
