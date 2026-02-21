@@ -34,7 +34,7 @@
                                        FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[0].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
-                                <Label Text="{Binding Days[0].Session.DistanceKm, StringFormat='{0} km'}"
+                                <Label Text="{Binding Days[0].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="11" />
                             </VerticalStackLayout>
                         </Border>
@@ -46,7 +46,7 @@
                                        FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[1].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
-                                <Label Text="{Binding Days[1].Session.DistanceKm, StringFormat='{0} km'}"
+                                <Label Text="{Binding Days[1].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="11" />
                             </VerticalStackLayout>
                         </Border>
@@ -58,7 +58,7 @@
                                        FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[2].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
-                                <Label Text="{Binding Days[2].Session.DistanceKm, StringFormat='{0} km'}"
+                                <Label Text="{Binding Days[2].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="11" />
                             </VerticalStackLayout>
                         </Border>
@@ -70,7 +70,7 @@
                                        FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[3].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
-                                <Label Text="{Binding Days[3].Session.DistanceKm, StringFormat='{0} km'}"
+                                <Label Text="{Binding Days[3].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="11" />
                             </VerticalStackLayout>
                         </Border>
@@ -82,7 +82,7 @@
                                        FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[4].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
-                                <Label Text="{Binding Days[4].Session.DistanceKm, StringFormat='{0} km'}"
+                                <Label Text="{Binding Days[4].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="11" />
                             </VerticalStackLayout>
                         </Border>
@@ -94,7 +94,7 @@
                                        FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[5].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
-                                <Label Text="{Binding Days[5].Session.DistanceKm, StringFormat='{0} km'}"
+                                <Label Text="{Binding Days[5].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="11" />
                             </VerticalStackLayout>
                         </Border>
@@ -106,7 +106,7 @@
                                        FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[6].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
-                                <Label Text="{Binding Days[6].Session.DistanceKm, StringFormat='{0} km'}"
+                                <Label Text="{Binding Days[6].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="11" />
                             </VerticalStackLayout>
                         </Border>
