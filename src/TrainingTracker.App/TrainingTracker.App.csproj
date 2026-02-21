@@ -10,7 +10,7 @@
 
 
 		<!-- Display name -->
-		<ApplicationTitle>TrainingTracker.App</ApplicationTitle>
+		<ApplicationTitle>Training Tracker</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.trainingtracker.app</ApplicationId>
