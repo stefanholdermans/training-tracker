@@ -52,6 +52,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\TrainingTracker.Infrastructure\TrainingTracker.Infrastructure.csproj" />
 	  <ProjectReference Include="..\TrainingTracker.Presentation\TrainingTracker.Presentation.csproj" />
 	</ItemGroup>
 

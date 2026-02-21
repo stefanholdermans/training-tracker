@@ -1,0 +1,82 @@
+{
+  "sessions": [
+    { "date": "2026-03-03", "type": "EasyRun",      "distanceKm": 8.0  },
+    { "date": "2026-03-05", "type": "Intervals",    "distanceKm": 6.0  },
+    { "date": "2026-03-07", "type": "EasyRun",      "distanceKm": 10.0 },
+    { "date": "2026-03-08", "type": "LongRun",      "distanceKm": 18.0 },
+
+    { "date": "2026-03-10", "type": "EasyRun",      "distanceKm": 8.0  },
+    { "date": "2026-03-12", "type": "ThresholdRun", "distanceKm": 8.0  },
+    { "date": "2026-03-14", "type": "EasyRun",      "distanceKm": 10.0 },
+    { "date": "2026-03-15", "type": "LongRun",      "distanceKm": 20.0 },
+
+    { "date": "2026-03-17", "type": "EasyRun",      "distanceKm": 10.0 },
+    { "date": "2026-03-19", "type": "Intervals",    "distanceKm": 8.0  },
+    { "date": "2026-03-21", "type": "EasyRun",      "distanceKm": 11.0 },
+    { "date": "2026-03-22", "type": "LongRun",      "distanceKm": 22.0 },
+
+    { "date": "2026-03-24", "type": "EasyRun",      "distanceKm": 8.0  },
+    { "date": "2026-03-26", "type": "ThresholdRun", "distanceKm": 8.0  },
+    { "date": "2026-03-28", "type": "EasyRun",      "distanceKm": 10.0 },
+    { "date": "2026-03-29", "type": "LongRun",      "distanceKm": 16.0 },
+
+    { "date": "2026-03-31", "type": "EasyRun",      "distanceKm": 10.0 },
+    { "date": "2026-04-02", "type": "Intervals",    "distanceKm": 10.0 },
+    { "date": "2026-04-04", "type": "EasyRun",      "distanceKm": 12.0 },
+    { "date": "2026-04-05", "type": "LongRun",      "distanceKm": 24.0 },
+
+    { "date": "2026-04-07", "type": "EasyRun",      "distanceKm": 10.0 },
+    { "date": "2026-04-09", "type": "ThresholdRun", "distanceKm": 10.0 },
+    { "date": "2026-04-11", "type": "EasyRun",      "distanceKm": 13.0 },
+    { "date": "2026-04-12", "type": "LongRun",      "distanceKm": 26.0 },
+
+    { "date": "2026-04-14", "type": "EasyRun",      "distanceKm": 11.0 },
+    { "date": "2026-04-16", "type": "Intervals",    "distanceKm": 10.0 },
+    { "date": "2026-04-18", "type": "EasyRun",      "distanceKm": 13.0 },
+    { "date": "2026-04-19", "type": "LongRun",      "distanceKm": 28.0 },
+
+    { "date": "2026-04-21", "type": "EasyRun",      "distanceKm": 8.0  },
+    { "date": "2026-04-23", "type": "ThresholdRun", "distanceKm": 8.0  },
+    { "date": "2026-04-25", "type": "EasyRun",      "distanceKm": 10.0 },
+    { "date": "2026-04-26", "type": "LongRun",      "distanceKm": 20.0 },
+
+    { "date": "2026-04-28", "type": "EasyRun",      "distanceKm": 11.0 },
+    { "date": "2026-04-30", "type": "Intervals",    "distanceKm": 12.0 },
+    { "date": "2026-05-02", "type": "EasyRun",      "distanceKm": 14.0 },
+    { "date": "2026-05-03", "type": "LongRun",      "distanceKm": 28.0 },
+
+    { "date": "2026-05-05", "type": "EasyRun",      "distanceKm": 11.0 },
+    { "date": "2026-05-07", "type": "ThresholdRun", "distanceKm": 11.0 },
+    { "date": "2026-05-09", "type": "EasyRun",      "distanceKm": 14.0 },
+    { "date": "2026-05-10", "type": "LongRun",      "distanceKm": 30.0 },
+
+    { "date": "2026-05-12", "type": "EasyRun",      "distanceKm": 12.0 },
+    { "date": "2026-05-14", "type": "Intervals",    "distanceKm": 12.0 },
+    { "date": "2026-05-16", "type": "EasyRun",      "distanceKm": 14.0 },
+    { "date": "2026-05-17", "type": "LongRun",      "distanceKm": 32.0 },
+
+    { "date": "2026-05-19", "type": "EasyRun",      "distanceKm": 8.0  },
+    { "date": "2026-05-21", "type": "ThresholdRun", "distanceKm": 8.0  },
+    { "date": "2026-05-23", "type": "EasyRun",      "distanceKm": 10.0 },
+    { "date": "2026-05-24", "type": "LongRun",      "distanceKm": 22.0 },
+
+    { "date": "2026-05-26", "type": "EasyRun",      "distanceKm": 11.0 },
+    { "date": "2026-05-28", "type": "Intervals",    "distanceKm": 10.0 },
+    { "date": "2026-05-30", "type": "EasyRun",      "distanceKm": 14.0 },
+    { "date": "2026-05-31", "type": "LongRun",      "distanceKm": 32.0 },
+
+    { "date": "2026-06-02", "type": "EasyRun",      "distanceKm": 10.0 },
+    { "date": "2026-06-04", "type": "ThresholdRun", "distanceKm": 10.0 },
+    { "date": "2026-06-06", "type": "EasyRun",      "distanceKm": 14.0 },
+    { "date": "2026-06-07", "type": "LongRun",      "distanceKm": 34.0 },
+
+    { "date": "2026-06-09", "type": "EasyRun",      "distanceKm": 8.0  },
+    { "date": "2026-06-11", "type": "Repetitions",  "distanceKm": 6.0  },
+    { "date": "2026-06-13", "type": "EasyRun",      "distanceKm": 10.0 },
+    { "date": "2026-06-14", "type": "LongRun",      "distanceKm": 20.0 },
+
+    { "date": "2026-06-16", "type": "EasyRun",      "distanceKm": 6.0  },
+    { "date": "2026-06-18", "type": "Repetitions",  "distanceKm": 4.0  },
+    { "date": "2026-06-20", "type": "EasyRun",      "distanceKm": 8.0  }
+  ]
+}

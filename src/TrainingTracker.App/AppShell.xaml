@@ -7,8 +7,8 @@
     Title="TrainingTracker.App">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Training Plan"
+        ContentTemplate="{DataTemplate local:TrainingPlanPage}"
+        Route="TrainingPlanPage" />
 
 </Shell>
