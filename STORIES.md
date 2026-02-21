@@ -1,6 +1,6 @@
 # User Stories
 
-[] **The one where I see my training plan**:
+[x] **The one where I see my training plan**:
 As a runner, I want to view my complete training programme in a calendar format, so that I can see what's coming up and plan my week accordingly.
 
 [] **The one where I check off today's run**:
