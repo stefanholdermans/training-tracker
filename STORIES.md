@@ -17,3 +17,6 @@ As a runner, I want to see which sessions I've completed versus what was planned
 
 [] **The one where I track my weekly progress**:
 As a runner, I want to see my completed volume compared to the planned volume for the week, so that I can gauge whether I'm on track.
+
+[] **The one where I load my own training plan**:
+As a runner, I want to load a training plan from a JSON file on disk, so that I can use the app with my own programme rather than the bundled one.
