@@ -22,13 +22,13 @@ public class ViewingMyTrainingPlan
                 new JsonTrainingPlanRepository(fixturePath)));
     }
 
-    [Fact(Skip = "Pending implementation")]
+    [Fact]
     public void AllWeeksOfTheProgrammeAppear()
     {
         _viewModel.Weeks.Should().HaveCount(4);
     }
 
-    [Fact(Skip = "Pending implementation")]
+    [Fact]
     public void ASessionAppearsOnItsScheduledDate()
     {
         DayViewModel thursday = _viewModel.Weeks[0].Days
@@ -38,7 +38,7 @@ public class ViewingMyTrainingPlan
         thursday.Session!.DistanceKm.Should().Be(8m);
     }
 
-    [Fact(Skip = "Pending implementation")]
+    [Fact]
     public void EachWeekSpansSevenDaysFromMondayToSunday()
     {
         WeekViewModel firstWeek = _viewModel.Weeks[0];
@@ -47,7 +47,7 @@ public class ViewingMyTrainingPlan
         firstWeek.Days[6].Date.Should().Be(new DateOnly(2026, 3, 8));  // Sunday
     }
 
-    [Fact(Skip = "Pending implementation")]
+    [Fact]
     public void WeeksAreShownInChronologicalOrder()
     {
         _viewModel.Weeks[0].StartDate.Should().Be(new DateOnly(2026, 3, 2));

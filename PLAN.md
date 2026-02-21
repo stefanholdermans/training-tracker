@@ -7,10 +7,10 @@ format, so that I can see what's coming up and plan my week accordingly.
 
 ## Acceptance Tests
 
-- [ ] All weeks of the programme appear
-- [ ] A session appears on its scheduled date (with type and distance)
-- [ ] Each week spans seven days from Monday to Sunday
-- [ ] Weeks are shown in chronological order
+- [x] All weeks of the programme appear
+- [x] A session appears on its scheduled date (with type and distance)
+- [x] Each week spans seven days from Monday to Sunday
+- [x] Weeks are shown in chronological order
 
 ## Tasks
 
