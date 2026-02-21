@@ -1,47 +1,121 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:presentation="clr-namespace:TrainingTracker.Presentation;assembly=TrainingTracker.Presentation"
              x:Class="TrainingTracker.App.TrainingPlanPage"
              Title="Training Plan">
 
-    <CollectionView ItemsSource="{Binding Weeks}">
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="presentation:WeekViewModel">
-                <VerticalStackLayout Padding="16,8">
+    <Grid RowDefinitions="Auto,*">
 
-                    <Label Text="{Binding StartDate, StringFormat='Week of {0:d MMMM yyyy}'}"
-                           FontAttributes="Bold"
-                           FontSize="16"
-                           Margin="0,8,0,4" />
+        <!-- Weekday header -->
+        <Grid Grid.Row="0"
+              ColumnDefinitions="*,*,*,*,*,*,*"
+              Padding="0,8">
+            <Label Grid.Column="0" Text="Mon" HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Grid.Column="1" Text="Tue" HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Grid.Column="2" Text="Wed" HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Grid.Column="3" Text="Thu" HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Grid.Column="4" Text="Fri" HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Grid.Column="5" Text="Sat" HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Grid.Column="6" Text="Sun" HorizontalOptions="Center" FontAttributes="Bold" />
+        </Grid>
 
-                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Days}">
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate x:DataType="presentation:DayViewModel">
-                                <Grid ColumnDefinitions="110,*,80"
-                                      Padding="0,3">
-                                    <Label Grid.Column="0"
-                                           Text="{Binding Date, StringFormat='{0:ddd d MMM}'}"
-                                           VerticalOptions="Center" />
-                                    <Label Grid.Column="1"
-                                           Text="{Binding Session.Type}"
-                                           VerticalOptions="Center" />
-                                    <Label Grid.Column="2"
-                                           Text="{Binding Session.DistanceKm, StringFormat='{0} km'}"
-                                           HorizontalOptions="End"
-                                           VerticalOptions="Center" />
-                                </Grid>
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </VerticalStackLayout>
+        <!-- Training weeks -->
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Weeks}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="*,*,*,*,*,*,*"
+                          MinimumHeightRequest="80">
 
-                    <BoxView HeightRequest="1"
-                             Color="LightGray"
-                             Margin="0,8,0,0" />
+                        <!-- Monday -->
+                        <Border Grid.Column="0" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Days[0].Date, StringFormat='{0:%d}'}"
+                                       FontAttributes="Bold" FontSize="13" />
+                                <Label Text="{Binding Days[0].Session.Type}"
+                                       FontSize="11" TextColor="Gray" />
+                                <Label Text="{Binding Days[0].Session.DistanceKm, StringFormat='{0} km'}"
+                                       FontSize="11" />
+                            </VerticalStackLayout>
+                        </Border>
 
-                </VerticalStackLayout>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+                        <!-- Tuesday -->
+                        <Border Grid.Column="1" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Days[1].Date, StringFormat='{0:%d}'}"
+                                       FontAttributes="Bold" FontSize="13" />
+                                <Label Text="{Binding Days[1].Session.Type}"
+                                       FontSize="11" TextColor="Gray" />
+                                <Label Text="{Binding Days[1].Session.DistanceKm, StringFormat='{0} km'}"
+                                       FontSize="11" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- Wednesday -->
+                        <Border Grid.Column="2" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Days[2].Date, StringFormat='{0:%d}'}"
+                                       FontAttributes="Bold" FontSize="13" />
+                                <Label Text="{Binding Days[2].Session.Type}"
+                                       FontSize="11" TextColor="Gray" />
+                                <Label Text="{Binding Days[2].Session.DistanceKm, StringFormat='{0} km'}"
+                                       FontSize="11" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- Thursday -->
+                        <Border Grid.Column="3" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Days[3].Date, StringFormat='{0:%d}'}"
+                                       FontAttributes="Bold" FontSize="13" />
+                                <Label Text="{Binding Days[3].Session.Type}"
+                                       FontSize="11" TextColor="Gray" />
+                                <Label Text="{Binding Days[3].Session.DistanceKm, StringFormat='{0} km'}"
+                                       FontSize="11" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- Friday -->
+                        <Border Grid.Column="4" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Days[4].Date, StringFormat='{0:%d}'}"
+                                       FontAttributes="Bold" FontSize="13" />
+                                <Label Text="{Binding Days[4].Session.Type}"
+                                       FontSize="11" TextColor="Gray" />
+                                <Label Text="{Binding Days[4].Session.DistanceKm, StringFormat='{0} km'}"
+                                       FontSize="11" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- Saturday -->
+                        <Border Grid.Column="5" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Days[5].Date, StringFormat='{0:%d}'}"
+                                       FontAttributes="Bold" FontSize="13" />
+                                <Label Text="{Binding Days[5].Session.Type}"
+                                       FontSize="11" TextColor="Gray" />
+                                <Label Text="{Binding Days[5].Session.DistanceKm, StringFormat='{0} km'}"
+                                       FontSize="11" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- Sunday -->
+                        <Border Grid.Column="6" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Days[6].Date, StringFormat='{0:%d}'}"
+                                       FontAttributes="Bold" FontSize="13" />
+                                <Label Text="{Binding Days[6].Session.Type}"
+                                       FontSize="11" TextColor="Gray" />
+                                <Label Text="{Binding Days[6].Session.DistanceKm, StringFormat='{0} km'}"
+                                       FontSize="11" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
 
 </ContentPage>
