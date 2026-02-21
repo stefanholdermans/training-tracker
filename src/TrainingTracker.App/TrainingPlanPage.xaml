@@ -31,11 +31,11 @@
                         <Border Grid.Column="0" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[0].Date, StringFormat='{0:MMM d, yyyy}'}"
-                                       FontAttributes="Bold" FontSize="13" />
-                                <Label Text="{Binding Days[0].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
+                                <Label Text="{Binding Days[0].Session.Type}"
+                                       FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[0].Session.DistanceKm, StringFormat='{0:0}K'}"
-                                       FontSize="11" />
+                                       FontSize="13" />
                             </VerticalStackLayout>
                         </Border>
 
@@ -43,11 +43,11 @@
                         <Border Grid.Column="1" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[1].Date, StringFormat='{0:MMM d, yyyy}'}"
-                                       FontAttributes="Bold" FontSize="13" />
-                                <Label Text="{Binding Days[1].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
+                                <Label Text="{Binding Days[1].Session.Type}"
+                                       FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[1].Session.DistanceKm, StringFormat='{0:0}K'}"
-                                       FontSize="11" />
+                                       FontSize="13" />
                             </VerticalStackLayout>
                         </Border>
 
@@ -55,11 +55,11 @@
                         <Border Grid.Column="2" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[2].Date, StringFormat='{0:MMM d, yyyy}'}"
-                                       FontAttributes="Bold" FontSize="13" />
-                                <Label Text="{Binding Days[2].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
+                                <Label Text="{Binding Days[2].Session.Type}"
+                                       FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[2].Session.DistanceKm, StringFormat='{0:0}K'}"
-                                       FontSize="11" />
+                                       FontSize="13" />
                             </VerticalStackLayout>
                         </Border>
 
@@ -67,11 +67,11 @@
                         <Border Grid.Column="3" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[3].Date, StringFormat='{0:MMM d, yyyy}'}"
-                                       FontAttributes="Bold" FontSize="13" />
-                                <Label Text="{Binding Days[3].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
+                                <Label Text="{Binding Days[3].Session.Type}"
+                                       FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[3].Session.DistanceKm, StringFormat='{0:0}K'}"
-                                       FontSize="11" />
+                                       FontSize="13" />
                             </VerticalStackLayout>
                         </Border>
 
@@ -79,11 +79,11 @@
                         <Border Grid.Column="4" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[4].Date, StringFormat='{0:MMM d, yyyy}'}"
-                                       FontAttributes="Bold" FontSize="13" />
-                                <Label Text="{Binding Days[4].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
+                                <Label Text="{Binding Days[4].Session.Type}"
+                                       FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[4].Session.DistanceKm, StringFormat='{0:0}K'}"
-                                       FontSize="11" />
+                                       FontSize="13" />
                             </VerticalStackLayout>
                         </Border>
 
@@ -91,11 +91,11 @@
                         <Border Grid.Column="5" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[5].Date, StringFormat='{0:MMM d, yyyy}'}"
-                                       FontAttributes="Bold" FontSize="13" />
-                                <Label Text="{Binding Days[5].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
+                                <Label Text="{Binding Days[5].Session.Type}"
+                                       FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[5].Session.DistanceKm, StringFormat='{0:0}K'}"
-                                       FontSize="11" />
+                                       FontSize="13" />
                             </VerticalStackLayout>
                         </Border>
 
@@ -103,11 +103,11 @@
                         <Border Grid.Column="6" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[6].Date, StringFormat='{0:MMM d, yyyy}'}"
-                                       FontAttributes="Bold" FontSize="13" />
-                                <Label Text="{Binding Days[6].Session.Type}"
                                        FontSize="11" TextColor="Gray" />
+                                <Label Text="{Binding Days[6].Session.Type}"
+                                       FontAttributes="Bold" FontSize="13" />
                                 <Label Text="{Binding Days[6].Session.DistanceKm, StringFormat='{0:0}K'}"
-                                       FontSize="11" />
+                                       FontSize="13" />
                             </VerticalStackLayout>
                         </Border>
 
