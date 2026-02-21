@@ -83,6 +83,7 @@ public class TrainingPlanViewModelTests
     [InlineData(TrainingType.Repetitions, "Repetitions")]
     [InlineData(TrainingType.Intervals, "Intervals")]
     [InlineData(TrainingType.LongRun, "Long Run")]
+    [InlineData(TrainingType.Race, "Race")]
     public void MapsTrainingTypeToDisplayName(TrainingType type, string expectedDisplayName)
     {
         _query.Execute().Returns(new TrainingCalendar(

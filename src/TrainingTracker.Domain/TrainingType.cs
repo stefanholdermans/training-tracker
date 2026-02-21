@@ -9,5 +9,6 @@ public enum TrainingType
     ThresholdRun,
     Repetitions,
     Intervals,
-    LongRun
+    LongRun,
+    Race
 }

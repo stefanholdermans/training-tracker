@@ -37,6 +37,7 @@ public class TrainingPlanViewModel(IGetTrainingPlanQuery query)
                 TrainingType.Repetitions => "Repetitions",
                 TrainingType.Intervals => "Intervals",
                 TrainingType.LongRun => "Long Run",
+                TrainingType.Race => "Race",
                 _ => session.Type.ToString()
             },
             DistanceKm = session.DistanceKm
