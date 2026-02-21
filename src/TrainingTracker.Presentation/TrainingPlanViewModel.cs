@@ -1,4 +1,5 @@
 using TrainingTracker.Application;
+using TrainingTracker.Domain;
 
 namespace TrainingTracker.Presentation;
 
@@ -9,9 +10,27 @@ public class TrainingPlanViewModel(IGetTrainingPlanQuery query)
 {
     public IReadOnlyList<WeekViewModel> Weeks { get; } = MapWeeks(query.Execute());
 
-    private static IReadOnlyList<WeekViewModel> MapWeeks(TrainingCalendar plan)
-    {
-        _ = plan;  // Stub; will map training weeks to ViewModels.
-        return [];
-    }
+    private static IReadOnlyList<WeekViewModel> MapWeeks(TrainingCalendar plan) =>
+        [..plan.Weeks.Select(MapWeek)];
+
+    private static WeekViewModel MapWeek(TrainingWeek week) =>
+        new()
+        {
+            StartDate = week.StartDate,
+            Days = [..week.Days.Select(MapDay)]
+        };
+
+    private static DayViewModel MapDay(TrainingDay day) =>
+        new()
+        {
+            Date = day.Date,
+            Session = day.Session is { } session ? MapSession(session) : null
+        };
+
+    private static SessionViewModel MapSession(TrainingSession session) =>
+        new()
+        {
+            Type = session.Type,
+            DistanceKm = session.DistanceKm
+        };
 }
