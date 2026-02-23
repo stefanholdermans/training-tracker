@@ -21,7 +21,7 @@ public class ViewingThisWeeksVolume
                 new JsonTrainingPlanRepository(fixturePath)));
     }
 
-    [Fact(Skip = "not implemented yet")]
+    [Fact]
     public void EachWeekShowsItsTotalPlannedDistance()
     {
         // Week 1 (2026-03-02): EasyRun 5.0 + Intervals 8.0 = 13.0
