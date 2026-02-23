@@ -17,7 +17,8 @@ public class TrainingPlanViewModel(IGetTrainingPlanQuery query)
         new()
         {
             StartDate = week.StartDate,
-            Days = [..week.Days.Select(MapDay)]
+            Days = [..week.Days.Select(MapDay)],
+            TotalDistanceKm = 0
         };
 
     private static DayViewModel MapDay(TrainingDay day) =>
