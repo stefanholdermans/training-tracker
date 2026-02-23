@@ -13,15 +13,16 @@
 
         <!-- Weekday header -->
         <Grid Grid.Row="0"
-              ColumnDefinitions="*,*,*,*,*,*,*"
+              ColumnDefinitions="*,*,*,*,*,*,*,*"
               Padding="0,8">
-            <Label Grid.Column="0" Text="Mon" HorizontalOptions="Center" FontAttributes="Bold" />
-            <Label Grid.Column="1" Text="Tue" HorizontalOptions="Center" FontAttributes="Bold" />
-            <Label Grid.Column="2" Text="Wed" HorizontalOptions="Center" FontAttributes="Bold" />
-            <Label Grid.Column="3" Text="Thu" HorizontalOptions="Center" FontAttributes="Bold" />
-            <Label Grid.Column="4" Text="Fri" HorizontalOptions="Center" FontAttributes="Bold" />
-            <Label Grid.Column="5" Text="Sat" HorizontalOptions="Center" FontAttributes="Bold" />
-            <Label Grid.Column="6" Text="Sun" HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Grid.Column="0" Text="Mon"   HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Grid.Column="1" Text="Tue"   HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Grid.Column="2" Text="Wed"   HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Grid.Column="3" Text="Thu"   HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Grid.Column="4" Text="Fri"   HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Grid.Column="5" Text="Sat"   HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Grid.Column="6" Text="Sun"   HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Grid.Column="7" Text="Total" HorizontalOptions="Center" FontAttributes="Bold" />
         </Grid>
 
         <!-- Training weeks -->
@@ -29,7 +30,7 @@
                         ItemsSource="{Binding Weeks}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid ColumnDefinitions="*,*,*,*,*,*,*"
+                    <Grid ColumnDefinitions="*,*,*,*,*,*,*,*"
                           MinimumHeightRequest="80">
 
                         <!-- Monday -->
@@ -163,6 +164,14 @@
                                 <Label Text="{Binding Days[6].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
                             </VerticalStackLayout>
+                        </Border>
+
+                        <!-- Weekly total -->
+                        <Border Grid.Column="7" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <Label Text="{Binding TotalDistanceKm, StringFormat='{0:0}K'}"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
                         </Border>
 
                     </Grid>
