@@ -35,16 +35,13 @@ public static class MauiProgram
 
     /// <summary>
     /// Copies the bundled training-plan.json asset to the app data directory
-    /// on first launch and returns the file path for subsequent use.
+    /// on every launch and returns the file path for subsequent use.
     /// </summary>
     private static string ExtractTrainingPlan()
     {
         var filePath = Path.Combine(
             FileSystem.Current.AppDataDirectory,
             "training-plan.json");
-
-        if (File.Exists(filePath))
-            return filePath;
 
         using Stream source = FileSystem.Current
             .OpenAppPackageFileAsync("training-plan.json")
