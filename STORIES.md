@@ -7,7 +7,7 @@ As a runner, I want to view my complete training programme in a calendar format,
 As a runner, I want to mark a training session as completed, so that I can track what I've actually accomplished.
 
 [] **The one where I see this week's volume**:
-As a runner, I want to see the total planned distance/time for the current week, so that I understand the overall training load I'm committing to.
+As a runner, I want to see the total planned distance for each week of my training plan, so that I can understand the training load across the programme.
 
 [] **The one where I know it's a rest day**:
 As a runner, I want rest days to be clearly distinguished from training days, so that I know when recovery is part of the plan.
