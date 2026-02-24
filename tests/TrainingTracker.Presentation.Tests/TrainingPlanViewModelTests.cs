@@ -87,12 +87,12 @@ public class TrainingPlanViewModelTests
     }
 
     [Theory]
-    [InlineData(TrainingType.EasyRun,      "Easy Run")]
+    [InlineData(TrainingType.EasyRun, "Easy Run")]
     [InlineData(TrainingType.ThresholdRun, "Threshold Run")]
-    [InlineData(TrainingType.Repetitions,  "Repetitions")]
-    [InlineData(TrainingType.Intervals,    "Intervals")]
-    [InlineData(TrainingType.LongRun,      "Long Run")]
-    [InlineData(TrainingType.Race,         "Race")]
+    [InlineData(TrainingType.Repetitions, "Repetitions")]
+    [InlineData(TrainingType.Intervals, "Intervals")]
+    [InlineData(TrainingType.LongRun, "Long Run")]
+    [InlineData(TrainingType.Race, "Race")]
     public void MapsTrainingTypeToDisplayName(
         TrainingType type, string expectedDisplayName)
     {
@@ -113,12 +113,12 @@ public class TrainingPlanViewModelTests
     }
 
     [Theory]
-    [InlineData(TrainingType.EasyRun,      "#4CAF80")]
+    [InlineData(TrainingType.EasyRun, "#4CAF80")]
     [InlineData(TrainingType.ThresholdRun, "#E07820")]
-    [InlineData(TrainingType.Repetitions,  "#C04040")]
-    [InlineData(TrainingType.Intervals,    "#7050C0")]
-    [InlineData(TrainingType.LongRun,      "#4080C0")]
-    [InlineData(TrainingType.Race,         "#C09020")]
+    [InlineData(TrainingType.Repetitions, "#C04040")]
+    [InlineData(TrainingType.Intervals, "#7050C0")]
+    [InlineData(TrainingType.LongRun, "#4080C0")]
+    [InlineData(TrainingType.Race, "#C09020")]
     public void MapsTrainingTypeToColor(
         TrainingType type, string expectedColor)
     {
@@ -151,6 +151,38 @@ public class TrainingPlanViewModelTests
 
         new TrainingPlanViewModel(_query)
             .Weeks[0].Days[0].Session.Should().BeNull();
+    }
+
+    [Fact]
+    public void IsRestDayIsTrueWhenThereIsNoSession()
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            new TrainingWeek(new DateOnly(2026, 3, 2),
+            [
+                new TrainingDay(new DateOnly(2026, 3, 2), null)
+            ])
+        ]));
+
+        new TrainingPlanViewModel(_query)
+            .Weeks[0].Days[0].IsRestDay.Should().BeTrue();
+    }
+
+    [Fact]
+    public void IsRestDayIsFalseWhenThereIsASession()
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            new TrainingWeek(new DateOnly(2026, 3, 2),
+            [
+                new TrainingDay(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(TrainingType.EasyRun, 5.0m))
+            ])
+        ]));
+
+        new TrainingPlanViewModel(_query)
+            .Weeks[0].Days[0].IsRestDay.Should().BeFalse();
     }
 
     [Fact]

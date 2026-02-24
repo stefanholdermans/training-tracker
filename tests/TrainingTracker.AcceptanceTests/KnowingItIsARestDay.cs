@@ -21,7 +21,7 @@ public class KnowingItIsARestDay
                 new JsonTrainingPlanRepository(fixturePath)));
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void ADayWithNoSessionIsARestDay()
     {
         DayViewModel tuesday = _viewModel.Weeks[0].Days
@@ -29,7 +29,7 @@ public class KnowingItIsARestDay
         tuesday.IsRestDay.Should().BeTrue();
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void ADayWithASessionIsNotARestDay()
     {
         DayViewModel monday = _viewModel.Weeks[0].Days
