@@ -43,8 +43,10 @@ public class ViewingMyTrainingPlan
     {
         WeekViewModel firstWeek = _viewModel.Weeks[0];
         firstWeek.Days.Should().HaveCount(7);
-        firstWeek.Days[0].Date.Should().Be(new DateOnly(2026, 3, 2));  // Monday
-        firstWeek.Days[6].Date.Should().Be(new DateOnly(2026, 3, 8));  // Sunday
+        // First day is Monday.
+        firstWeek.Days[0].Date.Should().Be(new DateOnly(2026, 3, 2));
+        // Last day is Sunday.
+        firstWeek.Days[6].Date.Should().Be(new DateOnly(2026, 3, 8));
     }
 
     [Fact]

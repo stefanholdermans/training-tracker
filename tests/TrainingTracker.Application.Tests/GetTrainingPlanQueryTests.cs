@@ -41,10 +41,13 @@ public class GetTrainingPlanQueryTests
         IReadOnlyList<TrainingWeek> weeks = _query.Execute().Weeks;
 
         weeks.Should().HaveCount(1);
-        weeks[0].StartDate.Should().Be(new DateOnly(2026, 3, 2));   // Monday
+        // StartDate is the Monday of the enclosing week.
+        weeks[0].StartDate.Should().Be(new DateOnly(2026, 3, 2));
         weeks[0].Days.Should().HaveCount(7);
-        weeks[0].Days[0].Date.Should().Be(new DateOnly(2026, 3, 2)); // Monday
-        weeks[0].Days[6].Date.Should().Be(new DateOnly(2026, 3, 8)); // Sunday
+        // First day is Monday.
+        weeks[0].Days[0].Date.Should().Be(new DateOnly(2026, 3, 2));
+        // Last day is Sunday.
+        weeks[0].Days[6].Date.Should().Be(new DateOnly(2026, 3, 8));
     }
 
     [Fact]
@@ -97,7 +100,8 @@ public class GetTrainingPlanQueryTests
 
         weeks.Should().HaveCount(3);
         weeks[0].StartDate.Should().Be(new DateOnly(2026, 3, 2));
-        weeks[1].StartDate.Should().Be(new DateOnly(2026, 3, 9));  // empty middle week
+        // Empty middle week.
+        weeks[1].StartDate.Should().Be(new DateOnly(2026, 3, 9));
         weeks[2].StartDate.Should().Be(new DateOnly(2026, 3, 16));
     }
 }
