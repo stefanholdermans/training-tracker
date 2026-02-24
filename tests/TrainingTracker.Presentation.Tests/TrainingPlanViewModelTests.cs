@@ -31,7 +31,10 @@ public class TrainingPlanViewModelTests
     {
         _query.Execute().Returns(new TrainingCalendar(
         [
-            new TrainingWeek(new DateOnly(2026, 3, 2), [new TrainingDay(new DateOnly(2026, 3, 2), null)])
+            new TrainingWeek(new DateOnly(2026, 3, 2),
+            [
+                new TrainingDay(new DateOnly(2026, 3, 2), null)
+            ])
         ]));
 
         var weeks = new TrainingPlanViewModel(_query).Weeks;
@@ -66,11 +69,14 @@ public class TrainingPlanViewModelTests
         [
             new TrainingWeek(new DateOnly(2026, 3, 2),
             [
-                new TrainingDay(new DateOnly(2026, 3, 5), new TrainingSession(TrainingType.Intervals, 8.0m))
+                new TrainingDay(
+                    new DateOnly(2026, 3, 5),
+                    new TrainingSession(TrainingType.Intervals, 8.0m))
             ])
         ]));
 
-        var daySession = new TrainingPlanViewModel(_query).Weeks[0].Days[0].Session;
+        var daySession =
+            new TrainingPlanViewModel(_query).Weeks[0].Days[0].Session;
 
         daySession.Should().NotBeNull();
         daySession?.DisplayName.Should().Be("Intervals");
@@ -85,17 +91,21 @@ public class TrainingPlanViewModelTests
     [InlineData(TrainingType.Intervals,    "Intervals")]
     [InlineData(TrainingType.LongRun,      "Long Run")]
     [InlineData(TrainingType.Race,         "Race")]
-    public void MapsTrainingTypeToDisplayName(TrainingType type, string expectedDisplayName)
+    public void MapsTrainingTypeToDisplayName(
+        TrainingType type, string expectedDisplayName)
     {
         _query.Execute().Returns(new TrainingCalendar(
         [
             new TrainingWeek(new DateOnly(2026, 3, 2),
             [
-                new TrainingDay(new DateOnly(2026, 3, 2), new TrainingSession(type, 10.0m))
+                new TrainingDay(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(type, 10.0m))
             ])
         ]));
 
-        var displayName = new TrainingPlanViewModel(_query).Weeks[0].Days[0].Session?.DisplayName;
+        var displayName = new TrainingPlanViewModel(_query)
+            .Weeks[0].Days[0].Session?.DisplayName;
 
         displayName.Should().Be(expectedDisplayName);
     }
@@ -107,17 +117,21 @@ public class TrainingPlanViewModelTests
     [InlineData(TrainingType.Intervals,    "#7050C0")]
     [InlineData(TrainingType.LongRun,      "#4080C0")]
     [InlineData(TrainingType.Race,         "#C09020")]
-    public void MapsTrainingTypeToColor(TrainingType type, string expectedColor)
+    public void MapsTrainingTypeToColor(
+        TrainingType type, string expectedColor)
     {
         _query.Execute().Returns(new TrainingCalendar(
         [
             new TrainingWeek(new DateOnly(2026, 3, 2),
             [
-                new TrainingDay(new DateOnly(2026, 3, 2), new TrainingSession(type, 10.0m))
+                new TrainingDay(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(type, 10.0m))
             ])
         ]));
 
-        var color = new TrainingPlanViewModel(_query).Weeks[0].Days[0].Session?.Color;
+        var color = new TrainingPlanViewModel(_query)
+            .Weeks[0].Days[0].Session?.Color;
 
         color.Should().Be(expectedColor);
     }
@@ -127,10 +141,14 @@ public class TrainingPlanViewModelTests
     {
         _query.Execute().Returns(new TrainingCalendar(
         [
-            new TrainingWeek(new DateOnly(2026, 3, 2), [new TrainingDay(new DateOnly(2026, 3, 2), null)])
+            new TrainingWeek(new DateOnly(2026, 3, 2),
+            [
+                new TrainingDay(new DateOnly(2026, 3, 2), null)
+            ])
         ]));
 
-        new TrainingPlanViewModel(_query).Weeks[0].Days[0].Session.Should().BeNull();
+        new TrainingPlanViewModel(_query)
+            .Weeks[0].Days[0].Session.Should().BeNull();
     }
 
     [Fact]
@@ -140,13 +158,18 @@ public class TrainingPlanViewModelTests
         [
             new TrainingWeek(new DateOnly(2026, 3, 2),
             [
-                new TrainingDay(new DateOnly(2026, 3, 2), new TrainingSession(TrainingType.EasyRun,   5.0m)),
+                new TrainingDay(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(TrainingType.EasyRun, 5.0m)),
                 new TrainingDay(new DateOnly(2026, 3, 3), null),
-                new TrainingDay(new DateOnly(2026, 3, 5), new TrainingSession(TrainingType.Intervals, 8.0m))
+                new TrainingDay(
+                    new DateOnly(2026, 3, 5),
+                    new TrainingSession(TrainingType.Intervals, 8.0m))
             ])
         ]));
 
-        new TrainingPlanViewModel(_query).Weeks[0].TotalDistanceKm.Should().Be(13.0m);
+        new TrainingPlanViewModel(_query)
+            .Weeks[0].TotalDistanceKm.Should().Be(13.0m);
     }
 
     [Fact]
@@ -161,6 +184,7 @@ public class TrainingPlanViewModelTests
             ])
         ]));
 
-        new TrainingPlanViewModel(_query).Weeks[0].TotalDistanceKm.Should().Be(0.0m);
+        new TrainingPlanViewModel(_query)
+            .Weeks[0].TotalDistanceKm.Should().Be(0.0m);
     }
 }

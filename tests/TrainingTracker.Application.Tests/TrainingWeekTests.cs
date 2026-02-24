@@ -14,9 +14,13 @@ public class TrainingWeekTests
     {
         var week = new TrainingWeek(new DateOnly(2026, 3, 2),
         [
-            new TrainingDay(new DateOnly(2026, 3, 2), new TrainingSession(TrainingType.EasyRun,   5.0m)),
+            new TrainingDay(
+                new DateOnly(2026, 3, 2),
+                new TrainingSession(TrainingType.EasyRun, 5.0m)),
             new TrainingDay(new DateOnly(2026, 3, 3), null),
-            new TrainingDay(new DateOnly(2026, 3, 5), new TrainingSession(TrainingType.Intervals, 8.0m))
+            new TrainingDay(
+                new DateOnly(2026, 3, 5),
+                new TrainingSession(TrainingType.Intervals, 8.0m))
         ]);
 
         week.TotalDistanceKm.Should().Be(13.0m);

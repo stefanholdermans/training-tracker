@@ -33,7 +33,9 @@ public class GetTrainingPlanQueryTests
         // Session on Thursday; expect the enclosing Monday-to-Sunday week.
         _repository.GetAll().Returns(
         [
-            new ScheduledSession(new DateOnly(2026, 3, 5), new TrainingSession(TrainingType.Intervals, 8.0m))
+            new ScheduledSession(
+                new DateOnly(2026, 3, 5),
+                new TrainingSession(TrainingType.Intervals, 8.0m))
         ]);
 
         var weeks = _query.Execute().Weeks;
@@ -54,7 +56,8 @@ public class GetTrainingPlanQueryTests
             new ScheduledSession(new DateOnly(2026, 3, 5), session)
         ]);
 
-        var thursday = _query.Execute().Weeks[0].Days.Single(d => d.Date == new DateOnly(2026, 3, 5));
+        var thursday = _query.Execute().Weeks[0].Days
+            .Single(d => d.Date == new DateOnly(2026, 3, 5));
 
         thursday.Session.Should().Be(session);
     }
@@ -65,12 +68,15 @@ public class GetTrainingPlanQueryTests
         // Only Thursday has a session; the other six days should be rest days.
         _repository.GetAll().Returns(
         [
-            new ScheduledSession(new DateOnly(2026, 3, 5), new TrainingSession(TrainingType.Intervals, 8.0m))
+            new ScheduledSession(
+                new DateOnly(2026, 3, 5),
+                new TrainingSession(TrainingType.Intervals, 8.0m))
         ]);
 
         var days = _query.Execute().Weeks[0].Days;
 
-        days.Where(d => d.Date != new DateOnly(2026, 3, 5)).Should().AllSatisfy(d => d.Session.Should().BeNull());
+        days.Where(d => d.Date != new DateOnly(2026, 3, 5))
+            .Should().AllSatisfy(d => d.Session.Should().BeNull());
     }
 
     [Fact]
@@ -79,8 +85,12 @@ public class GetTrainingPlanQueryTests
         // Sessions two weeks apart; the empty middle week must still appear.
         _repository.GetAll().Returns(
         [
-            new ScheduledSession(new DateOnly(2026, 3, 2),  new TrainingSession(TrainingType.EasyRun, 5.0m)),
-            new ScheduledSession(new DateOnly(2026, 3, 16), new TrainingSession(TrainingType.LongRun, 20.0m))
+            new ScheduledSession(
+                new DateOnly(2026, 3, 2),
+                new TrainingSession(TrainingType.EasyRun, 5.0m)),
+            new ScheduledSession(
+                new DateOnly(2026, 3, 16),
+                new TrainingSession(TrainingType.LongRun, 20.0m))
         ]);
 
         var weeks = _query.Execute().Weeks;
