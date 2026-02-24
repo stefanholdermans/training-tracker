@@ -7,6 +7,9 @@ namespace TrainingTracker.App;
 
 public static class MauiProgram
 {
+    /// <summary>
+    /// Builds and returns the configured MAUI application.
+    /// </summary>
     public static MauiApp CreateMauiApp()
     {
         var trainingPlanPath = ExtractTrainingPlan();
