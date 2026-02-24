@@ -8,4 +8,6 @@ public class DayViewModel
     public required DateOnly Date { get; init; }
 
     public SessionViewModel? Session { get; init; }
+
+    public bool IsRestDay => Session is null;
 }
