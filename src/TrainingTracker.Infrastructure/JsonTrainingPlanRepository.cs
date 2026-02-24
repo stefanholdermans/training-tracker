@@ -8,14 +8,18 @@ namespace TrainingTracker.Infrastructure;
 /// <summary>
 /// Reads the training plan from a JSON file.
 /// </summary>
-public class JsonTrainingPlanRepository(string filePath) : ITrainingPlanRepository
+public class JsonTrainingPlanRepository(string filePath)
+    : ITrainingPlanRepository
 {
     public IReadOnlyList<ScheduledSession> GetAll()
     {
         using var stream = File.OpenRead(filePath);
         using var document = JsonDocument.Parse(stream);
 
-        return [..document.RootElement.GetProperty("sessions").EnumerateArray().Select(ParseSession)];
+        return [..document.RootElement
+            .GetProperty("sessions")
+            .EnumerateArray()
+            .Select(ParseSession)];
     }
 
     private static ScheduledSession ParseSession(JsonElement element)

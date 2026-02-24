@@ -22,7 +22,8 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<ITrainingPlanRepository>(
             _ => new JsonTrainingPlanRepository(trainingPlanPath));
-        builder.Services.AddSingleton<IGetTrainingPlanQuery, GetTrainingPlanQuery>();
+        builder.Services
+            .AddSingleton<IGetTrainingPlanQuery, GetTrainingPlanQuery>();
         builder.Services.AddSingleton<TrainingPlanViewModel>();
         builder.Services.AddSingleton<TrainingPlanPage>();
 

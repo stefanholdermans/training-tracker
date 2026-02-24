@@ -17,14 +17,18 @@ public class GetTrainingPlanQuery(ITrainingPlanRepository repository)
 
         var firstMonday = StartOfWeek(sessions.Min(s => s.Date));
         var lastMonday = StartOfWeek(sessions.Max(s => s.Date));
-        var sessionsByDate = sessions.ToDictionary(s => s.Date, s => s.Session);
+        var sessionsByDate = sessions.ToDictionary(
+            s => s.Date, s => s.Session);
 
         var weeks = new List<TrainingWeek>();
-        for (var monday = firstMonday; monday <= lastMonday; monday = monday.AddDays(7))
+        for (var monday = firstMonday;
+             monday <= lastMonday;
+             monday = monday.AddDays(7))
         {
             var days = Enumerable.Range(0, 7)
                 .Select(i => monday.AddDays(i))
-                .Select(date => new TrainingDay(date, sessionsByDate.GetValueOrDefault(date)))
+                .Select(date => new TrainingDay(
+                    date, sessionsByDate.GetValueOrDefault(date)))
                 .ToList();
             weeks.Add(new TrainingWeek(monday, days));
         }

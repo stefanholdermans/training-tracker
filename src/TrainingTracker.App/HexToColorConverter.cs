@@ -8,9 +8,11 @@ namespace TrainingTracker.App;
 /// </summary>
 public class HexToColorConverter : IValueConverter
 {
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+    public object? Convert(
+        object? value, Type targetType, object? parameter, CultureInfo culture) =>
         value is string hex ? Color.FromArgb(hex) : Colors.Transparent;
 
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+    public object? ConvertBack(
+        object? value, Type targetType, object? parameter, CultureInfo culture) =>
         throw new NotSupportedException();
 }

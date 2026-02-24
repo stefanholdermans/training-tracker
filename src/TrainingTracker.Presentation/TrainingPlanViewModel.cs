@@ -8,9 +8,11 @@ namespace TrainingTracker.Presentation;
 /// </summary>
 public class TrainingPlanViewModel(IGetTrainingPlanQuery query)
 {
-    public IReadOnlyList<WeekViewModel> Weeks { get; } = MapWeeks(query.Execute());
+    public IReadOnlyList<WeekViewModel> Weeks { get; } =
+        MapWeeks(query.Execute());
 
-    private static IReadOnlyList<WeekViewModel> MapWeeks(TrainingCalendar plan) =>
+    private static IReadOnlyList<WeekViewModel> MapWeeks(
+        TrainingCalendar plan) =>
         [..plan.Weeks.Select(MapWeek)];
 
     private static WeekViewModel MapWeek(TrainingWeek week) =>
