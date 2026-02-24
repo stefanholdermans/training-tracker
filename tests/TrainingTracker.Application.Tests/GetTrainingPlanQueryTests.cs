@@ -38,7 +38,7 @@ public class GetTrainingPlanQueryTests
                 new TrainingSession(TrainingType.Intervals, 8.0m))
         ]);
 
-        var weeks = _query.Execute().Weeks;
+        IReadOnlyList<TrainingWeek> weeks = _query.Execute().Weeks;
 
         weeks.Should().HaveCount(1);
         weeks[0].StartDate.Should().Be(new DateOnly(2026, 3, 2));   // Monday
@@ -56,7 +56,7 @@ public class GetTrainingPlanQueryTests
             new ScheduledSession(new DateOnly(2026, 3, 5), session)
         ]);
 
-        var thursday = _query.Execute().Weeks[0].Days
+        TrainingDay thursday = _query.Execute().Weeks[0].Days
             .Single(d => d.Date == new DateOnly(2026, 3, 5));
 
         thursday.Session.Should().Be(session);
@@ -73,7 +73,7 @@ public class GetTrainingPlanQueryTests
                 new TrainingSession(TrainingType.Intervals, 8.0m))
         ]);
 
-        var days = _query.Execute().Weeks[0].Days;
+        IReadOnlyList<TrainingDay> days = _query.Execute().Weeks[0].Days;
 
         days.Where(d => d.Date != new DateOnly(2026, 3, 5))
             .Should().AllSatisfy(d => d.Session.Should().BeNull());
@@ -93,7 +93,7 @@ public class GetTrainingPlanQueryTests
                 new TrainingSession(TrainingType.LongRun, 20.0m))
         ]);
 
-        var weeks = _query.Execute().Weeks;
+        IReadOnlyList<TrainingWeek> weeks = _query.Execute().Weeks;
 
         weeks.Should().HaveCount(3);
         weeks[0].StartDate.Should().Be(new DateOnly(2026, 3, 2));

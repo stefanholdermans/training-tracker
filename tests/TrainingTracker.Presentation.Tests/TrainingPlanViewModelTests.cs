@@ -37,7 +37,8 @@ public class TrainingPlanViewModelTests
             ])
         ]));
 
-        var weeks = new TrainingPlanViewModel(_query).Weeks;
+        IReadOnlyList<WeekViewModel> weeks =
+            new TrainingPlanViewModel(_query).Weeks;
 
         weeks.Should().HaveCount(1);
         weeks[0].StartDate.Should().Be(new DateOnly(2026, 3, 2));
@@ -55,7 +56,8 @@ public class TrainingPlanViewModelTests
             ])
         ]));
 
-        var days = new TrainingPlanViewModel(_query).Weeks[0].Days;
+        IReadOnlyList<DayViewModel> days =
+            new TrainingPlanViewModel(_query).Weeks[0].Days;
 
         days.Should().HaveCount(2);
         days[0].Date.Should().Be(new DateOnly(2026, 3, 2));
@@ -75,7 +77,7 @@ public class TrainingPlanViewModelTests
             ])
         ]));
 
-        var daySession =
+        SessionViewModel? daySession =
             new TrainingPlanViewModel(_query).Weeks[0].Days[0].Session;
 
         daySession.Should().NotBeNull();
@@ -104,7 +106,7 @@ public class TrainingPlanViewModelTests
             ])
         ]));
 
-        var displayName = new TrainingPlanViewModel(_query)
+        string? displayName = new TrainingPlanViewModel(_query)
             .Weeks[0].Days[0].Session?.DisplayName;
 
         displayName.Should().Be(expectedDisplayName);
@@ -130,7 +132,7 @@ public class TrainingPlanViewModelTests
             ])
         ]));
 
-        var color = new TrainingPlanViewModel(_query)
+        string? color = new TrainingPlanViewModel(_query)
             .Weeks[0].Days[0].Session?.Color;
 
         color.Should().Be(expectedColor);
