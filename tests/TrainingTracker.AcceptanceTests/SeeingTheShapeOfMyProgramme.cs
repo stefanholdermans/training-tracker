@@ -21,14 +21,14 @@ public class SeeingTheShapeOfMyProgramme
                 new JsonTrainingPlanRepository(fixturePath)));
     }
 
-    [Fact(Skip = "Not yet implemented")]
+    [Fact]
     public void PeakWeekHasRelativeIntensityOfOne()
     {
         // Week 4 (2026-03-23): LongRun 20.0 — the peak week.
         _viewModel.Weeks[3].RelativeIntensity.Should().Be(1.0m);
     }
 
-    [Fact(Skip = "Not yet implemented")]
+    [Fact]
     public void OtherWeeksAreScaledRelativeToPeakWeek()
     {
         // Week 1 (2026-03-02): 5.0 + 8.0 = 13.0 → 13 ÷ 20 = 0.65.
@@ -38,7 +38,7 @@ public class SeeingTheShapeOfMyProgramme
         _viewModel.Weeks[2].RelativeIntensity.Should().Be(0.80m);
     }
 
-    [Fact(Skip = "Not yet implemented")]
+    [Fact]
     public void RestWeekHasZeroRelativeIntensity()
     {
         // Week 2 (2026-03-09): rest week — no sessions.

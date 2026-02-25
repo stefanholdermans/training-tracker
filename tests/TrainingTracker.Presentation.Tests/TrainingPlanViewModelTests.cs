@@ -221,4 +221,63 @@ public class TrainingPlanViewModelTests
         new TrainingPlanViewModel(_query)
             .Weeks[0].TotalDistanceKm.Should().Be(0.0m);
     }
+
+    [Fact]
+    public void PeakWeekHasRelativeIntensityOfOne()
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            new TrainingWeek(new DateOnly(2026, 3, 2),
+            [
+                new TrainingDay(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(TrainingType.LongRun, 20.0m))
+            ])
+        ]));
+
+        new TrainingPlanViewModel(_query)
+            .Weeks[0].RelativeIntensity.Should().Be(1.0m);
+    }
+
+    [Fact]
+    public void AWeekIsScaledRelativeToPeakWeek()
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            new TrainingWeek(new DateOnly(2026, 3, 2),
+            [
+                new TrainingDay(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(TrainingType.EasyRun, 10.0m))
+            ]),
+            new TrainingWeek(new DateOnly(2026, 3, 9),
+            [
+                new TrainingDay(
+                    new DateOnly(2026, 3, 9),
+                    new TrainingSession(TrainingType.LongRun, 20.0m))
+            ])
+        ]));
+
+        IReadOnlyList<WeekViewModel> weeks =
+            new TrainingPlanViewModel(_query).Weeks;
+
+        weeks[0].RelativeIntensity.Should().Be(0.5m);
+        weeks[1].RelativeIntensity.Should().Be(1.0m);
+    }
+
+    [Fact]
+    public void RestWeekHasZeroRelativeIntensity()
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            new TrainingWeek(new DateOnly(2026, 3, 2),
+            [
+                new TrainingDay(new DateOnly(2026, 3, 2), null),
+                new TrainingDay(new DateOnly(2026, 3, 3), null)
+            ])
+        ]));
+
+        new TrainingPlanViewModel(_query)
+            .Weeks[0].RelativeIntensity.Should().Be(0.0m);
+    }
 }

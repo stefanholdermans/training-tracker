@@ -13,14 +13,17 @@ public class TrainingPlanViewModel(IGetTrainingPlanQuery query)
 
     private static IReadOnlyList<WeekViewModel> MapWeeks(
         TrainingCalendar plan) =>
-        [..plan.Weeks.Select(MapWeek)];
+        [..plan.Weeks.Select(week => MapWeek(week, plan.PeakWeekDistanceKm))];
 
-    private static WeekViewModel MapWeek(TrainingWeek week) =>
+    private static WeekViewModel MapWeek(TrainingWeek week, decimal peakDistanceKm) =>
         new()
         {
-            StartDate = week.StartDate,
-            Days = [..week.Days.Select(MapDay)],
-            TotalDistanceKm = week.TotalDistanceKm
+            StartDate         = week.StartDate,
+            Days              = [..week.Days.Select(MapDay)],
+            TotalDistanceKm   = week.TotalDistanceKm,
+            RelativeIntensity = peakDistanceKm == 0m
+                                    ? 0m
+                                    : week.TotalDistanceKm / peakDistanceKm
         };
 
     private static DayViewModel MapDay(TrainingDay day) =>
