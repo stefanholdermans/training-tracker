@@ -35,6 +35,18 @@
 
                         <!-- Monday -->
                         <Border Grid.Column="0" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Days[0].IsRestDay}"
+                                             Value="True">
+                                    <Setter Property="BackgroundColor">
+                                        <Setter.Value>
+                                            <AppThemeBinding Light="{StaticResource RestDayBackgroundLight}"
+                                                             Dark="{StaticResource RestDayBackgroundDark}" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Border.Triggers>
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[0].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontSize="11" TextColor="Gray" />
@@ -44,9 +56,28 @@
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="4" />
                                     </Border.StrokeShape>
+                                    <Border.Triggers>
+                                        <DataTrigger TargetType="Border"
+                                                     Binding="{Binding Days[0].IsRestDay}"
+                                                     Value="True">
+                                            <Setter Property="IsVisible" Value="False" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
                                     <Label Text="{Binding Days[0].Session.DisplayName}"
                                            TextColor="White" FontAttributes="Bold" FontSize="13" />
                                 </Border>
+                                <Label Text="Rest"
+                                       IsVisible="False"
+                                       FontSize="13"
+                                       TextColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding Days[0].IsRestDay}"
+                                                     Value="True">
+                                            <Setter Property="IsVisible" Value="True" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
                                 <Label Text="{Binding Days[0].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
                             </VerticalStackLayout>
@@ -54,6 +85,18 @@
 
                         <!-- Tuesday -->
                         <Border Grid.Column="1" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Days[1].IsRestDay}"
+                                             Value="True">
+                                    <Setter Property="BackgroundColor">
+                                        <Setter.Value>
+                                            <AppThemeBinding Light="{StaticResource RestDayBackgroundLight}"
+                                                             Dark="{StaticResource RestDayBackgroundDark}" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Border.Triggers>
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[1].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontSize="11" TextColor="Gray" />
@@ -63,9 +106,28 @@
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="4" />
                                     </Border.StrokeShape>
+                                    <Border.Triggers>
+                                        <DataTrigger TargetType="Border"
+                                                     Binding="{Binding Days[1].IsRestDay}"
+                                                     Value="True">
+                                            <Setter Property="IsVisible" Value="False" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
                                     <Label Text="{Binding Days[1].Session.DisplayName}"
                                            TextColor="White" FontAttributes="Bold" FontSize="13" />
                                 </Border>
+                                <Label Text="Rest"
+                                       IsVisible="False"
+                                       FontSize="13"
+                                       TextColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding Days[1].IsRestDay}"
+                                                     Value="True">
+                                            <Setter Property="IsVisible" Value="True" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
                                 <Label Text="{Binding Days[1].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
                             </VerticalStackLayout>
@@ -73,6 +135,18 @@
 
                         <!-- Wednesday -->
                         <Border Grid.Column="2" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Days[2].IsRestDay}"
+                                             Value="True">
+                                    <Setter Property="BackgroundColor">
+                                        <Setter.Value>
+                                            <AppThemeBinding Light="{StaticResource RestDayBackgroundLight}"
+                                                             Dark="{StaticResource RestDayBackgroundDark}" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Border.Triggers>
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[2].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontSize="11" TextColor="Gray" />
@@ -82,9 +156,28 @@
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="4" />
                                     </Border.StrokeShape>
+                                    <Border.Triggers>
+                                        <DataTrigger TargetType="Border"
+                                                     Binding="{Binding Days[2].IsRestDay}"
+                                                     Value="True">
+                                            <Setter Property="IsVisible" Value="False" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
                                     <Label Text="{Binding Days[2].Session.DisplayName}"
                                            TextColor="White" FontAttributes="Bold" FontSize="13" />
                                 </Border>
+                                <Label Text="Rest"
+                                       IsVisible="False"
+                                       FontSize="13"
+                                       TextColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding Days[2].IsRestDay}"
+                                                     Value="True">
+                                            <Setter Property="IsVisible" Value="True" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
                                 <Label Text="{Binding Days[2].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
                             </VerticalStackLayout>
@@ -92,6 +185,18 @@
 
                         <!-- Thursday -->
                         <Border Grid.Column="3" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Days[3].IsRestDay}"
+                                             Value="True">
+                                    <Setter Property="BackgroundColor">
+                                        <Setter.Value>
+                                            <AppThemeBinding Light="{StaticResource RestDayBackgroundLight}"
+                                                             Dark="{StaticResource RestDayBackgroundDark}" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Border.Triggers>
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[3].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontSize="11" TextColor="Gray" />
@@ -101,9 +206,28 @@
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="4" />
                                     </Border.StrokeShape>
+                                    <Border.Triggers>
+                                        <DataTrigger TargetType="Border"
+                                                     Binding="{Binding Days[3].IsRestDay}"
+                                                     Value="True">
+                                            <Setter Property="IsVisible" Value="False" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
                                     <Label Text="{Binding Days[3].Session.DisplayName}"
                                            TextColor="White" FontAttributes="Bold" FontSize="13" />
                                 </Border>
+                                <Label Text="Rest"
+                                       IsVisible="False"
+                                       FontSize="13"
+                                       TextColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding Days[3].IsRestDay}"
+                                                     Value="True">
+                                            <Setter Property="IsVisible" Value="True" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
                                 <Label Text="{Binding Days[3].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
                             </VerticalStackLayout>
@@ -111,6 +235,18 @@
 
                         <!-- Friday -->
                         <Border Grid.Column="4" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Days[4].IsRestDay}"
+                                             Value="True">
+                                    <Setter Property="BackgroundColor">
+                                        <Setter.Value>
+                                            <AppThemeBinding Light="{StaticResource RestDayBackgroundLight}"
+                                                             Dark="{StaticResource RestDayBackgroundDark}" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Border.Triggers>
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[4].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontSize="11" TextColor="Gray" />
@@ -120,9 +256,28 @@
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="4" />
                                     </Border.StrokeShape>
+                                    <Border.Triggers>
+                                        <DataTrigger TargetType="Border"
+                                                     Binding="{Binding Days[4].IsRestDay}"
+                                                     Value="True">
+                                            <Setter Property="IsVisible" Value="False" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
                                     <Label Text="{Binding Days[4].Session.DisplayName}"
                                            TextColor="White" FontAttributes="Bold" FontSize="13" />
                                 </Border>
+                                <Label Text="Rest"
+                                       IsVisible="False"
+                                       FontSize="13"
+                                       TextColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding Days[4].IsRestDay}"
+                                                     Value="True">
+                                            <Setter Property="IsVisible" Value="True" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
                                 <Label Text="{Binding Days[4].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
                             </VerticalStackLayout>
@@ -130,6 +285,18 @@
 
                         <!-- Saturday -->
                         <Border Grid.Column="5" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Days[5].IsRestDay}"
+                                             Value="True">
+                                    <Setter Property="BackgroundColor">
+                                        <Setter.Value>
+                                            <AppThemeBinding Light="{StaticResource RestDayBackgroundLight}"
+                                                             Dark="{StaticResource RestDayBackgroundDark}" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Border.Triggers>
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[5].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontSize="11" TextColor="Gray" />
@@ -139,9 +306,28 @@
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="4" />
                                     </Border.StrokeShape>
+                                    <Border.Triggers>
+                                        <DataTrigger TargetType="Border"
+                                                     Binding="{Binding Days[5].IsRestDay}"
+                                                     Value="True">
+                                            <Setter Property="IsVisible" Value="False" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
                                     <Label Text="{Binding Days[5].Session.DisplayName}"
                                            TextColor="White" FontAttributes="Bold" FontSize="13" />
                                 </Border>
+                                <Label Text="Rest"
+                                       IsVisible="False"
+                                       FontSize="13"
+                                       TextColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding Days[5].IsRestDay}"
+                                                     Value="True">
+                                            <Setter Property="IsVisible" Value="True" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
                                 <Label Text="{Binding Days[5].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
                             </VerticalStackLayout>
@@ -149,6 +335,18 @@
 
                         <!-- Sunday -->
                         <Border Grid.Column="6" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Days[6].IsRestDay}"
+                                             Value="True">
+                                    <Setter Property="BackgroundColor">
+                                        <Setter.Value>
+                                            <AppThemeBinding Light="{StaticResource RestDayBackgroundLight}"
+                                                             Dark="{StaticResource RestDayBackgroundDark}" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Border.Triggers>
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[6].Date, StringFormat='{0:MMM d, yyyy}'}"
                                        FontSize="11" TextColor="Gray" />
@@ -158,9 +356,28 @@
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="4" />
                                     </Border.StrokeShape>
+                                    <Border.Triggers>
+                                        <DataTrigger TargetType="Border"
+                                                     Binding="{Binding Days[6].IsRestDay}"
+                                                     Value="True">
+                                            <Setter Property="IsVisible" Value="False" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
                                     <Label Text="{Binding Days[6].Session.DisplayName}"
                                            TextColor="White" FontAttributes="Bold" FontSize="13" />
                                 </Border>
+                                <Label Text="Rest"
+                                       IsVisible="False"
+                                       FontSize="13"
+                                       TextColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding Days[6].IsRestDay}"
+                                                     Value="True">
+                                            <Setter Property="IsVisible" Value="True" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
                                 <Label Text="{Binding Days[6].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
                             </VerticalStackLayout>
