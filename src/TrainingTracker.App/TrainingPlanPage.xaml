@@ -7,6 +7,7 @@
 
     <ContentPage.Resources>
         <local:HexToColorConverter x:Key="HexToColorConverter" />
+        <local:RelativeIntensityToColorConverter x:Key="RelativeIntensityToColorConverter" />
     </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto,*">
@@ -384,11 +385,22 @@
                         </Border>
 
                         <!-- Weekly total -->
-                        <Border Grid.Column="7" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
-                            <Label Text="{Binding TotalDistanceKm, StringFormat='{0:0}K'}"
-                                   FontAttributes="Bold"
-                                   HorizontalOptions="Center"
-                                   VerticalOptions="Center" />
+                        <Border Grid.Column="7" Padding="0" Stroke="LightGray" StrokeThickness="0.5">
+                            <Grid>
+                                <!-- Intensity bar fill: full-size BoxView scaled from the left edge -->
+                                <BoxView HorizontalOptions="Fill"
+                                         VerticalOptions="Fill"
+                                         AnchorX="0"
+                                         ScaleX="{Binding RelativeIntensity}"
+                                         Color="{Binding RelativeIntensity,
+                                                 Converter={StaticResource RelativeIntensityToColorConverter}}" />
+                                <!-- Distance label floats above the bar -->
+                                <Label Text="{Binding TotalDistanceKm, StringFormat='{0:0}K'}"
+                                       FontAttributes="Bold"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       Margin="6" />
+                            </Grid>
                         </Border>
 
                     </Grid>
