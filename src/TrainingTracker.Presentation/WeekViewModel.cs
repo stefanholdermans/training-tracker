@@ -10,4 +10,8 @@ public class WeekViewModel
     public required IReadOnlyList<DayViewModel> Days { get; init; }
 
     public required decimal TotalDistanceKm { get; init; }
+
+    public double IntensityFraction { get; init; }
+
+    public string IntensityColor { get; init; } = "#000000";
 }
