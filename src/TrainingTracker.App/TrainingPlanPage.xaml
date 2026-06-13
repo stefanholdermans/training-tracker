@@ -32,6 +32,14 @@
         <!-- Training weeks -->
         <CollectionView Grid.Row="1"
                         ItemsSource="{Binding Weeks}">
+            <CollectionView.EmptyView>
+                <Label Text="No training plan loaded. Tap Load Plan to choose a JSON file."
+                       Margin="24"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       TextColor="Gray" />
+            </CollectionView.EmptyView>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid ColumnDefinitions="*,*,*,*,*,*,*,*"

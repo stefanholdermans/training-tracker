@@ -12,7 +12,11 @@ public static class MauiProgram
     /// </summary>
     public static MauiApp CreateMauiApp()
     {
-        var trainingPlanPath = ExtractTrainingPlan();
+        // The app starts with a clean slate: no plan is seeded. The store
+        // reads this path, which does not exist until the runner loads their
+        // own plan — at which point Load writes it here and it persists.
+        var trainingPlanPath = Path.Combine(
+            FileSystem.Current.AppDataDirectory, "training-plan.json");
 
         var builder = MauiApp.CreateBuilder();
         builder
@@ -40,25 +44,5 @@ public static class MauiProgram
 #endif
 
         return builder.Build();
-    }
-
-    /// <summary>
-    /// Copies the bundled training-plan.json asset to the app data directory
-    /// on every launch and returns the file path for subsequent use.
-    /// </summary>
-    private static string ExtractTrainingPlan()
-    {
-        var filePath = Path.Combine(
-            FileSystem.Current.AppDataDirectory,
-            "training-plan.json");
-
-        using Stream source = FileSystem.Current
-            .OpenAppPackageFileAsync("training-plan.json")
-            .GetAwaiter()
-            .GetResult();
-        using FileStream destination = File.Create(filePath);
-        source.CopyTo(destination);
-
-        return filePath;
     }
 }
