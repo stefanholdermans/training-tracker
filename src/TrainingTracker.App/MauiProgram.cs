@@ -27,6 +27,11 @@ public static class MauiProgram
             _ => new JsonTrainingPlanRepository(trainingPlanPath));
         builder.Services
             .AddSingleton<IGetTrainingPlanQuery, GetTrainingPlanQuery>();
+        builder.Services
+            .AddSingleton<ILoadTrainingPlanCommand, LoadTrainingPlanCommand>();
+#if MACCATALYST
+        builder.Services.AddSingleton<IPlanFilePicker, MacCatalystPlanFilePicker>();
+#endif
         builder.Services.AddSingleton<TrainingPlanViewModel>();
         builder.Services.AddSingleton<TrainingPlanPage>();
 

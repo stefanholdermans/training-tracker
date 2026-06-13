@@ -5,6 +5,10 @@
              x:Class="TrainingTracker.App.TrainingPlanPage"
              Title="Training Plan">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Load Plan" Clicked="OnLoadPlanClicked" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Resources>
         <local:HexToColorConverter x:Key="HexToColorConverter" />
     </ContentPage.Resources>

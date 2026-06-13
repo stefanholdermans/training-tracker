@@ -28,6 +28,12 @@
 		<NoWarn>CA1515;CA1711;CA1724</NoWarn>
 	</PropertyGroup>
 
+	<!-- Apply the entitlements (App Sandbox + user-selected file access) so the
+	     document picker can return files the runner chooses. -->
+	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
+		<CodesignEntitlements>Platforms/MacCatalyst/Entitlements.plist</CodesignEntitlements>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#2E7D32" />
