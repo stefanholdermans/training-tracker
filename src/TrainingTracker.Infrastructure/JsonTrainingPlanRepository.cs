@@ -22,6 +22,9 @@ public class JsonTrainingPlanRepository(string filePath)
             .Select(ParseSession)];
     }
 
+    public void Load(string sourceFilePath) =>
+        File.Copy(sourceFilePath, filePath, overwrite: true);
+
     private static ScheduledSession ParseSession(JsonElement element)
     {
         var date = element.GetProperty("date").GetString()

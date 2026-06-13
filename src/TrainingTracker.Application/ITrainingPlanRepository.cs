@@ -8,4 +8,10 @@ namespace TrainingTracker.Application;
 public interface ITrainingPlanRepository
 {
     IReadOnlyList<ScheduledSession> GetAll();
+
+    /// <summary>
+    /// Adopts the training plan at the given path as the active plan, so that
+    /// subsequent reads return it.
+    /// </summary>
+    void Load(string sourceFilePath);
 }
