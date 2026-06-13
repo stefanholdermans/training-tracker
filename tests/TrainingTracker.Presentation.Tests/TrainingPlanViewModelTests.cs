@@ -221,4 +221,107 @@ public class TrainingPlanViewModelTests
         new TrainingPlanViewModel(_query)
             .Weeks[0].TotalDistanceKm.Should().Be(0.0m);
     }
+
+    private void GivenAProgramme()
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            Week(new DateOnly(2026, 3, 2), 13.0m),
+            Week(new DateOnly(2026, 3, 9), 0.0m),
+            Week(new DateOnly(2026, 3, 16), 16.0m),
+            Week(new DateOnly(2026, 3, 23), 20.0m)
+        ]));
+    }
+
+    private static TrainingWeek Week(DateOnly startDate, decimal distanceKm) =>
+        new(startDate,
+        [
+            new TrainingDay(
+                startDate,
+                distanceKm > 0
+                    ? new TrainingSession(TrainingType.EasyRun, distanceKm)
+                    : null)
+        ]);
+
+    [Fact]
+    public void IntensityFractionPutsTheLowestActiveWeekAtTheVisualFloor()
+    {
+        GivenAProgramme();
+
+        new TrainingPlanViewModel(_query)
+            .Weeks[0].IntensityFraction.Should().BeApproximately(0.15, 1e-9);
+    }
+
+    [Fact]
+    public void IntensityFractionIsZeroForARestWeek()
+    {
+        GivenAProgramme();
+
+        new TrainingPlanViewModel(_query)
+            .Weeks[1].IntensityFraction.Should().Be(0.0);
+    }
+
+    [Fact]
+    public void IntensityFractionStretchesAMidLoadWeekBetweenFloorAndOne()
+    {
+        GivenAProgramme();
+
+        new TrainingPlanViewModel(_query)
+            .Weeks[2].IntensityFraction.Should().BeApproximately(0.5142857, 1e-6);
+    }
+
+    [Fact]
+    public void IntensityFractionIsOneForThePeakWeek()
+    {
+        GivenAProgramme();
+
+        new TrainingPlanViewModel(_query)
+            .Weeks[3].IntensityFraction.Should().BeApproximately(1.0, 1e-9);
+    }
+
+    [Fact]
+    public void IntensityFractionIsOneWhenThereIsASingleActiveWeek()
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            Week(new DateOnly(2026, 3, 2), 0.0m),
+            Week(new DateOnly(2026, 3, 9), 18.0m)
+        ]));
+
+        new TrainingPlanViewModel(_query)
+            .Weeks[1].IntensityFraction.Should().BeApproximately(1.0, 1e-9);
+    }
+
+    [Fact]
+    public void IntensityFractionIsOneWhenAllActiveWeeksAreEqual()
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            Week(new DateOnly(2026, 3, 2), 15.0m),
+            Week(new DateOnly(2026, 3, 9), 15.0m)
+        ]));
+
+        IReadOnlyList<WeekViewModel> weeks = new TrainingPlanViewModel(_query).Weeks;
+
+        weeks[0].IntensityFraction.Should().BeApproximately(1.0, 1e-9);
+        weeks[1].IntensityFraction.Should().BeApproximately(1.0, 1e-9);
+    }
+
+    [Fact]
+    public void IntensityColorIsThePeakLoadColourForThePeakWeek()
+    {
+        GivenAProgramme();
+
+        new TrainingPlanViewModel(_query)
+            .Weeks[3].IntensityColor.Should().Be("#1A5FB4");
+    }
+
+    [Fact]
+    public void IntensityColorIsNeutralForARestWeek()
+    {
+        GivenAProgramme();
+
+        new TrainingPlanViewModel(_query)
+            .Weeks[1].IntensityColor.Should().Be("#C8C8C8");
+    }
 }

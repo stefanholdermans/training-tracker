@@ -18,13 +18,13 @@ Given `Hi` = peak weekly total, `Lo` = lowest active (> 0) weekly total:
 
 ## Tasks
 
-- [ ] Acceptance tests for the story (skipped, "pending implementation")
-- [ ] `TrainingCalendar.PeakWeeklyDistanceKm`
-- [ ] `TrainingCalendar.LowestActiveWeeklyDistanceKm`
-- [ ] `WeekViewModel.IntensityFraction`
-- [ ] `WeekViewModel.IntensityColor`
-- [ ] Compute intensity in `TrainingPlanViewModel.MapWeeks`
-- [ ] Unskip acceptance tests
+- [x] Acceptance tests for the story (skipped, "pending implementation")
+- [x] `TrainingCalendar.PeakWeeklyDistanceKm`
+- [x] `TrainingCalendar.LowestActiveWeeklyDistanceKm`
+- [x] `WeekViewModel.IntensityFraction`
+- [x] `WeekViewModel.IntensityColor`
+- [x] Compute intensity in `TrainingPlanViewModel.MapWeeks`
+- [x] Unskip acceptance tests
 - [ ] `FractionToGridLengthConverter`
 - [ ] Render the fill bar in the Total cell (`TrainingPlanPage.xaml`)
 - [ ] Mark story complete in `STORIES.md`

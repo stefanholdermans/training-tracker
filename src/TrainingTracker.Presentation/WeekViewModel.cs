@@ -11,7 +11,7 @@ public class WeekViewModel
 
     public required decimal TotalDistanceKm { get; init; }
 
-    public double IntensityFraction { get; init; }
+    public required double IntensityFraction { get; init; }
 
-    public string IntensityColor { get; init; } = "#000000";
+    public required string IntensityColor { get; init; }
 }

@@ -21,7 +21,7 @@ public class SeeingTheShapeOfMyProgramme
                 new JsonTrainingPlanRepository(fixturePath)));
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void WeeklyTotalsAreCodedRelativeToThePeakWeek()
     {
         // Peak week (20K) anchors the top of the scale; the lowest active
@@ -41,7 +41,7 @@ public class SeeingTheShapeOfMyProgramme
         weeks[3].IntensityFraction.Should().BeApproximately(1.0, 1e-9);
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void ThePeakWeekIsCodedWithThePeakLoadColour()
     {
         _viewModel.Weeks[3].IntensityColor.Should().Be("#1A5FB4");
