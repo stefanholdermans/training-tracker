@@ -25,8 +25,7 @@ Given `Hi` = peak weekly total, `Lo` = lowest active (> 0) weekly total:
 - [x] `WeekViewModel.IntensityColor`
 - [x] Compute intensity in `TrainingPlanViewModel.MapWeeks`
 - [x] Unskip acceptance tests
-- [ ] `FractionToGridLengthConverter`
-- [ ] Render the fill bar in the Total cell (`TrainingPlanPage.xaml`)
+- [x] Render the load bar in the Total cell (`TrainingPlanPage.xaml`, ProgressBar)
 - [ ] Mark story complete in `STORIES.md`
 
 ## Test cases

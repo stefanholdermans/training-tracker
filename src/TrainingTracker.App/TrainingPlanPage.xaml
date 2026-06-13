@@ -385,10 +385,14 @@
 
                         <!-- Weekly total -->
                         <Border Grid.Column="7" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
-                            <Label Text="{Binding TotalDistanceKm, StringFormat='{0:0}K'}"
-                                   FontAttributes="Bold"
-                                   HorizontalOptions="Center"
-                                   VerticalOptions="Center" />
+                            <VerticalStackLayout VerticalOptions="Center" Spacing="4">
+                                <Label Text="{Binding TotalDistanceKm, StringFormat='{0:0}K'}"
+                                       FontAttributes="Bold"
+                                       HorizontalOptions="Center" />
+                                <!-- Load relative to the peak week -->
+                                <ProgressBar Progress="{Binding IntensityFraction}"
+                                             ProgressColor="{Binding IntensityColor, Converter={StaticResource HexToColorConverter}}" />
+                            </VerticalStackLayout>
                         </Border>
 
                     </Grid>
