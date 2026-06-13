@@ -1,0 +1,7 @@
+{
+  "sessions": [
+    { "date": "2026-09-07", "type": "EasyRun",   "distanceKm": 6.0  },
+    { "date": "2026-09-10", "type": "Intervals", "distanceKm": 9.0  },
+    { "date": "2026-09-17", "type": "LongRun",   "distanceKm": 22.0 }
+  ]
+}
