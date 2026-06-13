@@ -21,6 +21,9 @@ As a runner, I want to see my completed volume compared to the planned volume fo
 [x] **The one where I load my own training plan**:
 As a runner, I want to load a training plan from a JSON file on disk, so that I can use the app with my own programme rather than the bundled one.
 
+[x] **The one where I start with a clean slate**:
+As a runner, I want the app to start without any training plan loaded, so that I begin with my own programme rather than a bundled sample.
+
 [ ] **The one where I know which race I'm training for**:
 As a runner, I want my training plan to have a title (such as "2026 Rotterdam Marathon"), so that I can see at a glance which event the programme is preparing me for.
 
