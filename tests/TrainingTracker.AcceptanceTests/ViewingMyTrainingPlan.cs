@@ -16,9 +16,10 @@ public class ViewingMyTrainingPlan
     {
         string fixturePath = Path.Combine(
             AppContext.BaseDirectory, "training-plan.json");
+        var repository = new JsonTrainingPlanRepository(fixturePath);
         _viewModel = new TrainingPlanViewModel(
-            new GetTrainingPlanQuery(
-                new JsonTrainingPlanRepository(fixturePath)));
+            new GetTrainingPlanQuery(repository),
+            new LoadTrainingPlanCommand(repository));
     }
 
     [Fact]

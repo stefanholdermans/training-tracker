@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using TrainingTracker.Application;
 using TrainingTracker.Domain;
 
@@ -6,7 +7,7 @@ namespace TrainingTracker.Presentation;
 /// <summary>
 /// Exposes the training plan as a sequence of calendar weeks for display.
 /// </summary>
-public class TrainingPlanViewModel(IGetTrainingPlanQuery query)
+public class TrainingPlanViewModel
 {
     /// <summary>
     /// Smallest visible fraction, so the lowest active week still reads as
@@ -18,8 +19,46 @@ public class TrainingPlanViewModel(IGetTrainingPlanQuery query)
     private const string LowLoadColor = "#4DB6AC";
     private const string PeakLoadColor = "#00695C";
 
-    public IReadOnlyList<WeekViewModel> Weeks { get; } =
-        MapWeeks(query.Execute());
+    private readonly IGetTrainingPlanQuery _query;
+    private readonly ILoadTrainingPlanCommand _loadCommand;
+
+    /// <summary>
+    /// A single observable collection mutated in place, so the bound
+    /// CollectionView redraws when a new plan is loaded rather than relying on
+    /// the ItemsSource reference being swapped.
+    /// </summary>
+    private readonly ObservableCollection<WeekViewModel> _weeks = [];
+
+    public TrainingPlanViewModel(
+        IGetTrainingPlanQuery query, ILoadTrainingPlanCommand loadCommand)
+    {
+        ArgumentNullException.ThrowIfNull(query);
+        ArgumentNullException.ThrowIfNull(loadCommand);
+
+        _query = query;
+        _loadCommand = loadCommand;
+        Populate(query.Execute());
+    }
+
+    public IReadOnlyList<WeekViewModel> Weeks => _weeks;
+
+    /// <summary>
+    /// Loads the plan from the chosen file and refreshes the calendar.
+    /// </summary>
+    public void LoadPlan(string filePath)
+    {
+        _loadCommand.Execute(filePath);
+        Populate(_query.Execute());
+    }
+
+    private void Populate(TrainingCalendar plan)
+    {
+        _weeks.Clear();
+        foreach (WeekViewModel week in MapWeeks(plan))
+        {
+            _weeks.Add(week);
+        }
+    }
 
     private static IReadOnlyList<WeekViewModel> MapWeeks(
         TrainingCalendar plan) =>
