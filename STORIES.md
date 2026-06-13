@@ -29,3 +29,6 @@ As a runner, I want today's date to be highlighted in the calendar view, so that
 
 [x] **The one where I see the shape of my programme**:
 As a runner, I want the weekly mileage totals to be visually coded by how they compare to the peak week, so that I can grasp at a glance how the training load builds up and tapers across the programme.
+
+[ ] **The one where I take in the whole arc at once**:
+As a runner, I want a compact overview of every week's planned volume across the entire programme, so that I can take in the overall build-up and taper in a single glance without scrolling through the calendar week by week.
