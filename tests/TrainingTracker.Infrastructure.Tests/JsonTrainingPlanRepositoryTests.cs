@@ -41,6 +41,17 @@ public class JsonTrainingPlanRepositoryTests
     }
 
     [Fact]
+    public void ReturnsNoSessionsWhenTheActivePlanFileDoesNotExist()
+    {
+        string missingPath = Path.Combine(
+            Path.GetTempPath(), $"no-such-plan-{Guid.NewGuid():N}.json");
+
+        var repository = new JsonTrainingPlanRepository(missingPath);
+
+        repository.GetAll().Should().BeEmpty();
+    }
+
+    [Fact]
     public void AdoptsThePlanAtTheGivenPathAsTheActivePlan()
     {
         string activePath = Path.GetTempFileName();

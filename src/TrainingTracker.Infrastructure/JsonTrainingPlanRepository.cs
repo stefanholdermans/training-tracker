@@ -13,6 +13,11 @@ public class JsonTrainingPlanRepository(string filePath)
 {
     public IReadOnlyList<ScheduledSession> GetAll()
     {
+        if (!File.Exists(filePath))
+        {
+            return [];
+        }
+
         using var stream = File.OpenRead(filePath);
         using var document = JsonDocument.Parse(stream);
 
