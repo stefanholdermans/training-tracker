@@ -44,6 +44,6 @@ public class SeeingTheShapeOfMyProgramme
     [Fact]
     public void ThePeakWeekIsCodedWithThePeakLoadColour()
     {
-        _viewModel.Weeks[3].IntensityColor.Should().Be("#1A5FB4");
+        _viewModel.Weeks[3].IntensityColor.Should().Be("#00695C");
     }
 }

@@ -15,8 +15,8 @@ public class TrainingPlanViewModel(IGetTrainingPlanQuery query)
     private const double MinVisibleFraction = 0.15;
 
     private const string NeutralColor = "#C8C8C8";
-    private const string LowLoadColor = "#BBD6F0";
-    private const string PeakLoadColor = "#1A5FB4";
+    private const string LowLoadColor = "#4DB6AC";
+    private const string PeakLoadColor = "#00695C";
 
     public IReadOnlyList<WeekViewModel> Weeks { get; } =
         MapWeeks(query.Execute());

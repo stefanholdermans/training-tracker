@@ -389,9 +389,21 @@
                                 <Label Text="{Binding TotalDistanceKm, StringFormat='{0:0}K'}"
                                        FontAttributes="Bold"
                                        HorizontalOptions="Center" />
-                                <!-- Load relative to the peak week -->
-                                <ProgressBar Progress="{Binding IntensityFraction}"
-                                             ProgressColor="{Binding IntensityColor, Converter={StaticResource HexToColorConverter}}" />
+                                <!-- Load relative to the peak week. A left-anchored ScaleX fill
+                                     gives full control over height and colour (a ProgressBar's
+                                     native bar can't be thickened or have its track removed). -->
+                                <Grid HeightRequest="10">
+                                    <Border HorizontalOptions="Fill"
+                                            VerticalOptions="Fill"
+                                            StrokeThickness="0"
+                                            AnchorX="0"
+                                            ScaleX="{Binding IntensityFraction}"
+                                            BackgroundColor="{Binding IntensityColor, Converter={StaticResource HexToColorConverter}}">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="2" />
+                                        </Border.StrokeShape>
+                                    </Border>
+                                </Grid>
                             </VerticalStackLayout>
                         </Border>
 

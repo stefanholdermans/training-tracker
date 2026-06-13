@@ -313,7 +313,7 @@ public class TrainingPlanViewModelTests
         GivenAProgramme();
 
         new TrainingPlanViewModel(_query)
-            .Weeks[3].IntensityColor.Should().Be("#1A5FB4");
+            .Weeks[3].IntensityColor.Should().Be("#00695C");
     }
 
     [Fact]
