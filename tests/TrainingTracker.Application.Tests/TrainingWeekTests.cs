@@ -38,4 +38,34 @@ public class TrainingWeekTests
 
         week.TotalDistanceKm.Should().Be(0.0m);
     }
+
+    [Fact]
+    public void CompletedDistanceKmSumsOnlyTheCompletedSessions()
+    {
+        var week = new TrainingWeek(new DateOnly(2026, 3, 2),
+        [
+            new TrainingDay(
+                new DateOnly(2026, 3, 2),
+                new TrainingSession(TrainingType.EasyRun, 5.0m),
+                Completed: true),
+            new TrainingDay(
+                new DateOnly(2026, 3, 5),
+                new TrainingSession(TrainingType.Intervals, 8.0m))
+        ]);
+
+        week.CompletedDistanceKm.Should().Be(5.0m);
+    }
+
+    [Fact]
+    public void CompletedDistanceKmIsZeroWhenNothingIsCompleted()
+    {
+        var week = new TrainingWeek(new DateOnly(2026, 3, 2),
+        [
+            new TrainingDay(
+                new DateOnly(2026, 3, 2),
+                new TrainingSession(TrainingType.EasyRun, 5.0m))
+        ]);
+
+        week.CompletedDistanceKm.Should().Be(0.0m);
+    }
 }
