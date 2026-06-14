@@ -182,7 +182,9 @@ public class TrainingPlanViewModel
             Date = day.Date,
             Session = day.Session is { } session ? MapSession(session) : null,
             IsCompleted = day.Completed,
-            IsToday = day.Date == today
+            IsToday = day.Date == today,
+            IsMissed =
+                day.Session is not null && !day.Completed && day.Date < today
         };
 
     private static SessionViewModel MapSession(TrainingSession session) =>

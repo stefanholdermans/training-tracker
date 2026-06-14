@@ -204,6 +204,74 @@ public class TrainingPlanViewModelTests
         days[1].IsToday.Should().BeFalse();
     }
 
+    private static TrainingCalendar CalendarWith(
+        DateOnly today, TrainingDay day) =>
+        new([new TrainingWeek(day.Date, [day])]) { Today = today };
+
+    [Fact]
+    public void MarksAPastUndoneSessionAsMissed()
+    {
+        _query.Execute().Returns(CalendarWith(
+            new DateOnly(2026, 3, 10),
+            new TrainingDay(
+                new DateOnly(2026, 3, 5),
+                new TrainingSession(TrainingType.Intervals, 8.0m))));
+
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
+            .Weeks[0].Days[0].IsMissed.Should().BeTrue();
+    }
+
+    [Fact]
+    public void DoesNotMarkACompletedPastSessionAsMissed()
+    {
+        _query.Execute().Returns(CalendarWith(
+            new DateOnly(2026, 3, 10),
+            new TrainingDay(
+                new DateOnly(2026, 3, 5),
+                new TrainingSession(TrainingType.Intervals, 8.0m),
+                Completed: true)));
+
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
+            .Weeks[0].Days[0].IsMissed.Should().BeFalse();
+    }
+
+    [Fact]
+    public void DoesNotMarkTodaysUndoneSessionAsMissed()
+    {
+        _query.Execute().Returns(CalendarWith(
+            new DateOnly(2026, 3, 10),
+            new TrainingDay(
+                new DateOnly(2026, 3, 10),
+                new TrainingSession(TrainingType.Intervals, 8.0m))));
+
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
+            .Weeks[0].Days[0].IsMissed.Should().BeFalse();
+    }
+
+    [Fact]
+    public void DoesNotMarkAFutureUndoneSessionAsMissed()
+    {
+        _query.Execute().Returns(CalendarWith(
+            new DateOnly(2026, 3, 10),
+            new TrainingDay(
+                new DateOnly(2026, 3, 23),
+                new TrainingSession(TrainingType.LongRun, 20.0m))));
+
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
+            .Weeks[0].Days[0].IsMissed.Should().BeFalse();
+    }
+
+    [Fact]
+    public void DoesNotMarkAPastRestDayAsMissed()
+    {
+        _query.Execute().Returns(CalendarWith(
+            new DateOnly(2026, 3, 10),
+            new TrainingDay(new DateOnly(2026, 3, 4), null)));
+
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
+            .Weeks[0].Days[0].IsMissed.Should().BeFalse();
+    }
+
     [Fact]
     public void MarksNoDayAsTodayWhenTodayIsOutsideThePlan()
     {

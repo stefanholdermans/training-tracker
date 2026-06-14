@@ -18,7 +18,7 @@ missed; a past rest day carries no session and so is never missed.
 
 ## Tasks
 
-- [ ] Add the missed-session fixture and skipped acceptance tests
-- [ ] `DayViewModel.IsMissed` flags past, undone sessions
+- [x] Add the missed-session fixture and skipped acceptance tests
+- [x] `DayViewModel.IsMissed` flags past, undone sessions
 - [ ] Make missed sessions stand out in the calendar page
 - [ ] Unmark the acceptance tests and tick the story off
