@@ -21,4 +21,10 @@ public class DayViewModel
     /// runner is in the programme.
     /// </summary>
     public bool IsToday { get; init; }
+
+    /// <summary>
+    /// Whether this day's session was scheduled before today and left
+    /// undone, so the calendar can flag where the runner has fallen behind.
+    /// </summary>
+    public bool IsMissed { get; init; }
 }
