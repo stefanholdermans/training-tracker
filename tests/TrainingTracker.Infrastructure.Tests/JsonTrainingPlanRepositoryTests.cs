@@ -198,6 +198,106 @@ public class JsonTrainingPlanRepositoryTests
     }
 
     [Fact]
+    public void ReadsTheTitleFromTheJsonFile()
+    {
+        string json = """
+            {
+              "title": "2026 Rotterdam Marathon",
+              "sessions": [
+                { "date": "2026-03-02", "type": "EasyRun", "distanceKm": 5.0 }
+              ]
+            }
+            """;
+
+        string filePath = Path.GetTempFileName();
+
+        try
+        {
+            File.WriteAllText(filePath, json);
+
+            var repository = new JsonTrainingPlanRepository(filePath);
+
+            repository.GetTitle().Should().Be("2026 Rotterdam Marathon");
+        }
+        finally
+        {
+            File.Delete(filePath);
+        }
+    }
+
+    [Fact]
+    public void APlanWithoutATitleHasNone()
+    {
+        string json = """
+            {
+              "sessions": [
+                { "date": "2026-03-02", "type": "EasyRun", "distanceKm": 5.0 }
+              ]
+            }
+            """;
+
+        string filePath = Path.GetTempFileName();
+
+        try
+        {
+            File.WriteAllText(filePath, json);
+
+            var repository = new JsonTrainingPlanRepository(filePath);
+
+            repository.GetTitle().Should().BeNull();
+        }
+        finally
+        {
+            File.Delete(filePath);
+        }
+    }
+
+    [Fact]
+    public void GetTitleIsNullWhenTheActivePlanFileDoesNotExist()
+    {
+        string missingPath = Path.Combine(
+            Path.GetTempPath(), $"no-such-plan-{Guid.NewGuid():N}.json");
+
+        var repository = new JsonTrainingPlanRepository(missingPath);
+
+        repository.GetTitle().Should().BeNull();
+    }
+
+    [Fact]
+    public void SavePreservesTheTitleAlreadyInTheFile()
+    {
+        string filePath = Path.GetTempFileName();
+
+        try
+        {
+            File.WriteAllText(filePath, """
+                {
+                  "title": "2026 Rotterdam Marathon",
+                  "sessions": [
+                    { "date": "2026-03-02", "type": "EasyRun", "distanceKm": 5.0 }
+                  ]
+                }
+                """);
+
+            var repository = new JsonTrainingPlanRepository(filePath);
+            repository.Save(
+            [
+                new ScheduledSession(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(TrainingType.EasyRun, 5.0m),
+                    Completed: true)
+            ]);
+
+            new JsonTrainingPlanRepository(filePath).GetTitle()
+                .Should().Be("2026 Rotterdam Marathon");
+        }
+        finally
+        {
+            File.Delete(filePath);
+        }
+    }
+
+    [Fact]
     public void ReturnsNoSessionsWhenTheActivePlanFileDoesNotExist()
     {
         string missingPath = Path.Combine(

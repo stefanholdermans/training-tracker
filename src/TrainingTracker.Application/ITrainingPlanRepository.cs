@@ -10,6 +10,11 @@ public interface ITrainingPlanRepository
     IReadOnlyList<ScheduledSession> GetAll();
 
     /// <summary>
+    /// The active plan's title, or <c>null</c> when it carries none.
+    /// </summary>
+    string? GetTitle();
+
+    /// <summary>
     /// Adopts the training plan at the given path as the active plan, so that
     /// subsequent reads return it.
     /// </summary>

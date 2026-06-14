@@ -51,20 +51,43 @@ public class JsonTrainingPlanRepository : ITrainingPlanRepository
             .Select(ParseSession)];
     }
 
+    public string? GetTitle() =>
+        _location.FilePath is { } path ? ReadTitle(path) : null;
+
     public void Load(string sourceFilePath) => _location.Remember(sourceFilePath);
 
     public void Save(IReadOnlyList<ScheduledSession> sessions)
     {
         if (_location.FilePath is { } path)
         {
-            File.WriteAllText(path, Serialize(sessions));
+            // Preserve the runner's title: a check-off rewrites the whole file.
+            File.WriteAllText(path, Serialize(sessions, ReadTitle(path)));
         }
     }
 
-    private static string Serialize(IReadOnlyList<ScheduledSession> sessions)
+    private static string? ReadTitle(string path)
+    {
+        // A freshly created plan file may be empty, with no title to read.
+        var file = new FileInfo(path);
+        if (!file.Exists || file.Length == 0)
+        {
+            return null;
+        }
+
+        using var stream = File.OpenRead(path);
+        using var document = JsonDocument.Parse(stream);
+
+        return document.RootElement.TryGetProperty("title", out var title)
+            ? title.GetString()
+            : null;
+    }
+
+    private static string Serialize(
+        IReadOnlyList<ScheduledSession> sessions, string? title)
     {
         var document = new
         {
+            Title = title,
             Sessions = sessions.Select(scheduled => new
             {
                 Date = scheduled.Date.ToString(
