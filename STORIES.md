@@ -6,6 +6,9 @@ As a runner, I want to view my complete training programme in a calendar format,
 [x] **The one where I check off today's run**:
 As a runner, I want to mark a training session as completed, so that I can track what I've actually accomplished.
 
+[ ] **The one where I undo an accidental check-off**:
+As a runner, I want to mark a completed session as uncompleted, so that I can undo a check-off I made by mistake.
+
 [x] **The one where I see this week's volume**:
 As a runner, I want to see the total planned distance for each week of my training plan, so that I can understand the training load across the programme.
 
