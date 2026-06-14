@@ -9,9 +9,12 @@ public class MarkSessionUncompletedCommand(ITrainingPlanRepository repository)
 {
     public void Execute(DateOnly scheduledDate)
     {
-        // Pending implementation: driven by unit tests next. See PLAN.md.
-        _ = repository;
-        _ = scheduledDate;
-        throw new NotImplementedException();
+        var updated = repository.GetAll()
+            .Select(session => session.Date == scheduledDate
+                ? session with { Completed = false }
+                : session)
+            .ToList();
+
+        repository.Save(updated);
     }
 }
