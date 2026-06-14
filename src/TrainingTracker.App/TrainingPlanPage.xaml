@@ -122,6 +122,11 @@
                                        FontAttributes="Bold"
                                        FontSize="12"
                                        TextColor="#2E7D32" />
+                                <Label Text="⚠ Missed"
+                                       IsVisible="{Binding Days[0].IsMissed}"
+                                       FontAttributes="Bold"
+                                       FontSize="12"
+                                       TextColor="#C62828" />
                             </VerticalStackLayout>
                         </Border>
 
@@ -187,6 +192,11 @@
                                        FontAttributes="Bold"
                                        FontSize="12"
                                        TextColor="#2E7D32" />
+                                <Label Text="⚠ Missed"
+                                       IsVisible="{Binding Days[1].IsMissed}"
+                                       FontAttributes="Bold"
+                                       FontSize="12"
+                                       TextColor="#C62828" />
                             </VerticalStackLayout>
                         </Border>
 
@@ -252,6 +262,11 @@
                                        FontAttributes="Bold"
                                        FontSize="12"
                                        TextColor="#2E7D32" />
+                                <Label Text="⚠ Missed"
+                                       IsVisible="{Binding Days[2].IsMissed}"
+                                       FontAttributes="Bold"
+                                       FontSize="12"
+                                       TextColor="#C62828" />
                             </VerticalStackLayout>
                         </Border>
 
@@ -317,6 +332,11 @@
                                        FontAttributes="Bold"
                                        FontSize="12"
                                        TextColor="#2E7D32" />
+                                <Label Text="⚠ Missed"
+                                       IsVisible="{Binding Days[3].IsMissed}"
+                                       FontAttributes="Bold"
+                                       FontSize="12"
+                                       TextColor="#C62828" />
                             </VerticalStackLayout>
                         </Border>
 
@@ -382,6 +402,11 @@
                                        FontAttributes="Bold"
                                        FontSize="12"
                                        TextColor="#2E7D32" />
+                                <Label Text="⚠ Missed"
+                                       IsVisible="{Binding Days[4].IsMissed}"
+                                       FontAttributes="Bold"
+                                       FontSize="12"
+                                       TextColor="#C62828" />
                             </VerticalStackLayout>
                         </Border>
 
@@ -447,6 +472,11 @@
                                        FontAttributes="Bold"
                                        FontSize="12"
                                        TextColor="#2E7D32" />
+                                <Label Text="⚠ Missed"
+                                       IsVisible="{Binding Days[5].IsMissed}"
+                                       FontAttributes="Bold"
+                                       FontSize="12"
+                                       TextColor="#C62828" />
                             </VerticalStackLayout>
                         </Border>
 
@@ -512,6 +542,11 @@
                                        FontAttributes="Bold"
                                        FontSize="12"
                                        TextColor="#2E7D32" />
+                                <Label Text="⚠ Missed"
+                                       IsVisible="{Binding Days[6].IsMissed}"
+                                       FontAttributes="Bold"
+                                       FontSize="12"
+                                       TextColor="#C62828" />
                             </VerticalStackLayout>
                         </Border>
 

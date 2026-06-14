@@ -32,31 +32,31 @@ public class SpottingASessionIveMissed
         _viewModel.Weeks.SelectMany(week => week.Days)
             .Single(day => day.Date == date);
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void APastSessionLeftUndoneIsMissed()
     {
         DayOn(new DateOnly(2026, 3, 5)).IsMissed.Should().BeTrue();
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void ACompletedPastSessionIsNotMissed()
     {
         DayOn(new DateOnly(2026, 3, 2)).IsMissed.Should().BeFalse();
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void TodaysUndoneSessionIsNotMissed()
     {
         DayOn(new DateOnly(2026, 3, 10)).IsMissed.Should().BeFalse();
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void AFutureSessionIsNotMissed()
     {
         DayOn(new DateOnly(2026, 3, 23)).IsMissed.Should().BeFalse();
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void APastRestDayIsNotMissed()
     {
         DayOn(new DateOnly(2026, 3, 4)).IsMissed.Should().BeFalse();
