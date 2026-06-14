@@ -33,7 +33,8 @@ public sealed class LoadingMyOwnTrainingPlan : IDisposable
         _viewModel = new TrainingPlanViewModel(
             new GetTrainingPlanQuery(repository),
             new LoadTrainingPlanCommand(repository),
-            new MarkSessionCompletedCommand(repository));
+            new MarkSessionCompletedCommand(repository),
+            new MarkSessionUncompletedCommand(repository));
     }
 
     public void Dispose()

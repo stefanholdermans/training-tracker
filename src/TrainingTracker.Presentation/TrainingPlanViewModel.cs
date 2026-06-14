@@ -22,6 +22,7 @@ public class TrainingPlanViewModel
     private readonly IGetTrainingPlanQuery _query;
     private readonly ILoadTrainingPlanCommand _loadCommand;
     private readonly IMarkSessionCompletedCommand _markCompletedCommand;
+    private readonly IMarkSessionUncompletedCommand _markUncompletedCommand;
 
     /// <summary>
     /// A single observable collection mutated in place, so the bound
@@ -33,15 +34,18 @@ public class TrainingPlanViewModel
     public TrainingPlanViewModel(
         IGetTrainingPlanQuery query,
         ILoadTrainingPlanCommand loadCommand,
-        IMarkSessionCompletedCommand markCompletedCommand)
+        IMarkSessionCompletedCommand markCompletedCommand,
+        IMarkSessionUncompletedCommand markUncompletedCommand)
     {
         ArgumentNullException.ThrowIfNull(query);
         ArgumentNullException.ThrowIfNull(loadCommand);
         ArgumentNullException.ThrowIfNull(markCompletedCommand);
+        ArgumentNullException.ThrowIfNull(markUncompletedCommand);
 
         _query = query;
         _loadCommand = loadCommand;
         _markCompletedCommand = markCompletedCommand;
+        _markUncompletedCommand = markUncompletedCommand;
         Populate(query.Execute());
     }
 
@@ -65,6 +69,13 @@ public class TrainingPlanViewModel
         _markCompletedCommand.Execute(date);
         Populate(_query.Execute());
     }
+
+    /// <summary>
+    /// Marks the session on the given date as uncompleted and refreshes the
+    /// calendar.
+    /// </summary>
+    public void MarkUncompleted(DateOnly date) =>
+        throw new NotImplementedException();
 
     private void Populate(TrainingCalendar plan)
     {

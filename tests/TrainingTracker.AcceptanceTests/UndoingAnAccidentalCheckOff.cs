@@ -7,10 +7,10 @@ using TrainingTracker.Presentation;
 namespace TrainingTracker.AcceptanceTests;
 
 /// <summary>
-/// Given the runner's own plan on disk, with an easy run scheduled for the 7th
-/// and intervals for the 10th, opened in the app.
+/// Given the runner's own plan on disk, with an easy run on the 7th and
+/// intervals on the 10th both already checked off, opened in the app.
 /// </summary>
-public sealed class CheckingOffTodaysRun : IDisposable
+public sealed class UndoingAnAccidentalCheckOff : IDisposable
 {
     private static readonly DateOnly EasyRunDay = new(2026, 9, 7);
     private static readonly DateOnly IntervalsDay = new(2026, 9, 10);
@@ -21,7 +21,7 @@ public sealed class CheckingOffTodaysRun : IDisposable
     private readonly string _myPlanPath;
     private readonly TrainingPlanViewModel _viewModel;
 
-    public CheckingOffTodaysRun()
+    public UndoingAnAccidentalCheckOff()
     {
         _pointerPath = Path.Combine(
             Path.GetTempPath(), $"pointer-{Guid.NewGuid():N}");
@@ -29,8 +29,8 @@ public sealed class CheckingOffTodaysRun : IDisposable
         File.WriteAllText(_myPlanPath, """
             {
               "sessions": [
-                { "date": "2026-09-07", "type": "EasyRun",   "distanceKm": 6.0 },
-                { "date": "2026-09-10", "type": "Intervals", "distanceKm": 9.0 }
+                { "date": "2026-09-07", "type": "EasyRun",   "distanceKm": 6.0, "completed": true },
+                { "date": "2026-09-10", "type": "Intervals", "distanceKm": 9.0, "completed": true }
               ]
             }
             """);
@@ -77,54 +77,41 @@ public sealed class CheckingOffTodaysRun : IDisposable
             && flag.GetBoolean();
     }
 
-    [Fact]
-    public void MarkingTodaysRunShowsItAsCompleted()
+    [Fact(Skip = "pending implementation")]
+    public void UnmarkingARunShowsItAsUncompleted()
     {
-        DayOn(_viewModel, EasyRunDay).IsCompleted.Should().BeFalse();
-
-        _viewModel.MarkCompleted(EasyRunDay);
-
         DayOn(_viewModel, EasyRunDay).IsCompleted.Should().BeTrue();
+
+        _viewModel.MarkUncompleted(EasyRunDay);
+
+        DayOn(_viewModel, EasyRunDay).IsCompleted.Should().BeFalse();
     }
 
-    [Fact]
-    public void OtherSessionsStayUncompleted()
+    [Fact(Skip = "pending implementation")]
+    public void OtherSessionsStayCompleted()
     {
-        _viewModel.MarkCompleted(EasyRunDay);
+        _viewModel.MarkUncompleted(EasyRunDay);
 
-        DayOn(_viewModel, IntervalsDay).IsCompleted.Should().BeFalse();
+        DayOn(_viewModel, IntervalsDay).IsCompleted.Should().BeTrue();
     }
 
-    [Fact]
-    public void CompletionIsWrittenToTheRunnersOwnFileOnDisk()
+    [Fact(Skip = "pending implementation")]
+    public void UncompletionIsWrittenToTheRunnersOwnFileOnDisk()
     {
-        _viewModel.MarkCompleted(EasyRunDay);
+        _viewModel.MarkUncompleted(EasyRunDay);
 
-        CompletedInMyPlanFile("2026-09-07").Should().BeTrue();
+        CompletedInMyPlanFile("2026-09-07").Should().BeFalse();
     }
 
-    [Fact]
-    public void CompletionSurvivesARestart()
+    [Fact(Skip = "pending implementation")]
+    public void UncompletionSurvivesARestart()
     {
-        _viewModel.MarkCompleted(EasyRunDay);
+        _viewModel.MarkUncompleted(EasyRunDay);
 
         // Relaunch with no re-pick: the remembered location alone must lead
-        // back to the runner's file and its recorded completion.
+        // back to the runner's file and its corrected state.
         TrainingPlanViewModel relaunched = OpenApp();
 
-        DayOn(relaunched, EasyRunDay).IsCompleted.Should().BeTrue();
-    }
-
-    [Fact]
-    public void MarkingAfterARestartWritesThroughToTheRunnersFile()
-    {
-        _viewModel.MarkCompleted(EasyRunDay);
-
-        TrainingPlanViewModel relaunched = OpenApp();
-        relaunched.MarkCompleted(IntervalsDay);
-
-        // The runner's own file now records both completions.
-        CompletedInMyPlanFile("2026-09-07").Should().BeTrue();
-        CompletedInMyPlanFile("2026-09-10").Should().BeTrue();
+        DayOn(relaunched, EasyRunDay).IsCompleted.Should().BeFalse();
     }
 }

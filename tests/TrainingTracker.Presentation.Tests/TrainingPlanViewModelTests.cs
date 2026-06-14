@@ -14,12 +14,14 @@ public class TrainingPlanViewModelTests
     private readonly IGetTrainingPlanQuery _query;
     private readonly ILoadTrainingPlanCommand _loadCommand;
     private readonly IMarkSessionCompletedCommand _markCommand;
+    private readonly IMarkSessionUncompletedCommand _unmarkCommand;
 
     public TrainingPlanViewModelTests()
     {
         _query = Substitute.For<IGetTrainingPlanQuery>();
         _loadCommand = Substitute.For<ILoadTrainingPlanCommand>();
         _markCommand = Substitute.For<IMarkSessionCompletedCommand>();
+        _unmarkCommand = Substitute.For<IMarkSessionUncompletedCommand>();
     }
 
     [Fact]
@@ -27,7 +29,7 @@ public class TrainingPlanViewModelTests
     {
         _query.Execute().Returns(new TrainingCalendar([]));
 
-        new TrainingPlanViewModel(_query, _loadCommand, _markCommand).Weeks.Should().BeEmpty();
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand).Weeks.Should().BeEmpty();
     }
 
     [Fact]
@@ -42,7 +44,7 @@ public class TrainingPlanViewModelTests
         ]));
 
         IReadOnlyList<WeekViewModel> weeks =
-            new TrainingPlanViewModel(_query, _loadCommand, _markCommand).Weeks;
+            new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand).Weeks;
 
         weeks.Should().HaveCount(1);
         weeks[0].StartDate.Should().Be(new DateOnly(2026, 3, 2));
@@ -61,7 +63,7 @@ public class TrainingPlanViewModelTests
         ]));
 
         IReadOnlyList<DayViewModel> days =
-            new TrainingPlanViewModel(_query, _loadCommand, _markCommand).Weeks[0].Days;
+            new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand).Weeks[0].Days;
 
         days.Should().HaveCount(2);
         days[0].Date.Should().Be(new DateOnly(2026, 3, 2));
@@ -82,7 +84,7 @@ public class TrainingPlanViewModelTests
         ]));
 
         SessionViewModel? daySession =
-            new TrainingPlanViewModel(_query, _loadCommand, _markCommand).Weeks[0].Days[0].Session;
+            new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand).Weeks[0].Days[0].Session;
 
         daySession.Should().NotBeNull();
         daySession?.DisplayName.Should().Be("Intervals");
@@ -110,7 +112,7 @@ public class TrainingPlanViewModelTests
             ])
         ]));
 
-        string? displayName = new TrainingPlanViewModel(_query, _loadCommand, _markCommand)
+        string? displayName = new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
             .Weeks[0].Days[0].Session?.DisplayName;
 
         displayName.Should().Be(expectedDisplayName);
@@ -136,7 +138,7 @@ public class TrainingPlanViewModelTests
             ])
         ]));
 
-        string? color = new TrainingPlanViewModel(_query, _loadCommand, _markCommand)
+        string? color = new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
             .Weeks[0].Days[0].Session?.Color;
 
         color.Should().Be(expectedColor);
@@ -153,7 +155,7 @@ public class TrainingPlanViewModelTests
             ])
         ]));
 
-        new TrainingPlanViewModel(_query, _loadCommand, _markCommand)
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
             .Weeks[0].Days[0].Session.Should().BeNull();
     }
 
@@ -168,7 +170,7 @@ public class TrainingPlanViewModelTests
             ])
         ]));
 
-        new TrainingPlanViewModel(_query, _loadCommand, _markCommand)
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
             .Weeks[0].Days[0].IsRestDay.Should().BeTrue();
     }
 
@@ -185,7 +187,7 @@ public class TrainingPlanViewModelTests
             ])
         ]));
 
-        new TrainingPlanViewModel(_query, _loadCommand, _markCommand)
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
             .Weeks[0].Days[0].IsRestDay.Should().BeFalse();
     }
 
@@ -206,7 +208,7 @@ public class TrainingPlanViewModelTests
             ])
         ]));
 
-        new TrainingPlanViewModel(_query, _loadCommand, _markCommand)
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
             .Weeks[0].TotalDistanceKm.Should().Be(13.0m);
     }
 
@@ -222,7 +224,7 @@ public class TrainingPlanViewModelTests
             ])
         ]));
 
-        new TrainingPlanViewModel(_query, _loadCommand, _markCommand)
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
             .Weeks[0].TotalDistanceKm.Should().Be(0.0m);
     }
 
@@ -252,7 +254,7 @@ public class TrainingPlanViewModelTests
     {
         GivenAProgramme();
 
-        new TrainingPlanViewModel(_query, _loadCommand, _markCommand)
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
             .Weeks[0].IntensityFraction.Should().BeApproximately(0.15, 1e-9);
     }
 
@@ -261,7 +263,7 @@ public class TrainingPlanViewModelTests
     {
         GivenAProgramme();
 
-        new TrainingPlanViewModel(_query, _loadCommand, _markCommand)
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
             .Weeks[1].IntensityFraction.Should().Be(0.0);
     }
 
@@ -270,7 +272,7 @@ public class TrainingPlanViewModelTests
     {
         GivenAProgramme();
 
-        new TrainingPlanViewModel(_query, _loadCommand, _markCommand)
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
             .Weeks[2].IntensityFraction.Should().BeApproximately(0.5142857, 1e-6);
     }
 
@@ -279,7 +281,7 @@ public class TrainingPlanViewModelTests
     {
         GivenAProgramme();
 
-        new TrainingPlanViewModel(_query, _loadCommand, _markCommand)
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
             .Weeks[3].IntensityFraction.Should().BeApproximately(1.0, 1e-9);
     }
 
@@ -292,7 +294,7 @@ public class TrainingPlanViewModelTests
             Week(new DateOnly(2026, 3, 9), 18.0m)
         ]));
 
-        new TrainingPlanViewModel(_query, _loadCommand, _markCommand)
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
             .Weeks[1].IntensityFraction.Should().BeApproximately(1.0, 1e-9);
     }
 
@@ -305,7 +307,7 @@ public class TrainingPlanViewModelTests
             Week(new DateOnly(2026, 3, 9), 15.0m)
         ]));
 
-        IReadOnlyList<WeekViewModel> weeks = new TrainingPlanViewModel(_query, _loadCommand, _markCommand).Weeks;
+        IReadOnlyList<WeekViewModel> weeks = new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand).Weeks;
 
         weeks[0].IntensityFraction.Should().BeApproximately(1.0, 1e-9);
         weeks[1].IntensityFraction.Should().BeApproximately(1.0, 1e-9);
@@ -316,7 +318,7 @@ public class TrainingPlanViewModelTests
     {
         GivenAProgramme();
 
-        new TrainingPlanViewModel(_query, _loadCommand, _markCommand)
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
             .Weeks[3].IntensityColor.Should().Be("#00695C");
     }
 
@@ -325,7 +327,7 @@ public class TrainingPlanViewModelTests
     {
         GivenAProgramme();
 
-        new TrainingPlanViewModel(_query, _loadCommand, _markCommand)
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
             .Weeks[1].IntensityColor.Should().Be("#C8C8C8");
     }
 
@@ -333,7 +335,7 @@ public class TrainingPlanViewModelTests
     public void LoadPlanAdoptsTheChosenFile()
     {
         _query.Execute().Returns(new TrainingCalendar([]));
-        var viewModel = new TrainingPlanViewModel(_query, _loadCommand, _markCommand);
+        var viewModel = new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand);
 
         viewModel.LoadPlan("/runner/my-plan.json");
 
@@ -352,7 +354,7 @@ public class TrainingPlanViewModelTests
                     new TrainingDay(new DateOnly(2026, 9, 7), null)
                 ])
             ]));
-        var viewModel = new TrainingPlanViewModel(_query, _loadCommand, _markCommand);
+        var viewModel = new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand);
 
         viewModel.LoadPlan("/runner/my-plan.json");
 
@@ -372,7 +374,7 @@ public class TrainingPlanViewModelTests
                     new TrainingDay(new DateOnly(2026, 9, 7), null)
                 ])
             ]));
-        var viewModel = new TrainingPlanViewModel(_query, _loadCommand, _markCommand);
+        var viewModel = new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand);
         var weeks = viewModel.Weeks;
 
         viewModel.LoadPlan("/runner/my-plan.json");
@@ -397,7 +399,7 @@ public class TrainingPlanViewModelTests
             ])
         ]));
 
-        new TrainingPlanViewModel(_query, _loadCommand, _markCommand)
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
             .Weeks[0].Days[0].IsCompleted.Should().BeTrue();
     }
 
@@ -406,7 +408,7 @@ public class TrainingPlanViewModelTests
     {
         _query.Execute().Returns(new TrainingCalendar([]));
         var viewModel =
-            new TrainingPlanViewModel(_query, _loadCommand, _markCommand);
+            new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand);
 
         viewModel.MarkCompleted(new DateOnly(2026, 3, 2));
 
@@ -437,7 +439,7 @@ public class TrainingPlanViewModelTests
                 ])
             ]));
         var viewModel =
-            new TrainingPlanViewModel(_query, _loadCommand, _markCommand);
+            new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand);
         var weeks = viewModel.Weeks;
 
         viewModel.MarkCompleted(new DateOnly(2026, 3, 2));
