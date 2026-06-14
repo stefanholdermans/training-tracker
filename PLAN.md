@@ -30,8 +30,8 @@ remembers the picked file, and `Save` writes that same file. No copy.
       remembers it; drop the in-sandbox copy
 - [x] Update the repository's save-after-load test
 - [x] Rework the acceptance test to prove cross-restart write-back
-- [ ] Mac Catalyst: security-scoped bookmark location + picker
-- [ ] DI: register `IPlanLocation`; repository resolves it
+- [x] Mac Catalyst: security-scoped bookmark location + picker
+- [x] DI: register `IPlanLocation`; repository resolves it
 
 ## Test cases
 

@@ -12,12 +12,6 @@ public static class MauiProgram
     /// </summary>
     public static MauiApp CreateMauiApp()
     {
-        // The app starts with a clean slate: no plan is seeded. The store
-        // reads this path, which does not exist until the runner loads their
-        // own plan — at which point Load writes it here and it persists.
-        var trainingPlanPath = Path.Combine(
-            FileSystem.Current.AppDataDirectory, "training-plan.json");
-
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
@@ -27,8 +21,12 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
+        // The app starts with a clean slate: no plan is seeded. The repository
+        // reads and writes the runner's own file, located through IPlanLocation,
+        // which is empty until they pick a plan and persists across restarts.
         builder.Services.AddSingleton<ITrainingPlanRepository>(
-            _ => new JsonTrainingPlanRepository(trainingPlanPath));
+            sp => new JsonTrainingPlanRepository(
+                sp.GetRequiredService<IPlanLocation>()));
         builder.Services
             .AddSingleton<IGetTrainingPlanQuery, GetTrainingPlanQuery>();
         builder.Services
@@ -37,7 +35,13 @@ public static class MauiProgram
             .AddSingleton<IMarkSessionCompletedCommand,
                 MarkSessionCompletedCommand>();
 #if MACCATALYST
-        builder.Services.AddSingleton<IPlanFilePicker, MacCatalystPlanFilePicker>();
+        // One object both picks the runner's file and remembers it across
+        // launches, so it serves as picker and location alike.
+        builder.Services.AddSingleton<MacCatalystPlanFile>();
+        builder.Services.AddSingleton<IPlanFilePicker>(
+            sp => sp.GetRequiredService<MacCatalystPlanFile>());
+        builder.Services.AddSingleton<IPlanLocation>(
+            sp => sp.GetRequiredService<MacCatalystPlanFile>());
 #endif
         builder.Services.AddSingleton<TrainingPlanViewModel>();
         builder.Services.AddSingleton<TrainingPlanPage>();
