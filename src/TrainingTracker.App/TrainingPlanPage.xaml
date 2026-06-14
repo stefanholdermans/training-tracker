@@ -13,7 +13,7 @@
         <local:HexToColorConverter x:Key="HexToColorConverter" />
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="Auto,Auto,Auto,*">
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,*">
 
         <!-- Plan title -->
         <Label Grid.Row="0"
@@ -46,8 +46,40 @@
             </Label.Triggers>
         </Label>
 
+        <!-- Programme overview: a slim bar per week, sized against the peak,
+             so the whole build-up and taper read at a glance. -->
+        <Grid Grid.Row="2" Padding="12,4" HeightRequest="56">
+            <Grid.Triggers>
+                <DataTrigger TargetType="Grid"
+                             Binding="{Binding PlannedSessionCount}"
+                             Value="0">
+                    <Setter Property="IsVisible" Value="False" />
+                </DataTrigger>
+            </Grid.Triggers>
+            <HorizontalStackLayout Spacing="3"
+                                   VerticalOptions="End"
+                                   BindableLayout.ItemsSource="{Binding Weeks}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid WidthRequest="10" HeightRequest="48" VerticalOptions="End">
+                            <Border AnchorY="1"
+                                    VerticalOptions="Fill"
+                                    HorizontalOptions="Fill"
+                                    StrokeThickness="0"
+                                    ScaleY="{Binding OverviewHeightFraction}"
+                                    BackgroundColor="{Binding IntensityColor, Converter={StaticResource HexToColorConverter}}">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="1" />
+                                </Border.StrokeShape>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </HorizontalStackLayout>
+        </Grid>
+
         <!-- Weekday header -->
-        <Grid Grid.Row="2"
+        <Grid Grid.Row="3"
               ColumnDefinitions="*,*,*,*,*,*,*,*"
               Padding="0,8">
             <Label Grid.Column="0" Text="Mon"   HorizontalOptions="Center" FontAttributes="Bold" />
@@ -61,7 +93,7 @@
         </Grid>
 
         <!-- Training weeks -->
-        <CollectionView Grid.Row="3"
+        <CollectionView Grid.Row="4"
                         ItemsSource="{Binding Weeks}">
             <CollectionView.EmptyView>
                 <Label Text="No training plan loaded. Tap Load Plan to choose a JSON file."

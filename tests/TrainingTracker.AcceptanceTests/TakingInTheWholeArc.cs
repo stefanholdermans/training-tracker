@@ -25,13 +25,13 @@ public class TakingInTheWholeArc
             new MarkSessionUncompletedCommand(repository));
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void TheOverviewHasABarForEveryWeek()
     {
         _viewModel.Weeks.Should().HaveCount(4);
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void EachBarsHeightTracksItsWeeksVolumeAgainstThePeak()
     {
         IReadOnlyList<WeekViewModel> weeks = _viewModel.Weeks;
