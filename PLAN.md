@@ -16,7 +16,7 @@ the calendar page binds to so the cell stands out.
 
 ## Tasks
 
-- [ ] Add the today fixture/clock and skipped acceptance tests
-- [ ] `DayViewModel.IsToday` is set for the day matching the calendar's Today
+- [x] Add the today fixture/clock and skipped acceptance tests
+- [x] `DayViewModel.IsToday` is set for the day matching the calendar's Today
 - [ ] Highlight today's cell in the calendar page
 - [ ] Unmark the acceptance tests and tick the story off

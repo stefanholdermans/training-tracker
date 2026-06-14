@@ -179,6 +179,50 @@ public class TrainingPlanViewModelTests
     }
 
     [Fact]
+    public void MarksTheDayMatchingTheCalendarsTodayAsToday()
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            new TrainingWeek(new DateOnly(2026, 3, 2),
+            [
+                new TrainingDay(new DateOnly(2026, 3, 4), null),
+                new TrainingDay(
+                    new DateOnly(2026, 3, 5),
+                    new TrainingSession(TrainingType.Intervals, 8.0m))
+            ])
+        ])
+        {
+            Today = new DateOnly(2026, 3, 4)
+        });
+
+        IReadOnlyList<DayViewModel> days =
+            new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
+                .Weeks[0].Days;
+
+        // Today falls on a rest day, which is still highlighted.
+        days[0].IsToday.Should().BeTrue();
+        days[1].IsToday.Should().BeFalse();
+    }
+
+    [Fact]
+    public void MarksNoDayAsTodayWhenTodayIsOutsideThePlan()
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            new TrainingWeek(new DateOnly(2026, 3, 2),
+            [
+                new TrainingDay(new DateOnly(2026, 3, 2), null)
+            ])
+        ])
+        {
+            Today = new DateOnly(2026, 4, 1)
+        });
+
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
+            .Weeks[0].Days[0].IsToday.Should().BeFalse();
+    }
+
+    [Fact]
     public void LeavesRestDaysWithNoSession()
     {
         _query.Execute().Returns(new TrainingCalendar(

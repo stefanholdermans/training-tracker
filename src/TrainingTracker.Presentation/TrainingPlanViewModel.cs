@@ -117,17 +117,18 @@ public class TrainingPlanViewModel
         [..plan.Weeks.Select(week => MapWeek(
             week,
             plan.PeakWeeklyDistanceKm,
-            plan.LowestActiveWeeklyDistanceKm))];
+            plan.LowestActiveWeeklyDistanceKm,
+            plan.Today))];
 
     private static WeekViewModel MapWeek(
-        TrainingWeek week, decimal peak, decimal? lowestActive)
+        TrainingWeek week, decimal peak, decimal? lowestActive, DateOnly today)
     {
         double fraction = IntensityFraction(
             week.TotalDistanceKm, peak, lowestActive);
         return new()
         {
             StartDate = week.StartDate,
-            Days = [..week.Days.Select(MapDay)],
+            Days = [..week.Days.Select(day => MapDay(day, today))],
             TotalDistanceKm = week.TotalDistanceKm,
             CompletedDistanceKm = week.CompletedDistanceKm,
             IntensityFraction = fraction,
@@ -175,12 +176,13 @@ public class TrainingPlanViewModel
         return (int)Math.Round(start + (end - start) * fraction);
     }
 
-    private static DayViewModel MapDay(TrainingDay day) =>
+    private static DayViewModel MapDay(TrainingDay day, DateOnly today) =>
         new()
         {
             Date = day.Date,
             Session = day.Session is { } session ? MapSession(session) : null,
-            IsCompleted = day.Completed
+            IsCompleted = day.Completed,
+            IsToday = day.Date == today
         };
 
     private static SessionViewModel MapSession(TrainingSession session) =>
