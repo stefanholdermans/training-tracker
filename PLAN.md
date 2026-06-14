@@ -24,12 +24,12 @@ remembers the picked file, and `Save` writes that same file. No copy.
 
 ## Tasks
 
-- [ ] `IPlanLocation` (Application)
-- [ ] `FilePlanLocation` (Infrastructure) + unit tests
-- [ ] `JsonTrainingPlanRepository` reads/writes the located file; `Load`
+- [x] `IPlanLocation` (Application)
+- [x] `FilePlanLocation` (Infrastructure) + unit tests
+- [x] `JsonTrainingPlanRepository` reads/writes the located file; `Load`
       remembers it; drop the in-sandbox copy
-- [ ] Update the repository's save-after-load test
-- [ ] Rework the acceptance test to prove cross-restart write-back
+- [x] Update the repository's save-after-load test
+- [x] Rework the acceptance test to prove cross-restart write-back
 - [ ] Mac Catalyst: security-scoped bookmark location + picker
 - [ ] DI: register `IPlanLocation`; repository resolves it
 

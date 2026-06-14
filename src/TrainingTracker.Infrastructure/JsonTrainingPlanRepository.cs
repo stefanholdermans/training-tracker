@@ -6,10 +6,11 @@ using TrainingTracker.Domain;
 namespace TrainingTracker.Infrastructure;
 
 /// <summary>
-/// Reads the training plan from a JSON file.
+/// Reads and writes the runner's training plan as a JSON file. The file read
+/// and written is the runner's own, located via <see cref="IPlanLocation"/>;
+/// the app keeps no copy of its own.
 /// </summary>
-public class JsonTrainingPlanRepository(string filePath)
-    : ITrainingPlanRepository
+public class JsonTrainingPlanRepository : ITrainingPlanRepository
 {
     private static readonly JsonSerializerOptions s_serializerOptions = new()
     {
@@ -17,18 +18,28 @@ public class JsonTrainingPlanRepository(string filePath)
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
 
-    // The runner's own file, remembered when a plan is loaded, so completions
-    // can be written through to it as well as to the active copy.
-    private string? _sourceFilePath;
+    private readonly IPlanLocation _location;
+
+    public JsonTrainingPlanRepository(IPlanLocation location) =>
+        _location = location;
+
+    /// <summary>
+    /// Reads and writes the plan at a fixed file. A convenience for a known
+    /// file that need not be remembered across restarts.
+    /// </summary>
+    public JsonTrainingPlanRepository(string planFilePath)
+        : this(new FixedPlanLocation(planFilePath))
+    {
+    }
 
     public IReadOnlyList<ScheduledSession> GetAll()
     {
-        if (!File.Exists(filePath))
+        if (_location.FilePath is not { } path || !File.Exists(path))
         {
             return [];
         }
 
-        using var stream = File.OpenRead(filePath);
+        using var stream = File.OpenRead(path);
         using var document = JsonDocument.Parse(stream);
 
         return [..document.RootElement
@@ -37,20 +48,13 @@ public class JsonTrainingPlanRepository(string filePath)
             .Select(ParseSession)];
     }
 
-    public void Load(string sourceFilePath)
-    {
-        File.Copy(sourceFilePath, filePath, overwrite: true);
-        _sourceFilePath = sourceFilePath;
-    }
+    public void Load(string sourceFilePath) => _location.Remember(sourceFilePath);
 
     public void Save(IReadOnlyList<ScheduledSession> sessions)
     {
-        string json = Serialize(sessions);
-
-        File.WriteAllText(filePath, json);
-        if (_sourceFilePath is { } source && source != filePath)
+        if (_location.FilePath is { } path)
         {
-            File.WriteAllText(source, json);
+            File.WriteAllText(path, Serialize(sessions));
         }
     }
 

@@ -138,10 +138,12 @@ public class JsonTrainingPlanRepositoryTests
     }
 
     [Fact]
-    public void SaveWritesThroughToTheRunnersOwnPlanFileAfterLoading()
+    public void SavingWritesToTheFileTheRunnerLoaded()
     {
-        string activePath = Path.GetTempFileName();
         string myPlanPath = Path.GetTempFileName();
+        // An initial location that is never created; loading moves off it.
+        string initialPath = Path.Combine(
+            Path.GetTempPath(), $"initial-{Guid.NewGuid():N}.json");
 
         try
         {
@@ -153,7 +155,7 @@ public class JsonTrainingPlanRepositoryTests
                 }
                 """);
 
-            var repository = new JsonTrainingPlanRepository(activePath);
+            var repository = new JsonTrainingPlanRepository(initialPath);
             repository.Load(myPlanPath);
             repository.Save(
             [
@@ -169,7 +171,6 @@ public class JsonTrainingPlanRepositoryTests
         }
         finally
         {
-            File.Delete(activePath);
             File.Delete(myPlanPath);
         }
     }

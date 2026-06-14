@@ -7,25 +7,24 @@ using TrainingTracker.Presentation;
 namespace TrainingTracker.AcceptanceTests;
 
 /// <summary>
-/// Given the runner's own plan, loaded from a file on disk into the in-sandbox
-/// active plan, with an easy run scheduled for the 7th and intervals for the
-/// 10th.
+/// Given the runner's own plan on disk, with an easy run scheduled for the 7th
+/// and intervals for the 10th, opened in the app.
 /// </summary>
 public sealed class CheckingOffTodaysRun : IDisposable
 {
     private static readonly DateOnly EasyRunDay = new(2026, 9, 7);
     private static readonly DateOnly IntervalsDay = new(2026, 9, 10);
 
-    private readonly string _activePlanPath;
+    // The pointer stands in for the security-scoped bookmark: it remembers
+    // which file is the plan across "restarts".
+    private readonly string _pointerPath;
     private readonly string _myPlanPath;
     private readonly TrainingPlanViewModel _viewModel;
 
     public CheckingOffTodaysRun()
     {
-        // The active plan store starts empty, so its file does not yet exist;
-        // the runner's own plan lives elsewhere on disk.
-        _activePlanPath = Path.Combine(
-            Path.GetTempPath(), $"active-{Guid.NewGuid():N}.json");
+        _pointerPath = Path.Combine(
+            Path.GetTempPath(), $"pointer-{Guid.NewGuid():N}");
         _myPlanPath = Path.GetTempFileName();
         File.WriteAllText(_myPlanPath, """
             {
@@ -36,33 +35,55 @@ public sealed class CheckingOffTodaysRun : IDisposable
             }
             """);
 
-        var repository = new JsonTrainingPlanRepository(_activePlanPath);
-        _viewModel = new TrainingPlanViewModel(
+        _viewModel = OpenApp();
+        _viewModel.LoadPlan(_myPlanPath);
+    }
+
+    // Wires the app afresh against the same remembered location, as if it had
+    // been quit and relaunched.
+    private TrainingPlanViewModel OpenApp()
+    {
+        var repository =
+            new JsonTrainingPlanRepository(new FilePlanLocation(_pointerPath));
+        return new TrainingPlanViewModel(
             new GetTrainingPlanQuery(repository),
             new LoadTrainingPlanCommand(repository),
             new MarkSessionCompletedCommand(repository));
-        _viewModel.LoadPlan(_myPlanPath);
     }
 
     public void Dispose()
     {
-        File.Delete(_activePlanPath);
+        File.Delete(_pointerPath);
         File.Delete(_myPlanPath);
         GC.SuppressFinalize(this);
     }
 
-    private DayViewModel DayOn(DateOnly date) =>
-        _viewModel.Weeks.SelectMany(week => week.Days)
+    private static DayViewModel DayOn(
+        TrainingPlanViewModel viewModel, DateOnly date) =>
+        viewModel.Weeks.SelectMany(week => week.Days)
             .Single(day => day.Date == date);
+
+    private bool CompletedInMyPlanFile(string date)
+    {
+        using JsonDocument document =
+            JsonDocument.Parse(File.ReadAllText(_myPlanPath));
+        JsonElement session = document.RootElement
+            .GetProperty("sessions")
+            .EnumerateArray()
+            .Single(s => s.GetProperty("date").GetString() == date);
+
+        return session.TryGetProperty("completed", out JsonElement flag)
+            && flag.GetBoolean();
+    }
 
     [Fact]
     public void MarkingTodaysRunShowsItAsCompleted()
     {
-        DayOn(EasyRunDay).IsCompleted.Should().BeFalse();
+        DayOn(_viewModel, EasyRunDay).IsCompleted.Should().BeFalse();
 
         _viewModel.MarkCompleted(EasyRunDay);
 
-        DayOn(EasyRunDay).IsCompleted.Should().BeTrue();
+        DayOn(_viewModel, EasyRunDay).IsCompleted.Should().BeTrue();
     }
 
     [Fact]
@@ -70,40 +91,39 @@ public sealed class CheckingOffTodaysRun : IDisposable
     {
         _viewModel.MarkCompleted(EasyRunDay);
 
-        DayOn(IntervalsDay).IsCompleted.Should().BeFalse();
+        DayOn(_viewModel, IntervalsDay).IsCompleted.Should().BeFalse();
     }
 
     [Fact]
-    public void CompletionSurvivesReloadingTheInSandboxPlan()
+    public void CompletionIsWrittenToTheRunnersOwnFileOnDisk()
     {
         _viewModel.MarkCompleted(EasyRunDay);
 
-        // A fresh view model reading the same in-sandbox active plan, as if the
-        // app had been restarted without re-picking the runner's file.
-        var repository = new JsonTrainingPlanRepository(_activePlanPath);
-        var reopened = new TrainingPlanViewModel(
-            new GetTrainingPlanQuery(repository),
-            new LoadTrainingPlanCommand(repository),
-            new MarkSessionCompletedCommand(repository));
-
-        reopened.Weeks.SelectMany(week => week.Days)
-            .Single(day => day.Date == EasyRunDay)
-            .IsCompleted.Should().BeTrue();
+        CompletedInMyPlanFile("2026-09-07").Should().BeTrue();
     }
 
     [Fact]
-    public void CompletionIsWrittenThroughToMyPlanOnDisk()
+    public void CompletionSurvivesARestart()
     {
         _viewModel.MarkCompleted(EasyRunDay);
 
-        using JsonDocument document =
-            JsonDocument.Parse(File.ReadAllText(_myPlanPath));
-        JsonElement easyRun = document.RootElement
-            .GetProperty("sessions")
-            .EnumerateArray()
-            .Single(session => session.GetProperty("date").GetString()
-                == "2026-09-07");
+        // Relaunch with no re-pick: the remembered location alone must lead
+        // back to the runner's file and its recorded completion.
+        TrainingPlanViewModel relaunched = OpenApp();
 
-        easyRun.GetProperty("completed").GetBoolean().Should().BeTrue();
+        DayOn(relaunched, EasyRunDay).IsCompleted.Should().BeTrue();
+    }
+
+    [Fact]
+    public void MarkingAfterARestartWritesThroughToTheRunnersFile()
+    {
+        _viewModel.MarkCompleted(EasyRunDay);
+
+        TrainingPlanViewModel relaunched = OpenApp();
+        relaunched.MarkCompleted(IntervalsDay);
+
+        // The runner's own file now records both completions.
+        CompletedInMyPlanFile("2026-09-07").Should().BeTrue();
+        CompletedInMyPlanFile("2026-09-10").Should().BeTrue();
     }
 }
