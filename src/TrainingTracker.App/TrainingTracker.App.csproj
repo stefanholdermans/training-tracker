@@ -28,8 +28,9 @@
 		<NoWarn>CA1515;CA1711;CA1724</NoWarn>
 	</PropertyGroup>
 
-	<!-- Apply the entitlements (App Sandbox + user-selected file access) so the
-	     document picker can return files the runner chooses. -->
+	<!-- Apply the entitlements (App Sandbox + read-write user-selected file
+	     access) so the document picker can return files the runner chooses and
+	     the app can write completed runs back to them. -->
 	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
 		<CodesignEntitlements>Platforms/MacCatalyst/Entitlements.plist</CodesignEntitlements>
 	</PropertyGroup>

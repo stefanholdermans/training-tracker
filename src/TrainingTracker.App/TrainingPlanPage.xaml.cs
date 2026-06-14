@@ -43,4 +43,17 @@ public partial class TrainingPlanPage : ContentPage
                 .ConfigureAwait(true);
         }
     }
+
+    /// <summary>
+    /// Checks off the tapped day's run, when it has one that the runner has not
+    /// already completed.
+    /// </summary>
+    private void OnDayTapped(object? sender, TappedEventArgs e)
+    {
+        if (e.Parameter is DayViewModel { IsRestDay: false, IsCompleted: false }
+            day)
+        {
+            _viewModel.MarkCompleted(day.Date);
+        }
+    }
 }

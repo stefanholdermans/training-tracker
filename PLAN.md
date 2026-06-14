@@ -38,19 +38,19 @@ Each session gains an optional `completed` flag (absent ⇒ `false`):
 
 ## Tasks
 
-- [ ] Acceptance tests for the story (skipped, "pending implementation")
-- [ ] `ScheduledSession.Completed`
-- [ ] `TrainingDay.Completed` / `DayViewModel.IsCompleted`
+- [x] Acceptance tests for the story (skipped, "pending implementation")
+- [x] `ScheduledSession.Completed`
+- [x] `TrainingDay.Completed` / `DayViewModel.IsCompleted`
 - [x] `JsonTrainingPlanRepository` reads `completed`
 - [x] `ITrainingPlanRepository.Save` + `JsonTrainingPlanRepository.Save`
       (active file, then through to the source file)
 - [x] `GetTrainingPlanQuery` carries completion into the calendar
 - [x] `IMarkSessionCompletedCommand` + `MarkSessionCompletedCommand`
 - [x] `TrainingPlanViewModel.MarkCompleted`
-- [ ] Unskip acceptance tests
-- [ ] MacCatalyst: read-write entitlement + security-scoped picker
-- [ ] Tap a day to check it off + completed tick in `TrainingPlanPage.xaml`
-- [ ] Mark story complete in `STORIES.md`
+- [x] Unskip acceptance tests
+- [x] MacCatalyst: read-write entitlement + security-scoped picker
+- [x] Tap a day to check it off + completed tick in `TrainingPlanPage.xaml`
+- [x] Mark story complete in `STORIES.md`
 
 ## Test cases
 

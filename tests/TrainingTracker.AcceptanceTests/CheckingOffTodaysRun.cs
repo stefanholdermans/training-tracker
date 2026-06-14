@@ -22,9 +22,10 @@ public sealed class CheckingOffTodaysRun : IDisposable
 
     public CheckingOffTodaysRun()
     {
-        // The active plan store starts empty; the runner's own plan lives
-        // elsewhere on disk.
-        _activePlanPath = Path.GetTempFileName();
+        // The active plan store starts empty, so its file does not yet exist;
+        // the runner's own plan lives elsewhere on disk.
+        _activePlanPath = Path.Combine(
+            Path.GetTempPath(), $"active-{Guid.NewGuid():N}.json");
         _myPlanPath = Path.GetTempFileName();
         File.WriteAllText(_myPlanPath, """
             {
@@ -54,7 +55,7 @@ public sealed class CheckingOffTodaysRun : IDisposable
         _viewModel.Weeks.SelectMany(week => week.Days)
             .Single(day => day.Date == date);
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void MarkingTodaysRunShowsItAsCompleted()
     {
         DayOn(EasyRunDay).IsCompleted.Should().BeFalse();
@@ -64,7 +65,7 @@ public sealed class CheckingOffTodaysRun : IDisposable
         DayOn(EasyRunDay).IsCompleted.Should().BeTrue();
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void OtherSessionsStayUncompleted()
     {
         _viewModel.MarkCompleted(EasyRunDay);
@@ -72,7 +73,7 @@ public sealed class CheckingOffTodaysRun : IDisposable
         DayOn(IntervalsDay).IsCompleted.Should().BeFalse();
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void CompletionSurvivesReloadingTheInSandboxPlan()
     {
         _viewModel.MarkCompleted(EasyRunDay);
@@ -90,7 +91,7 @@ public sealed class CheckingOffTodaysRun : IDisposable
             .IsCompleted.Should().BeTrue();
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void CompletionIsWrittenThroughToMyPlanOnDisk()
     {
         _viewModel.MarkCompleted(EasyRunDay);

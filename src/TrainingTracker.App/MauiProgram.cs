@@ -33,6 +33,9 @@ public static class MauiProgram
             .AddSingleton<IGetTrainingPlanQuery, GetTrainingPlanQuery>();
         builder.Services
             .AddSingleton<ILoadTrainingPlanCommand, LoadTrainingPlanCommand>();
+        builder.Services
+            .AddSingleton<IMarkSessionCompletedCommand,
+                MarkSessionCompletedCommand>();
 #if MACCATALYST
         builder.Services.AddSingleton<IPlanFilePicker, MacCatalystPlanFilePicker>();
 #endif

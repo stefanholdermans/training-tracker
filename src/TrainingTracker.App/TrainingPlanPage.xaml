@@ -47,6 +47,10 @@
 
                         <!-- Monday -->
                         <Border Grid.Column="0" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDayTapped"
+                                                      CommandParameter="{Binding Days[0]}" />
+                            </Border.GestureRecognizers>
                             <Border.Triggers>
                                 <DataTrigger TargetType="Border"
                                              Binding="{Binding Days[0].IsRestDay}"
@@ -92,11 +96,20 @@
                                 </Label>
                                 <Label Text="{Binding Days[0].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
+                                <Label Text="✓ Done"
+                                       IsVisible="{Binding Days[0].IsCompleted}"
+                                       FontAttributes="Bold"
+                                       FontSize="12"
+                                       TextColor="#2E7D32" />
                             </VerticalStackLayout>
                         </Border>
 
                         <!-- Tuesday -->
                         <Border Grid.Column="1" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDayTapped"
+                                                      CommandParameter="{Binding Days[1]}" />
+                            </Border.GestureRecognizers>
                             <Border.Triggers>
                                 <DataTrigger TargetType="Border"
                                              Binding="{Binding Days[1].IsRestDay}"
@@ -142,11 +155,20 @@
                                 </Label>
                                 <Label Text="{Binding Days[1].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
+                                <Label Text="✓ Done"
+                                       IsVisible="{Binding Days[1].IsCompleted}"
+                                       FontAttributes="Bold"
+                                       FontSize="12"
+                                       TextColor="#2E7D32" />
                             </VerticalStackLayout>
                         </Border>
 
                         <!-- Wednesday -->
                         <Border Grid.Column="2" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDayTapped"
+                                                      CommandParameter="{Binding Days[2]}" />
+                            </Border.GestureRecognizers>
                             <Border.Triggers>
                                 <DataTrigger TargetType="Border"
                                              Binding="{Binding Days[2].IsRestDay}"
@@ -192,11 +214,20 @@
                                 </Label>
                                 <Label Text="{Binding Days[2].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
+                                <Label Text="✓ Done"
+                                       IsVisible="{Binding Days[2].IsCompleted}"
+                                       FontAttributes="Bold"
+                                       FontSize="12"
+                                       TextColor="#2E7D32" />
                             </VerticalStackLayout>
                         </Border>
 
                         <!-- Thursday -->
                         <Border Grid.Column="3" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDayTapped"
+                                                      CommandParameter="{Binding Days[3]}" />
+                            </Border.GestureRecognizers>
                             <Border.Triggers>
                                 <DataTrigger TargetType="Border"
                                              Binding="{Binding Days[3].IsRestDay}"
@@ -242,11 +273,20 @@
                                 </Label>
                                 <Label Text="{Binding Days[3].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
+                                <Label Text="✓ Done"
+                                       IsVisible="{Binding Days[3].IsCompleted}"
+                                       FontAttributes="Bold"
+                                       FontSize="12"
+                                       TextColor="#2E7D32" />
                             </VerticalStackLayout>
                         </Border>
 
                         <!-- Friday -->
                         <Border Grid.Column="4" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDayTapped"
+                                                      CommandParameter="{Binding Days[4]}" />
+                            </Border.GestureRecognizers>
                             <Border.Triggers>
                                 <DataTrigger TargetType="Border"
                                              Binding="{Binding Days[4].IsRestDay}"
@@ -292,11 +332,20 @@
                                 </Label>
                                 <Label Text="{Binding Days[4].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
+                                <Label Text="✓ Done"
+                                       IsVisible="{Binding Days[4].IsCompleted}"
+                                       FontAttributes="Bold"
+                                       FontSize="12"
+                                       TextColor="#2E7D32" />
                             </VerticalStackLayout>
                         </Border>
 
                         <!-- Saturday -->
                         <Border Grid.Column="5" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDayTapped"
+                                                      CommandParameter="{Binding Days[5]}" />
+                            </Border.GestureRecognizers>
                             <Border.Triggers>
                                 <DataTrigger TargetType="Border"
                                              Binding="{Binding Days[5].IsRestDay}"
@@ -342,11 +391,20 @@
                                 </Label>
                                 <Label Text="{Binding Days[5].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
+                                <Label Text="✓ Done"
+                                       IsVisible="{Binding Days[5].IsCompleted}"
+                                       FontAttributes="Bold"
+                                       FontSize="12"
+                                       TextColor="#2E7D32" />
                             </VerticalStackLayout>
                         </Border>
 
                         <!-- Sunday -->
                         <Border Grid.Column="6" Padding="6" Stroke="LightGray" StrokeThickness="0.5">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDayTapped"
+                                                      CommandParameter="{Binding Days[6]}" />
+                            </Border.GestureRecognizers>
                             <Border.Triggers>
                                 <DataTrigger TargetType="Border"
                                              Binding="{Binding Days[6].IsRestDay}"
@@ -392,6 +450,11 @@
                                 </Label>
                                 <Label Text="{Binding Days[6].Session.DistanceKm, StringFormat='{0:0}K'}"
                                        FontSize="13" />
+                                <Label Text="✓ Done"
+                                       IsVisible="{Binding Days[6].IsCompleted}"
+                                       FontAttributes="Bold"
+                                       FontSize="12"
+                                       TextColor="#2E7D32" />
                             </VerticalStackLayout>
                         </Border>
 

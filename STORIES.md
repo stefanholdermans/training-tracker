@@ -3,7 +3,7 @@
 [x] **The one where I see my training plan**:
 As a runner, I want to view my complete training programme in a calendar format, so that I can see what's coming up and plan my week accordingly.
 
-[ ] **The one where I check off today's run**:
+[x] **The one where I check off today's run**:
 As a runner, I want to mark a training session as completed, so that I can track what I've actually accomplished.
 
 [x] **The one where I see this week's volume**:
