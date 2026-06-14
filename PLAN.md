@@ -1,27 +1,22 @@
-# Plan: The one where I track my weekly progress
+# Plan: The one where I know where I am today
 
-As a runner, I want to see my completed volume compared to the planned
-volume for the week, so that I can gauge whether I'm on track.
+As a runner, I want today's date to be highlighted in the calendar view,
+so that I can immediately see where I am in my training plan.
 
 ## Design
 
-Each week already reports its planned volume as `TotalDistanceKm`. The
-completed volume is the same sum restricted to the sessions the runner
-has checked off, so it belongs alongside it on `TrainingWeek` as
-`CompletedDistanceKm`.
+The calendar already knows the date it was assembled for (its `Today`,
+stamped from the clock). Highlighting today is therefore a display
+concern: the week view model marks the day whose date matches the
+calendar's `Today`, regardless of whether that day carries a session or
+is a rest day.
 
-The week view model surfaces the completed distance and a short
-"5K of 13K" progress summary for the week's total column. A rest week
-(no planned volume) has no progress to report, so its summary is empty.
-
-The figures ride the existing repository -> query -> view-model
-pipeline; no new plumbing is needed.
+`DayViewModel` gains an `IsToday` flag, set while mapping the days, that
+the calendar page binds to so the cell stands out.
 
 ## Tasks
 
-- [x] Add the weekly-progress fixture and skipped acceptance tests
-- [x] `TrainingWeek.CompletedDistanceKm` sums the completed sessions
-- [x] Map the completed weekly distance onto the week view model
-- [x] Summarise weekly progress as "completed of planned"
-- [x] Show the weekly progress in the calendar's total column
-- [x] Unmark the acceptance tests and tick the story off
+- [ ] Add the today fixture/clock and skipped acceptance tests
+- [ ] `DayViewModel.IsToday` is set for the day matching the calendar's Today
+- [ ] Highlight today's cell in the calendar page
+- [ ] Unmark the acceptance tests and tick the story off

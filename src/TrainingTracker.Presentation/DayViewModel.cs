@@ -15,4 +15,10 @@ public class DayViewModel
     /// Whether the runner has marked this day's session as completed.
     /// </summary>
     public bool IsCompleted { get; init; }
+
+    /// <summary>
+    /// Whether this day is today, so the calendar can highlight where the
+    /// runner is in the programme.
+    /// </summary>
+    public bool IsToday { get; init; }
 }
