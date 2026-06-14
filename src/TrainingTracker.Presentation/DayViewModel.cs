@@ -10,4 +10,9 @@ public class DayViewModel
     public SessionViewModel? Session { get; init; }
 
     public bool IsRestDay => Session is null;
+
+    /// <summary>
+    /// Whether the runner has marked this day's session as completed.
+    /// </summary>
+    public bool IsCompleted { get; init; }
 }

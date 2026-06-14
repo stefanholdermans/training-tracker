@@ -14,4 +14,10 @@ public interface ITrainingPlanRepository
     /// subsequent reads return it.
     /// </summary>
     void Load(string sourceFilePath);
+
+    /// <summary>
+    /// Persists the given sessions as the active plan, writing the changes
+    /// through to the runner's own plan file when one has been loaded.
+    /// </summary>
+    void Save(IReadOnlyList<ScheduledSession> sessions);
 }

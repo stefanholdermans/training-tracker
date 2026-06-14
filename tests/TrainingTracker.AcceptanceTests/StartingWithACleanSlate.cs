@@ -20,7 +20,8 @@ public class StartingWithACleanSlate
         var repository = new JsonTrainingPlanRepository(missingPath);
         _viewModel = new TrainingPlanViewModel(
             new GetTrainingPlanQuery(repository),
-            new LoadTrainingPlanCommand(repository));
+            new LoadTrainingPlanCommand(repository),
+            new MarkSessionCompletedCommand(repository));
     }
 
     [Fact]

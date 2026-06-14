@@ -31,7 +31,8 @@ public sealed class LoadingMyOwnTrainingPlan : IDisposable
         var repository = new JsonTrainingPlanRepository(_activePlanPath);
         _viewModel = new TrainingPlanViewModel(
             new GetTrainingPlanQuery(repository),
-            new LoadTrainingPlanCommand(repository));
+            new LoadTrainingPlanCommand(repository),
+            new MarkSessionCompletedCommand(repository));
     }
 
     public void Dispose()

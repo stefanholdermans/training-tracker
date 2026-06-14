@@ -21,6 +21,7 @@ public class TrainingPlanViewModel
 
     private readonly IGetTrainingPlanQuery _query;
     private readonly ILoadTrainingPlanCommand _loadCommand;
+    private readonly IMarkSessionCompletedCommand _markCompletedCommand;
 
     /// <summary>
     /// A single observable collection mutated in place, so the bound
@@ -30,13 +31,17 @@ public class TrainingPlanViewModel
     private readonly ObservableCollection<WeekViewModel> _weeks = [];
 
     public TrainingPlanViewModel(
-        IGetTrainingPlanQuery query, ILoadTrainingPlanCommand loadCommand)
+        IGetTrainingPlanQuery query,
+        ILoadTrainingPlanCommand loadCommand,
+        IMarkSessionCompletedCommand markCompletedCommand)
     {
         ArgumentNullException.ThrowIfNull(query);
         ArgumentNullException.ThrowIfNull(loadCommand);
+        ArgumentNullException.ThrowIfNull(markCompletedCommand);
 
         _query = query;
         _loadCommand = loadCommand;
+        _markCompletedCommand = markCompletedCommand;
         Populate(query.Execute());
     }
 
@@ -49,6 +54,18 @@ public class TrainingPlanViewModel
     {
         _loadCommand.Execute(filePath);
         Populate(_query.Execute());
+    }
+
+    /// <summary>
+    /// Marks the session on the given date as completed and refreshes the
+    /// calendar.
+    /// </summary>
+    public void MarkCompleted(DateOnly date)
+    {
+        // Pending implementation: driven by unit tests next. See PLAN.md.
+        _ = _markCompletedCommand;
+        _ = date;
+        throw new NotImplementedException();
     }
 
     private void Populate(TrainingCalendar plan)

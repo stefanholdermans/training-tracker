@@ -19,7 +19,8 @@ public class SeeingTheShapeOfMyProgramme
         var repository = new JsonTrainingPlanRepository(fixturePath);
         _viewModel = new TrainingPlanViewModel(
             new GetTrainingPlanQuery(repository),
-            new LoadTrainingPlanCommand(repository));
+            new LoadTrainingPlanCommand(repository),
+            new MarkSessionCompletedCommand(repository));
     }
 
     [Fact]

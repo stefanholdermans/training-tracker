@@ -30,6 +30,13 @@ public class JsonTrainingPlanRepository(string filePath)
     public void Load(string sourceFilePath) =>
         File.Copy(sourceFilePath, filePath, overwrite: true);
 
+    public void Save(IReadOnlyList<ScheduledSession> sessions)
+    {
+        // Pending implementation: driven by unit tests next. See PLAN.md.
+        _ = sessions;
+        throw new NotImplementedException();
+    }
+
     private static ScheduledSession ParseSession(JsonElement element)
     {
         var date = element.GetProperty("date").GetString()
