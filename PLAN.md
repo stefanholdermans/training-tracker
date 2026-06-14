@@ -29,5 +29,5 @@ query -> view-model pipeline.
 - [x] View model exposes `PlannedSessionCount` and `CompletedSessionCount`
 - [x] View model exposes `AdherenceSummary` ("3 of 5 sessions completed")
 - [x] Counts refresh after marking a session completed or uncompleted
-- [ ] Show the adherence summary in the calendar page
-- [ ] Unmark the acceptance tests and tick the story off
+- [x] Show the adherence summary in the calendar page
+- [x] Unmark the acceptance tests and tick the story off
