@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using TrainingTracker.Application;
 using TrainingTracker.Domain;
 
@@ -15,7 +16,9 @@ public class JsonTrainingPlanRepository : ITrainingPlanRepository
     private static readonly JsonSerializerOptions s_serializerOptions = new()
     {
         WriteIndented = true,
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        // Optional session data, such as strides, is left out when absent.
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
     };
 
     private readonly IPlanLocation _location;
@@ -68,6 +71,7 @@ public class JsonTrainingPlanRepository : ITrainingPlanRepository
                     "yyyy-MM-dd", CultureInfo.InvariantCulture),
                 Type = scheduled.Session.Type.ToString(),
                 DistanceKm = scheduled.Session.DistanceKm,
+                Strides = scheduled.Session.Strides,
                 Completed = scheduled.Completed
             })
         };
@@ -82,12 +86,16 @@ public class JsonTrainingPlanRepository : ITrainingPlanRepository
         var type = element.GetProperty("type").GetString()
             ?? throw new InvalidOperationException("Session 'type' is null.");
         var distanceKm = element.GetProperty("distanceKm").GetDecimal();
+        var strides = element.TryGetProperty("strides", out var count)
+            ? count.GetInt32()
+            : (int?)null;
         var completed = element.TryGetProperty("completed", out var flag)
             && flag.GetBoolean();
 
         return new ScheduledSession(
             DateOnly.Parse(date, CultureInfo.InvariantCulture),
-            new TrainingSession(Enum.Parse<TrainingType>(type), distanceKm),
+            new TrainingSession(
+                Enum.Parse<TrainingType>(type), distanceKm, strides),
             completed);
     }
 }

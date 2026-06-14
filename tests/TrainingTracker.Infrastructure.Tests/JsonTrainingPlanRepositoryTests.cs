@@ -96,6 +96,108 @@ public class JsonTrainingPlanRepositoryTests
     }
 
     [Fact]
+    public void ReadsTheStridesCountFromTheJsonFile()
+    {
+        string json = """
+            {
+              "sessions": [
+                { "date": "2026-03-02", "type": "EasyRun", "distanceKm": 6.0,
+                  "strides": 8 }
+              ]
+            }
+            """;
+
+        string filePath = Path.GetTempFileName();
+
+        try
+        {
+            File.WriteAllText(filePath, json);
+
+            var repository = new JsonTrainingPlanRepository(filePath);
+
+            repository.GetAll()[0].Session.Strides.Should().Be(8);
+        }
+        finally
+        {
+            File.Delete(filePath);
+        }
+    }
+
+    [Fact]
+    public void ASessionWithoutAStridesFieldHasNoStrides()
+    {
+        string json = """
+            {
+              "sessions": [
+                { "date": "2026-03-02", "type": "EasyRun", "distanceKm": 6.0 }
+              ]
+            }
+            """;
+
+        string filePath = Path.GetTempFileName();
+
+        try
+        {
+            File.WriteAllText(filePath, json);
+
+            var repository = new JsonTrainingPlanRepository(filePath);
+
+            repository.GetAll()[0].Session.Strides.Should().BeNull();
+        }
+        finally
+        {
+            File.Delete(filePath);
+        }
+    }
+
+    [Fact]
+    public void SaveRoundTripsASessionsStrides()
+    {
+        string activePath = Path.GetTempFileName();
+
+        try
+        {
+            var repository = new JsonTrainingPlanRepository(activePath);
+            repository.Save(
+            [
+                new ScheduledSession(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(TrainingType.EasyRun, 6.0m, Strides: 8))
+            ]);
+
+            new JsonTrainingPlanRepository(activePath).GetAll()[0]
+                .Session.Strides.Should().Be(8);
+        }
+        finally
+        {
+            File.Delete(activePath);
+        }
+    }
+
+    [Fact]
+    public void SaveOmitsStridesForASessionWithoutThem()
+    {
+        string activePath = Path.GetTempFileName();
+
+        try
+        {
+            var repository = new JsonTrainingPlanRepository(activePath);
+            repository.Save(
+            [
+                new ScheduledSession(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(TrainingType.EasyRun, 6.0m))
+            ]);
+
+            File.ReadAllText(activePath).Should().NotContain("strides");
+        }
+        finally
+        {
+            File.Delete(activePath);
+        }
+    }
+
+    [Fact]
     public void ReturnsNoSessionsWhenTheActivePlanFileDoesNotExist()
     {
         string missingPath = Path.Combine(
