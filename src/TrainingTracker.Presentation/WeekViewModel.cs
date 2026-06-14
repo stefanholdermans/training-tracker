@@ -20,6 +20,13 @@ public class WeekViewModel
 
     public required string IntensityColor { get; init; }
 
-    // Placeholder: the "completed of planned" summary follows under unit tests.
-    public string ProgressSummary => $"{CompletedDistanceKm:0}K";
+    /// <summary>
+    /// The week's completed volume against its planned volume, as in
+    /// "5K of 13K". A rest week has no planned volume and so no progress to
+    /// report, giving an empty summary.
+    /// </summary>
+    public string ProgressSummary =>
+        TotalDistanceKm <= 0
+            ? string.Empty
+            : $"{CompletedDistanceKm:0}K of {TotalDistanceKm:0}K";
 }

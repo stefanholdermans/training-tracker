@@ -247,6 +247,63 @@ public class TrainingPlanViewModelTests
     }
 
     [Fact]
+    public void MapsCompletedDistanceKmOntoTheWeek()
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            new TrainingWeek(new DateOnly(2026, 3, 2),
+            [
+                new TrainingDay(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(TrainingType.EasyRun, 5.0m),
+                    Completed: true),
+                new TrainingDay(
+                    new DateOnly(2026, 3, 5),
+                    new TrainingSession(TrainingType.Intervals, 8.0m))
+            ])
+        ]));
+
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
+            .Weeks[0].CompletedDistanceKm.Should().Be(5.0m);
+    }
+
+    [Fact]
+    public void ProgressSummaryComparesCompletedToPlanned()
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            new TrainingWeek(new DateOnly(2026, 3, 2),
+            [
+                new TrainingDay(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(TrainingType.EasyRun, 5.0m),
+                    Completed: true),
+                new TrainingDay(
+                    new DateOnly(2026, 3, 5),
+                    new TrainingSession(TrainingType.Intervals, 8.0m))
+            ])
+        ]));
+
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
+            .Weeks[0].ProgressSummary.Should().Be("5K of 13K");
+    }
+
+    [Fact]
+    public void ProgressSummaryIsEmptyForARestWeek()
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            new TrainingWeek(new DateOnly(2026, 3, 9),
+            [
+                new TrainingDay(new DateOnly(2026, 3, 9), null)
+            ])
+        ]));
+
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
+            .Weeks[0].ProgressSummary.Should().BeEmpty();
+    }
+
+    [Fact]
     public void ExposesZeroTotalDistanceKmForARestWeek()
     {
         _query.Execute().Returns(new TrainingCalendar(

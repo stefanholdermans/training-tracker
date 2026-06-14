@@ -129,6 +129,7 @@ public class TrainingPlanViewModel
             StartDate = week.StartDate,
             Days = [..week.Days.Select(MapDay)],
             TotalDistanceKm = week.TotalDistanceKm,
+            CompletedDistanceKm = week.CompletedDistanceKm,
             IntensityFraction = fraction,
             IntensityColor = IntensityColor(fraction, week.TotalDistanceKm)
         };

@@ -21,7 +21,7 @@ pipeline; no new plumbing is needed.
 
 - [x] Add the weekly-progress fixture and skipped acceptance tests
 - [x] `TrainingWeek.CompletedDistanceKm` sums the completed sessions
-- [ ] Map the completed weekly distance onto the week view model
-- [ ] Summarise weekly progress as "completed of planned"
+- [x] Map the completed weekly distance onto the week view model
+- [x] Summarise weekly progress as "completed of planned"
 - [ ] Show the weekly progress in the calendar's total column
 - [ ] Unmark the acceptance tests and tick the story off
