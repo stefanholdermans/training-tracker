@@ -12,6 +12,12 @@ public record TrainingCalendar(IReadOnlyList<TrainingWeek> Weeks)
     public DateOnly Today { get; init; }
 
     /// <summary>
+    /// The programme's title, such as "2026 Rotterdam Marathon", or
+    /// <c>null</c> when the plan carries none.
+    /// </summary>
+    public string? Title { get; init; }
+
+    /// <summary>
     /// The greatest weekly total across the calendar, or zero when empty.
     /// </summary>
     public decimal PeakWeeklyDistanceKm =>

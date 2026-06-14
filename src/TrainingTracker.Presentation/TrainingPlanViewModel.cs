@@ -33,6 +33,7 @@ public class TrainingPlanViewModel
 
     private int _plannedSessionCount;
     private int _completedSessionCount;
+    private string _title = string.Empty;
 
     public TrainingPlanViewModel(
         IGetTrainingPlanQuery query,
@@ -53,6 +54,12 @@ public class TrainingPlanViewModel
     }
 
     public IReadOnlyList<WeekViewModel> Weeks => _weeks;
+
+    /// <summary>
+    /// The programme's title for the page header; empty when the plan carries
+    /// none.
+    /// </summary>
+    public string Title => _title;
 
     /// <summary>
     /// The number of planned sessions across the programme; rest days do not
@@ -110,6 +117,9 @@ public class TrainingPlanViewModel
 
         _plannedSessionCount = plan.PlannedSessionCount;
         _completedSessionCount = plan.CompletedSessionCount;
+
+        // Placeholder: the real title is wired under unit tests.
+        _title = string.Empty;
     }
 
     private static IReadOnlyList<WeekViewModel> MapWeeks(

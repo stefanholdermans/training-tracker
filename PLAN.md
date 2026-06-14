@@ -1,24 +1,26 @@
-# Plan: The one where I spot a session I've missed
+# Plan: The one where I know which race I'm training for
 
-As a runner, I want sessions that were scheduled before today but never
-completed to stand out in the calendar, so that I can see at a glance
-where I've fallen behind the programme.
+As a runner, I want my training plan to have a title (such as "2026
+Rotterdam Marathon"), so that I can see at a glance which event the
+programme is preparing me for.
 
 ## Design
 
-A missed session is a planned session whose date is before today and
-which the runner has not checked off. The calendar already carries the
-date it was assembled for (`Today`), so this is a display concern just
-like highlighting today: the day mapping computes the flag from the day's
-own state and the calendar's `Today`.
+The title is plan-level metadata authored in the runner's JSON file
+alongside the sessions. The app never sets it, but it must not lose it:
+checking a session off rewrites the file, so the JSON repository
+preserves the title it already holds when saving.
 
-`DayViewModel` gains an `IsMissed` flag. A session due today but not yet
-done is not missed (the day is not over); a completed past session is not
-missed; a past rest day carries no session and so is never missed.
+Reading stays simple: the repository exposes the title through a
+`GetTitle()` companion to `GetAll()`, the query stamps the calendar with
+it, and the view model surfaces it for the page header. A plan with no
+title gives an empty header.
 
 ## Tasks
 
-- [x] Add the missed-session fixture and skipped acceptance tests
-- [x] `DayViewModel.IsMissed` flags past, undone sessions
-- [x] Make missed sessions stand out in the calendar page
-- [x] Unmark the acceptance tests and tick the story off
+- [ ] Read and preserve the plan title in the JSON repository
+- [ ] Add the title acceptance tests (skipped)
+- [ ] Stamp the calendar with the plan title from the repository
+- [ ] Surface the title on the view model (empty when there is none)
+- [ ] Show the plan title in the calendar page
+- [ ] Unmark the acceptance tests and tick the story off
