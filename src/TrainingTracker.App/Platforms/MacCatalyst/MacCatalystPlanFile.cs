@@ -100,18 +100,27 @@ public sealed class MacCatalystPlanFile : IPlanFilePicker, IPlanLocation
             return null;
         }
 
-        NSData data = NSData.FromArray(File.ReadAllBytes(BookmarkPath));
+        using NSData data = NSData.FromArray(File.ReadAllBytes(BookmarkPath));
+
+        // The binding marks security-scoped bookmark resolution macOS-only, but
+        // it is available — and required — for user-selected files on Mac
+        // Catalyst.
+#pragma warning disable CA1416
         NSUrl? url = NSUrl.FromBookmarkData(
             data,
             NSUrlBookmarkResolutionOptions.WithSecurityScope,
-            relativeToUrl: null,
-            isStale: out bool isStale,
-            error: out NSError? error);
+            null,
+            out bool isStale,
+            out NSError? error);
+#pragma warning restore CA1416
 
-        if (error is not null || url is null
-            || !url.StartAccessingSecurityScopedResource())
+        using (error)
         {
-            return null;
+            if (error is not null || url is null
+                || !url.StartAccessingSecurityScopedResource())
+            {
+                return null;
+            }
         }
 
         _scopedUrl = url;
@@ -126,15 +135,23 @@ public sealed class MacCatalystPlanFile : IPlanFilePicker, IPlanLocation
 
     private static void SaveBookmark(NSUrl url)
     {
+        // See ResolveBookmark: security-scoped bookmarks are supported on Mac
+        // Catalyst despite the binding's macOS-only marking.
+#pragma warning disable CA1416
         NSData? bookmark = url.CreateBookmarkData(
             NSUrlBookmarkCreationOptions.WithSecurityScope,
-            resourceValueForKeys: null,
-            relativeUrl: null,
-            error: out NSError? error);
+            [],
+            null,
+            out NSError? error);
+#pragma warning restore CA1416
 
-        if (error is null && bookmark is not null)
+        using (error)
+        using (bookmark)
         {
-            File.WriteAllBytes(BookmarkPath, bookmark.ToArray());
+            if (error is null && bookmark is not null)
+            {
+                File.WriteAllBytes(BookmarkPath, bookmark.ToArray());
+            }
         }
     }
 
