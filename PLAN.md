@@ -22,5 +22,5 @@ title gives an empty header.
 - [x] Add the title acceptance tests (skipped)
 - [x] Stamp the calendar with the plan title from the repository
 - [x] Surface the title on the view model (empty when there is none)
-- [ ] Show the plan title in the calendar page
-- [ ] Unmark the acceptance tests and tick the story off
+- [x] Show the plan title in the calendar page
+- [x] Unmark the acceptance tests and tick the story off

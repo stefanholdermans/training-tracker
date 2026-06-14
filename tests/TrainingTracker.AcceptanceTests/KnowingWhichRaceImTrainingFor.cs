@@ -41,13 +41,13 @@ public sealed class KnowingWhichRaceImTrainingFor : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void ThePlanTitleIsShown()
     {
         _viewModel.Title.Should().Be("2026 Rotterdam Marathon");
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void TheTitleSurvivesCheckingOffASession()
     {
         _viewModel.MarkCompleted(new DateOnly(2026, 3, 2));

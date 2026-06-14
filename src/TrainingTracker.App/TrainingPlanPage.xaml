@@ -13,10 +13,26 @@
         <local:HexToColorConverter x:Key="HexToColorConverter" />
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="Auto,Auto,*">
+    <Grid RowDefinitions="Auto,Auto,Auto,*">
+
+        <!-- Plan title -->
+        <Label Grid.Row="0"
+               Text="{Binding Title}"
+               Padding="12,12,12,0"
+               FontSize="20"
+               FontAttributes="Bold"
+               HorizontalOptions="Center">
+            <Label.Triggers>
+                <DataTrigger TargetType="Label"
+                             Binding="{Binding Title}"
+                             Value="">
+                    <Setter Property="IsVisible" Value="False" />
+                </DataTrigger>
+            </Label.Triggers>
+        </Label>
 
         <!-- Adherence summary -->
-        <Label Grid.Row="0"
+        <Label Grid.Row="1"
                Text="{Binding AdherenceSummary}"
                Padding="12,8,12,0"
                FontAttributes="Bold"
@@ -31,7 +47,7 @@
         </Label>
 
         <!-- Weekday header -->
-        <Grid Grid.Row="1"
+        <Grid Grid.Row="2"
               ColumnDefinitions="*,*,*,*,*,*,*,*"
               Padding="0,8">
             <Label Grid.Column="0" Text="Mon"   HorizontalOptions="Center" FontAttributes="Bold" />
@@ -45,7 +61,7 @@
         </Grid>
 
         <!-- Training weeks -->
-        <CollectionView Grid.Row="2"
+        <CollectionView Grid.Row="3"
                         ItemsSource="{Binding Weeks}">
             <CollectionView.EmptyView>
                 <Label Text="No training plan loaded. Tap Load Plan to choose a JSON file."
