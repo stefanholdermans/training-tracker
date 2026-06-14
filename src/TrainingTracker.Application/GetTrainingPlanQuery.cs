@@ -17,8 +17,7 @@ public class GetTrainingPlanQuery(ITrainingPlanRepository repository)
 
         var firstMonday = StartOfWeek(sessions.Min(s => s.Date));
         var lastMonday = StartOfWeek(sessions.Max(s => s.Date));
-        var sessionsByDate = sessions.ToDictionary(
-            s => s.Date, s => s.Session);
+        var scheduledByDate = sessions.ToDictionary(s => s.Date);
 
         var weeks = new List<TrainingWeek>();
         for (var monday = firstMonday;
@@ -27,14 +26,19 @@ public class GetTrainingPlanQuery(ITrainingPlanRepository repository)
         {
             var days = Enumerable.Range(0, 7)
                 .Select(i => monday.AddDays(i))
-                .Select(date => new TrainingDay(
-                    date, sessionsByDate.GetValueOrDefault(date)))
+                .Select(date => MapDay(
+                    date, scheduledByDate.GetValueOrDefault(date)))
                 .ToList();
             weeks.Add(new TrainingWeek(monday, days));
         }
 
         return new TrainingCalendar(weeks);
     }
+
+    private static TrainingDay MapDay(DateOnly date, ScheduledSession? scheduled)
+        => scheduled is null
+            ? new TrainingDay(date, null)
+            : new TrainingDay(date, scheduled.Session, scheduled.Completed);
 
     private static DateOnly StartOfWeek(DateOnly date)
     {

@@ -44,7 +44,7 @@ Each session gains an optional `completed` flag (absent ⇒ `false`):
 - [x] `JsonTrainingPlanRepository` reads `completed`
 - [x] `ITrainingPlanRepository.Save` + `JsonTrainingPlanRepository.Save`
       (active file, then through to the source file)
-- [ ] `GetTrainingPlanQuery` carries completion into the calendar
+- [x] `GetTrainingPlanQuery` carries completion into the calendar
 - [ ] `IMarkSessionCompletedCommand` + `MarkSessionCompletedCommand`
 - [ ] `TrainingPlanViewModel.MarkCompleted`
 - [ ] Unskip acceptance tests

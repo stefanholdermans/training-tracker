@@ -83,6 +83,39 @@ public class GetTrainingPlanQueryTests
     }
 
     [Fact]
+    public void ACompletedSessionsDayIsMarkedCompleted()
+    {
+        _repository.GetAll().Returns(
+        [
+            new ScheduledSession(
+                new DateOnly(2026, 3, 5),
+                new TrainingSession(TrainingType.Intervals, 8.0m),
+                Completed: true)
+        ]);
+
+        TrainingDay thursday = _query.Execute().Weeks[0].Days
+            .Single(d => d.Date == new DateOnly(2026, 3, 5));
+
+        thursday.Completed.Should().BeTrue();
+    }
+
+    [Fact]
+    public void AnUncompletedSessionsDayIsNotCompleted()
+    {
+        _repository.GetAll().Returns(
+        [
+            new ScheduledSession(
+                new DateOnly(2026, 3, 5),
+                new TrainingSession(TrainingType.Intervals, 8.0m))
+        ]);
+
+        TrainingDay thursday = _query.Execute().Weeks[0].Days
+            .Single(d => d.Date == new DateOnly(2026, 3, 5));
+
+        thursday.Completed.Should().BeFalse();
+    }
+
+    [Fact]
     public void SpansAllWeeksBetweenFirstAndLastSession()
     {
         // Sessions two weeks apart; the empty middle week must still appear.
