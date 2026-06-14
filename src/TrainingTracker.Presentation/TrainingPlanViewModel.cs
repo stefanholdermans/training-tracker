@@ -31,6 +31,9 @@ public class TrainingPlanViewModel
     /// </summary>
     private readonly ObservableCollection<WeekViewModel> _weeks = [];
 
+    private int _plannedSessionCount;
+    private int _completedSessionCount;
+
     public TrainingPlanViewModel(
         IGetTrainingPlanQuery query,
         ILoadTrainingPlanCommand loadCommand,
@@ -50,6 +53,25 @@ public class TrainingPlanViewModel
     }
 
     public IReadOnlyList<WeekViewModel> Weeks => _weeks;
+
+    /// <summary>
+    /// The number of planned sessions across the programme; rest days do not
+    /// count. Populated from the calendar; placeholder wiring pending under
+    /// unit tests.
+    /// </summary>
+    public int PlannedSessionCount => _plannedSessionCount;
+
+    /// <summary>
+    /// The number of planned sessions the runner has completed. Populated from
+    /// the calendar; placeholder wiring pending under unit tests.
+    /// </summary>
+    public int CompletedSessionCount => _completedSessionCount;
+
+    /// <summary>
+    /// A short summary of adherence, such as "3 of 5 sessions completed".
+    /// </summary>
+    public string AdherenceSummary =>
+        $"{_completedSessionCount} of {_plannedSessionCount} sessions completed";
 
     /// <summary>
     /// Loads the plan from the chosen file and refreshes the calendar.
@@ -87,6 +109,10 @@ public class TrainingPlanViewModel
         {
             _weeks.Add(week);
         }
+
+        // Placeholder: the real adherence counts are wired under unit tests.
+        _plannedSessionCount = 0;
+        _completedSessionCount = 0;
     }
 
     private static IReadOnlyList<WeekViewModel> MapWeeks(
