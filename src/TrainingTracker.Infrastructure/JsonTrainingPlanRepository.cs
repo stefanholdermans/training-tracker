@@ -11,6 +11,16 @@ namespace TrainingTracker.Infrastructure;
 public class JsonTrainingPlanRepository(string filePath)
     : ITrainingPlanRepository
 {
+    private static readonly JsonSerializerOptions s_serializerOptions = new()
+    {
+        WriteIndented = true,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+    };
+
+    // The runner's own file, remembered when a plan is loaded, so completions
+    // can be written through to it as well as to the active copy.
+    private string? _sourceFilePath;
+
     public IReadOnlyList<ScheduledSession> GetAll()
     {
         if (!File.Exists(filePath))
@@ -27,14 +37,38 @@ public class JsonTrainingPlanRepository(string filePath)
             .Select(ParseSession)];
     }
 
-    public void Load(string sourceFilePath) =>
+    public void Load(string sourceFilePath)
+    {
         File.Copy(sourceFilePath, filePath, overwrite: true);
+        _sourceFilePath = sourceFilePath;
+    }
 
     public void Save(IReadOnlyList<ScheduledSession> sessions)
     {
-        // Pending implementation: driven by unit tests next. See PLAN.md.
-        _ = sessions;
-        throw new NotImplementedException();
+        string json = Serialize(sessions);
+
+        File.WriteAllText(filePath, json);
+        if (_sourceFilePath is { } source && source != filePath)
+        {
+            File.WriteAllText(source, json);
+        }
+    }
+
+    private static string Serialize(IReadOnlyList<ScheduledSession> sessions)
+    {
+        var document = new
+        {
+            Sessions = sessions.Select(scheduled => new
+            {
+                Date = scheduled.Date.ToString(
+                    "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                Type = scheduled.Session.Type.ToString(),
+                DistanceKm = scheduled.Session.DistanceKm,
+                Completed = scheduled.Completed
+            })
+        };
+
+        return JsonSerializer.Serialize(document, s_serializerOptions);
     }
 
     private static ScheduledSession ParseSession(JsonElement element)

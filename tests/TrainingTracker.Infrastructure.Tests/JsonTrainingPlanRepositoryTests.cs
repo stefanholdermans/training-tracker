@@ -107,6 +107,74 @@ public class JsonTrainingPlanRepositoryTests
     }
 
     [Fact]
+    public void SaveRoundTripsThePlanIncludingCompletion()
+    {
+        string activePath = Path.GetTempFileName();
+
+        try
+        {
+            var repository = new JsonTrainingPlanRepository(activePath);
+            repository.Save(
+            [
+                new ScheduledSession(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(TrainingType.EasyRun, 5.0m),
+                    Completed: true)
+            ]);
+
+            IReadOnlyList<ScheduledSession> reloaded =
+                new JsonTrainingPlanRepository(activePath).GetAll();
+
+            reloaded.Should().ContainSingle();
+            reloaded[0].Date.Should().Be(new DateOnly(2026, 3, 2));
+            reloaded[0].Session.Type.Should().Be(TrainingType.EasyRun);
+            reloaded[0].Session.DistanceKm.Should().Be(5.0m);
+            reloaded[0].Completed.Should().BeTrue();
+        }
+        finally
+        {
+            File.Delete(activePath);
+        }
+    }
+
+    [Fact]
+    public void SaveWritesThroughToTheRunnersOwnPlanFileAfterLoading()
+    {
+        string activePath = Path.GetTempFileName();
+        string myPlanPath = Path.GetTempFileName();
+
+        try
+        {
+            File.WriteAllText(myPlanPath, """
+                {
+                  "sessions": [
+                    { "date": "2026-03-02", "type": "EasyRun", "distanceKm": 5.0 }
+                  ]
+                }
+                """);
+
+            var repository = new JsonTrainingPlanRepository(activePath);
+            repository.Load(myPlanPath);
+            repository.Save(
+            [
+                new ScheduledSession(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(TrainingType.EasyRun, 5.0m),
+                    Completed: true)
+            ]);
+
+            // The runner's own file on disk records the completion.
+            new JsonTrainingPlanRepository(myPlanPath).GetAll()[0]
+                .Completed.Should().BeTrue();
+        }
+        finally
+        {
+            File.Delete(activePath);
+            File.Delete(myPlanPath);
+        }
+    }
+
+    [Fact]
     public void AdoptsThePlanAtTheGivenPathAsTheActivePlan()
     {
         string activePath = Path.GetTempFileName();
