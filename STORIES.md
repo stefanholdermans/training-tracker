@@ -18,7 +18,7 @@ As a runner, I want rest days to be clearly distinguished from training days, so
 [x] **The one where I see what I've actually done**:
 As a runner, I want to see which sessions I've completed versus what was planned, so that I can quickly assess my adherence to the programme.
 
-[ ] **The one where I track my weekly progress**:
+[x] **The one where I track my weekly progress**:
 As a runner, I want to see my completed volume compared to the planned volume for the week, so that I can gauge whether I'm on track.
 
 [x] **The one where I load my own training plan**:

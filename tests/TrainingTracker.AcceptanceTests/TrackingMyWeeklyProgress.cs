@@ -26,7 +26,7 @@ public class TrackingMyWeeklyProgress
             new MarkSessionUncompletedCommand(repository));
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void EachWeekShowsItsCompletedDistance()
     {
         _viewModel.Weeks[0].CompletedDistanceKm.Should().Be(5.0m);
@@ -34,14 +34,14 @@ public class TrackingMyWeeklyProgress
         _viewModel.Weeks[2].CompletedDistanceKm.Should().Be(16.0m);
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void ProgressComparesCompletedToPlanned()
     {
         _viewModel.Weeks[0].ProgressSummary.Should().Be("5K of 13K");
         _viewModel.Weeks[2].ProgressSummary.Should().Be("16K of 16K");
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void ARestWeekHasNoProgressToReport()
     {
         _viewModel.Weeks[1].ProgressSummary.Should().BeEmpty();

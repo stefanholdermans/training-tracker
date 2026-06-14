@@ -479,6 +479,10 @@
                                 <Label Text="{Binding TotalDistanceKm, StringFormat='{0:0}K'}"
                                        FontAttributes="Bold"
                                        HorizontalOptions="Center" />
+                                <Label Text="{Binding ProgressSummary}"
+                                       FontSize="11"
+                                       TextColor="#2E7D32"
+                                       HorizontalOptions="Center" />
                                 <!-- Load relative to the peak week. A left-anchored ScaleX fill
                                      gives full control over height and colour (a ProgressBar's
                                      native bar can't be thickened or have its track removed). -->
