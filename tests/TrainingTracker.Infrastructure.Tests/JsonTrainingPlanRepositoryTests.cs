@@ -41,6 +41,61 @@ public class JsonTrainingPlanRepositoryTests
     }
 
     [Fact]
+    public void ReadsTheCompletedFlagFromTheJsonFile()
+    {
+        string json = """
+            {
+              "sessions": [
+                { "date": "2026-03-02", "type": "EasyRun", "distanceKm": 5.0,
+                  "completed": true }
+              ]
+            }
+            """;
+
+        string filePath = Path.GetTempFileName();
+
+        try
+        {
+            File.WriteAllText(filePath, json);
+
+            var repository = new JsonTrainingPlanRepository(filePath);
+
+            repository.GetAll()[0].Completed.Should().BeTrue();
+        }
+        finally
+        {
+            File.Delete(filePath);
+        }
+    }
+
+    [Fact]
+    public void ASessionWithoutACompletedFlagIsNotCompleted()
+    {
+        string json = """
+            {
+              "sessions": [
+                { "date": "2026-03-02", "type": "EasyRun", "distanceKm": 5.0 }
+              ]
+            }
+            """;
+
+        string filePath = Path.GetTempFileName();
+
+        try
+        {
+            File.WriteAllText(filePath, json);
+
+            var repository = new JsonTrainingPlanRepository(filePath);
+
+            repository.GetAll()[0].Completed.Should().BeFalse();
+        }
+        finally
+        {
+            File.Delete(filePath);
+        }
+    }
+
+    [Fact]
     public void ReturnsNoSessionsWhenTheActivePlanFileDoesNotExist()
     {
         string missingPath = Path.Combine(

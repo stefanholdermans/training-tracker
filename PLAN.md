@@ -41,7 +41,7 @@ Each session gains an optional `completed` flag (absent ⇒ `false`):
 - [ ] Acceptance tests for the story (skipped, "pending implementation")
 - [ ] `ScheduledSession.Completed`
 - [ ] `TrainingDay.Completed` / `DayViewModel.IsCompleted`
-- [ ] `JsonTrainingPlanRepository` reads `completed`
+- [x] `JsonTrainingPlanRepository` reads `completed`
 - [ ] `ITrainingPlanRepository.Save` + `JsonTrainingPlanRepository.Save`
       (active file, then through to the source file)
 - [ ] `GetTrainingPlanQuery` carries completion into the calendar

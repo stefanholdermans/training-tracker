@@ -44,9 +44,12 @@ public class JsonTrainingPlanRepository(string filePath)
         var type = element.GetProperty("type").GetString()
             ?? throw new InvalidOperationException("Session 'type' is null.");
         var distanceKm = element.GetProperty("distanceKm").GetDecimal();
+        var completed = element.TryGetProperty("completed", out var flag)
+            && flag.GetBoolean();
 
         return new ScheduledSession(
             DateOnly.Parse(date, CultureInfo.InvariantCulture),
-            new TrainingSession(Enum.Parse<TrainingType>(type), distanceKm));
+            new TrainingSession(Enum.Parse<TrainingType>(type), distanceKm),
+            completed);
     }
 }
