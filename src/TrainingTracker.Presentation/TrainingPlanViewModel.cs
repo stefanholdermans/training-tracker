@@ -182,6 +182,7 @@ public class TrainingPlanViewModel
                 TrainingType.Race => "#C09020",
                 _ => "#808080"
             },
-            DistanceKm = session.DistanceKm
+            DistanceKm = session.DistanceKm,
+            Strides = session.Strides
         };
 }

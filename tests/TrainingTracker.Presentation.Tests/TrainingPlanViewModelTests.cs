@@ -145,6 +145,40 @@ public class TrainingPlanViewModelTests
     }
 
     [Fact]
+    public void MapsTheSessionsStridesOntoItsDay()
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            new TrainingWeek(new DateOnly(2026, 3, 2),
+            [
+                new TrainingDay(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(TrainingType.EasyRun, 6.0m, Strides: 8))
+            ])
+        ]));
+
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
+            .Weeks[0].Days[0].Session?.Strides.Should().Be(8);
+    }
+
+    [Fact]
+    public void LeavesStridesNullForASessionWithoutThem()
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            new TrainingWeek(new DateOnly(2026, 3, 2),
+            [
+                new TrainingDay(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(TrainingType.EasyRun, 6.0m))
+            ])
+        ]));
+
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
+            .Weeks[0].Days[0].Session?.Strides.Should().BeNull();
+    }
+
+    [Fact]
     public void LeavesRestDaysWithNoSession()
     {
         _query.Execute().Returns(new TrainingCalendar(
