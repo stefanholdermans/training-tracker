@@ -23,9 +23,9 @@ query -> view-model pipeline.
 
 ## Tasks
 
-- [ ] Add the adherence fixture and skipped acceptance tests
-- [ ] `TrainingCalendar.PlannedSessionCount` counts days with a session
-- [ ] `TrainingCalendar.CompletedSessionCount` counts completed sessions
+- [x] Add the adherence fixture and skipped acceptance tests
+- [x] `TrainingCalendar.PlannedSessionCount` counts days with a session
+- [x] `TrainingCalendar.CompletedSessionCount` counts completed sessions
 - [ ] View model exposes `PlannedSessionCount` and `CompletedSessionCount`
 - [ ] View model exposes `AdherenceSummary` ("3 of 5 sessions completed")
 - [ ] Counts refresh after marking a session completed or uncompleted

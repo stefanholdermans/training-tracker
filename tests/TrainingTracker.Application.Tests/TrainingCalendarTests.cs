@@ -61,4 +61,56 @@ public class TrainingCalendarTests
 
         calendar.LowestActiveWeeklyDistanceKm.Should().BeNull();
     }
+
+    [Fact]
+    public void PlannedSessionCountCountsDaysThatCarryASession()
+    {
+        var calendar = new TrainingCalendar(
+        [
+            new TrainingWeek(new DateOnly(2026, 3, 2),
+            [
+                new TrainingDay(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(TrainingType.EasyRun, 5.0m)),
+                new TrainingDay(new DateOnly(2026, 3, 3), null),
+                new TrainingDay(
+                    new DateOnly(2026, 3, 5),
+                    new TrainingSession(TrainingType.Intervals, 8.0m))
+            ])
+        ]);
+
+        calendar.PlannedSessionCount.Should().Be(2);
+    }
+
+    [Fact]
+    public void PlannedSessionCountIsZeroForAnEmptyCalendar()
+    {
+        new TrainingCalendar([]).PlannedSessionCount.Should().Be(0);
+    }
+
+    [Fact]
+    public void CompletedSessionCountCountsOnlyCompletedSessions()
+    {
+        var calendar = new TrainingCalendar(
+        [
+            new TrainingWeek(new DateOnly(2026, 3, 2),
+            [
+                new TrainingDay(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(TrainingType.EasyRun, 5.0m),
+                    Completed: true),
+                new TrainingDay(
+                    new DateOnly(2026, 3, 5),
+                    new TrainingSession(TrainingType.Intervals, 8.0m))
+            ])
+        ]);
+
+        calendar.CompletedSessionCount.Should().Be(1);
+    }
+
+    [Fact]
+    public void CompletedSessionCountIsZeroForAnEmptyCalendar()
+    {
+        new TrainingCalendar([]).CompletedSessionCount.Should().Be(0);
+    }
 }

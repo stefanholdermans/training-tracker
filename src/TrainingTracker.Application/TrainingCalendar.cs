@@ -21,4 +21,17 @@ public record TrainingCalendar(IReadOnlyList<TrainingWeek> Weeks)
             .Where(km => km > 0)
             .Cast<decimal?>()
             .Min();
+
+    /// <summary>
+    /// The number of planned sessions across the programme; rest days do not
+    /// count.
+    /// </summary>
+    public int PlannedSessionCount =>
+        Weeks.Sum(w => w.Days.Count(d => d.Session is not null));
+
+    /// <summary>
+    /// The number of planned sessions the runner has completed.
+    /// </summary>
+    public int CompletedSessionCount =>
+        Weeks.Sum(w => w.Days.Count(d => d.Session is not null && d.Completed));
 }
