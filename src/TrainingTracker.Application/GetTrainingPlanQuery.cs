@@ -3,17 +3,28 @@ using TrainingTracker.Domain;
 namespace TrainingTracker.Application;
 
 /// <summary>
-/// Retrieves the training plan, grouping sessions into calendar weeks.
+/// Retrieves the training plan, grouping sessions into calendar weeks and
+/// stamping the calendar with the current date.
 /// </summary>
-public class GetTrainingPlanQuery(ITrainingPlanRepository repository)
+public class GetTrainingPlanQuery(
+    ITrainingPlanRepository repository, IClock clock)
     : IGetTrainingPlanQuery
 {
+    /// <summary>
+    /// Reads the plan against the machine's local date. A convenience for
+    /// callers that have no need to control "today".
+    /// </summary>
+    public GetTrainingPlanQuery(ITrainingPlanRepository repository)
+        : this(repository, new SystemClock())
+    {
+    }
+
     public TrainingCalendar Execute()
     {
         var sessions = repository.GetAll();
 
         if (sessions.Count == 0)
-            return new([]);
+            return new([]) { Today = clock.Today };
 
         var firstMonday = StartOfWeek(sessions.Min(s => s.Date));
         var lastMonday = StartOfWeek(sessions.Max(s => s.Date));
@@ -32,7 +43,7 @@ public class GetTrainingPlanQuery(ITrainingPlanRepository repository)
             weeks.Add(new TrainingWeek(monday, days));
         }
 
-        return new TrainingCalendar(weeks);
+        return new TrainingCalendar(weeks) { Today = clock.Today };
     }
 
     private static TrainingDay MapDay(DateOnly date, ScheduledSession? scheduled)

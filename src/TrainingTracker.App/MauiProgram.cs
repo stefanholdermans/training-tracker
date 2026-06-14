@@ -27,6 +27,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<ITrainingPlanRepository>(
             sp => new JsonTrainingPlanRepository(
                 sp.GetRequiredService<IPlanLocation>()));
+        builder.Services.AddSingleton<IClock, SystemClock>();
         builder.Services
             .AddSingleton<IGetTrainingPlanQuery, GetTrainingPlanQuery>();
         builder.Services

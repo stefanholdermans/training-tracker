@@ -33,6 +33,9 @@ As a runner, I want my training plan to have a title (such as "2026 Rotterdam Ma
 [ ] **The one where I know where I am today**:
 As a runner, I want today's date to be highlighted in the calendar view, so that I can immediately see where I am in my training plan.
 
+[ ] **The one where I spot a session I've missed**:
+As a runner, I want sessions that were scheduled before today but never completed to stand out in the calendar, so that I can see at a glance where I've fallen behind the programme.
+
 [x] **The one where I see the shape of my programme**:
 As a runner, I want the weekly mileage totals to be visually coded by how they compare to the peak week, so that I can grasp at a glance how the training load builds up and tapers across the programme.
 

@@ -6,6 +6,12 @@ namespace TrainingTracker.Application;
 public record TrainingCalendar(IReadOnlyList<TrainingWeek> Weeks)
 {
     /// <summary>
+    /// The date the calendar was assembled for, against which "today" is
+    /// judged. Defaults to the BCL's zero date when no clock stamped it.
+    /// </summary>
+    public DateOnly Today { get; init; }
+
+    /// <summary>
     /// The greatest weekly total across the calendar, or zero when empty.
     /// </summary>
     public decimal PeakWeeklyDistanceKm =>

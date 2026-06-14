@@ -116,6 +116,22 @@ public class GetTrainingPlanQueryTests
     }
 
     [Fact]
+    public void StampsTheCalendarWithTodayFromTheClock()
+    {
+        _repository.GetAll().Returns(
+        [
+            new ScheduledSession(
+                new DateOnly(2026, 3, 5),
+                new TrainingSession(TrainingType.Intervals, 8.0m))
+        ]);
+        var clock = Substitute.For<IClock>();
+        clock.Today.Returns(new DateOnly(2026, 3, 4));
+        var query = new GetTrainingPlanQuery(_repository, clock);
+
+        query.Execute().Today.Should().Be(new DateOnly(2026, 3, 4));
+    }
+
+    [Fact]
     public void SpansAllWeeksBetweenFirstAndLastSession()
     {
         // Sessions two weeks apart; the empty middle week must still appear.
