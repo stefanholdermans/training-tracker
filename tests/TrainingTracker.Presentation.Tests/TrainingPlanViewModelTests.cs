@@ -382,4 +382,67 @@ public class TrainingPlanViewModelTests
         viewModel.Weeks.Should().BeSameAs(weeks);
         viewModel.Weeks.Should().HaveCount(1);
     }
+
+    [Fact]
+    public void IsCompletedReflectsTheCalendarDay()
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            new TrainingWeek(new DateOnly(2026, 3, 2),
+            [
+                new TrainingDay(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(TrainingType.EasyRun, 5.0m),
+                    Completed: true)
+            ])
+        ]));
+
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand)
+            .Weeks[0].Days[0].IsCompleted.Should().BeTrue();
+    }
+
+    [Fact]
+    public void MarkCompletedMarksTheSessionThroughTheCommand()
+    {
+        _query.Execute().Returns(new TrainingCalendar([]));
+        var viewModel =
+            new TrainingPlanViewModel(_query, _loadCommand, _markCommand);
+
+        viewModel.MarkCompleted(new DateOnly(2026, 3, 2));
+
+        _markCommand.Received(1).Execute(new DateOnly(2026, 3, 2));
+    }
+
+    [Fact]
+    public void MarkCompletedRefreshesTheDaySoItReadsAsCompleted()
+    {
+        _query.Execute().Returns(
+            new TrainingCalendar(
+            [
+                new TrainingWeek(new DateOnly(2026, 3, 2),
+                [
+                    new TrainingDay(
+                        new DateOnly(2026, 3, 2),
+                        new TrainingSession(TrainingType.EasyRun, 5.0m))
+                ])
+            ]),
+            new TrainingCalendar(
+            [
+                new TrainingWeek(new DateOnly(2026, 3, 2),
+                [
+                    new TrainingDay(
+                        new DateOnly(2026, 3, 2),
+                        new TrainingSession(TrainingType.EasyRun, 5.0m),
+                        Completed: true)
+                ])
+            ]));
+        var viewModel =
+            new TrainingPlanViewModel(_query, _loadCommand, _markCommand);
+        var weeks = viewModel.Weeks;
+
+        viewModel.MarkCompleted(new DateOnly(2026, 3, 2));
+
+        viewModel.Weeks.Should().BeSameAs(weeks);
+        viewModel.Weeks[0].Days[0].IsCompleted.Should().BeTrue();
+    }
 }

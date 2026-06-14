@@ -46,7 +46,7 @@ Each session gains an optional `completed` flag (absent ⇒ `false`):
       (active file, then through to the source file)
 - [x] `GetTrainingPlanQuery` carries completion into the calendar
 - [x] `IMarkSessionCompletedCommand` + `MarkSessionCompletedCommand`
-- [ ] `TrainingPlanViewModel.MarkCompleted`
+- [x] `TrainingPlanViewModel.MarkCompleted`
 - [ ] Unskip acceptance tests
 - [ ] MacCatalyst: read-write entitlement + security-scoped picker
 - [ ] Tap a day to check it off + completed tick in `TrainingPlanPage.xaml`

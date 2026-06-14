@@ -62,10 +62,8 @@ public class TrainingPlanViewModel
     /// </summary>
     public void MarkCompleted(DateOnly date)
     {
-        // Pending implementation: driven by unit tests next. See PLAN.md.
-        _ = _markCompletedCommand;
-        _ = date;
-        throw new NotImplementedException();
+        _markCompletedCommand.Execute(date);
+        Populate(_query.Execute());
     }
 
     private void Populate(TrainingCalendar plan)
@@ -143,7 +141,8 @@ public class TrainingPlanViewModel
         new()
         {
             Date = day.Date,
-            Session = day.Session is { } session ? MapSession(session) : null
+            Session = day.Session is { } session ? MapSession(session) : null,
+            IsCompleted = day.Completed
         };
 
     private static SessionViewModel MapSession(TrainingSession session) =>
