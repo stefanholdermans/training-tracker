@@ -77,6 +77,12 @@
                                         </Setter.Value>
                                     </Setter>
                                 </DataTrigger>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Days[0].IsToday}"
+                                             Value="True">
+                                    <Setter Property="Stroke" Value="#1565C0" />
+                                    <Setter Property="StrokeThickness" Value="2" />
+                                </DataTrigger>
                             </Border.Triggers>
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[0].Date, StringFormat='{0:MMM d, yyyy}'}"
@@ -135,6 +141,12 @@
                                                              Dark="{StaticResource RestDayBackgroundDark}" />
                                         </Setter.Value>
                                     </Setter>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Days[1].IsToday}"
+                                             Value="True">
+                                    <Setter Property="Stroke" Value="#1565C0" />
+                                    <Setter Property="StrokeThickness" Value="2" />
                                 </DataTrigger>
                             </Border.Triggers>
                             <VerticalStackLayout>
@@ -195,6 +207,12 @@
                                         </Setter.Value>
                                     </Setter>
                                 </DataTrigger>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Days[2].IsToday}"
+                                             Value="True">
+                                    <Setter Property="Stroke" Value="#1565C0" />
+                                    <Setter Property="StrokeThickness" Value="2" />
+                                </DataTrigger>
                             </Border.Triggers>
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[2].Date, StringFormat='{0:MMM d, yyyy}'}"
@@ -253,6 +271,12 @@
                                                              Dark="{StaticResource RestDayBackgroundDark}" />
                                         </Setter.Value>
                                     </Setter>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Days[3].IsToday}"
+                                             Value="True">
+                                    <Setter Property="Stroke" Value="#1565C0" />
+                                    <Setter Property="StrokeThickness" Value="2" />
                                 </DataTrigger>
                             </Border.Triggers>
                             <VerticalStackLayout>
@@ -313,6 +337,12 @@
                                         </Setter.Value>
                                     </Setter>
                                 </DataTrigger>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Days[4].IsToday}"
+                                             Value="True">
+                                    <Setter Property="Stroke" Value="#1565C0" />
+                                    <Setter Property="StrokeThickness" Value="2" />
+                                </DataTrigger>
                             </Border.Triggers>
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[4].Date, StringFormat='{0:MMM d, yyyy}'}"
@@ -372,6 +402,12 @@
                                         </Setter.Value>
                                     </Setter>
                                 </DataTrigger>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Days[5].IsToday}"
+                                             Value="True">
+                                    <Setter Property="Stroke" Value="#1565C0" />
+                                    <Setter Property="StrokeThickness" Value="2" />
+                                </DataTrigger>
                             </Border.Triggers>
                             <VerticalStackLayout>
                                 <Label Text="{Binding Days[5].Date, StringFormat='{0:MMM d, yyyy}'}"
@@ -430,6 +466,12 @@
                                                              Dark="{StaticResource RestDayBackgroundDark}" />
                                         </Setter.Value>
                                     </Setter>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Days[6].IsToday}"
+                                             Value="True">
+                                    <Setter Property="Stroke" Value="#1565C0" />
+                                    <Setter Property="StrokeThickness" Value="2" />
                                 </DataTrigger>
                             </Border.Triggers>
                             <VerticalStackLayout>

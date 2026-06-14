@@ -30,7 +30,7 @@ As a runner, I want the app to start without any training plan loaded, so that I
 [ ] **The one where I know which race I'm training for**:
 As a runner, I want my training plan to have a title (such as "2026 Rotterdam Marathon"), so that I can see at a glance which event the programme is preparing me for.
 
-[ ] **The one where I know where I am today**:
+[x] **The one where I know where I am today**:
 As a runner, I want today's date to be highlighted in the calendar view, so that I can immediately see where I am in my training plan.
 
 [ ] **The one where I spot a session I've missed**:

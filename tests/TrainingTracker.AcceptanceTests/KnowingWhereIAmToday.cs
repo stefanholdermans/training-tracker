@@ -31,19 +31,19 @@ public class KnowingWhereIAmToday
         _viewModel.Weeks.SelectMany(week => week.Days)
             .Single(day => day.Date == date);
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void TodaysCellIsMarkedAsToday()
     {
         DayOn(new DateOnly(2026, 3, 4)).IsToday.Should().BeTrue();
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void AnotherDayWithASessionIsNotToday()
     {
         DayOn(new DateOnly(2026, 3, 5)).IsToday.Should().BeFalse();
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void AnotherRestDayIsNotToday()
     {
         DayOn(new DateOnly(2026, 3, 3)).IsToday.Should().BeFalse();
