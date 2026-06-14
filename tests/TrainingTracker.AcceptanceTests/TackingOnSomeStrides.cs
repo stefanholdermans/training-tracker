@@ -28,25 +28,25 @@ public class TackingOnSomeStrides
     private SessionViewModel SessionOn(DateOnly date) =>
         _viewModel.Weeks[0].Days.Single(d => d.Date == date).Session!;
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void ASessionWithStridesExposesTheCount()
     {
         SessionOn(new DateOnly(2026, 3, 2)).Strides.Should().Be(8);
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void ASessionWithStridesShowsThemAlongsideTheDistance()
     {
         SessionOn(new DateOnly(2026, 3, 2)).Distance.Should().Be("6K + 8 ST");
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void ASessionWithoutStridesHasNone()
     {
         SessionOn(new DateOnly(2026, 3, 4)).Strides.Should().BeNull();
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void ASessionWithoutStridesShowsOnlyTheDistance()
     {
         SessionOn(new DateOnly(2026, 3, 4)).Distance.Should().Be("10K");

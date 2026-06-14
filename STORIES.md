@@ -39,5 +39,5 @@ As a runner, I want the weekly mileage totals to be visually coded by how they c
 [ ] **The one where I take in the whole arc at once**:
 As a runner, I want a compact overview of every week's planned volume across the entire programme, so that I can take in the overall build-up and taper in a single glance without scrolling through the calendar week by week.
 
-[ ] **The one where I tack on some strides**:
+[x] **The one where I tack on some strides**:
 As a runner, I want certain sessions to carry a number of strides (short accelerations of roughly 100 m) shown alongside the planned distance, such as "6K + 8 ST", so that I can see at a glance when a run finishes with strides.
