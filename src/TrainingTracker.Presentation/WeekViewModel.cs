@@ -18,6 +18,12 @@ public class WeekViewModel
 
     public required double IntensityFraction { get; init; }
 
+    /// <summary>
+    /// The week's planned volume as a plain proportion of the peak week, for
+    /// the compact overview: zero for a rest week, one for the peak.
+    /// </summary>
+    public double OverviewHeightFraction { get; init; }
+
     public required string IntensityColor { get; init; }
 
     /// <summary>

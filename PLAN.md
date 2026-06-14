@@ -1,26 +1,26 @@
-# Plan: The one where I know which race I'm training for
+# Plan: The one where I take in the whole arc at once
 
-As a runner, I want my training plan to have a title (such as "2026
-Rotterdam Marathon"), so that I can see at a glance which event the
-programme is preparing me for.
+As a runner, I want a compact overview of every week's planned volume
+across the entire programme, so that I can take in the overall build-up
+and taper in a single glance without scrolling through the calendar week
+by week.
 
 ## Design
 
-The title is plan-level metadata authored in the runner's JSON file
-alongside the sessions. The app never sets it, but it must not lose it:
-checking a session off rewrites the file, so the JSON repository
-preserves the title it already holds when saving.
+The overview is a sparkline-style strip: one slim bar per week, its
+height proportional to that week's planned volume against the peak week.
+Unlike the calendar's IntensityFraction — which compresses active weeks
+into a [0.15, 1] band so each reads as effort — the overview wants the
+true shape, so its height is a plain linear proportion: a rest week is
+empty, the peak week is full, everything else sits in between.
 
-Reading stays simple: the repository exposes the title through a
-`GetTitle()` companion to `GetAll()`, the query stamps the calendar with
-it, and the view model surfaces it for the page header. A plan with no
-title gives an empty header.
+The fraction belongs on the week view model as `OverviewHeightFraction`,
+computed from the week's total and the calendar's peak. The page renders
+the bars in a compact row above the calendar.
 
 ## Tasks
 
-- [x] Read and preserve the plan title in the JSON repository
-- [x] Add the title acceptance tests (skipped)
-- [x] Stamp the calendar with the plan title from the repository
-- [x] Surface the title on the view model (empty when there is none)
-- [x] Show the plan title in the calendar page
-- [x] Unmark the acceptance tests and tick the story off
+- [ ] Add the overview acceptance tests (skipped)
+- [ ] `WeekViewModel.OverviewHeightFraction` is volume against the peak
+- [ ] Render the compact overview strip on the calendar page
+- [ ] Unmark the acceptance tests and tick the story off
