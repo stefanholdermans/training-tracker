@@ -117,9 +117,7 @@ public class TrainingPlanViewModel
 
         _plannedSessionCount = plan.PlannedSessionCount;
         _completedSessionCount = plan.CompletedSessionCount;
-
-        // Placeholder: the real title is wired under unit tests.
-        _title = string.Empty;
+        _title = plan.Title ?? string.Empty;
     }
 
     private static IReadOnlyList<WeekViewModel> MapWeeks(

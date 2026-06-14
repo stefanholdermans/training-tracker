@@ -652,6 +652,27 @@ public class TrainingPlanViewModelTests
     }
 
     [Fact]
+    public void ExposesThePlanTitleFromTheCalendar()
+    {
+        _query.Execute().Returns(new TrainingCalendar([])
+        {
+            Title = "2026 Rotterdam Marathon"
+        });
+
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
+            .Title.Should().Be("2026 Rotterdam Marathon");
+    }
+
+    [Fact]
+    public void TitleIsEmptyWhenThePlanCarriesNone()
+    {
+        _query.Execute().Returns(new TrainingCalendar([]));
+
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
+            .Title.Should().BeEmpty();
+    }
+
+    [Fact]
     public void ExposesPlannedAndCompletedSessionCountsFromTheCalendar()
     {
         _query.Execute().Returns(new TrainingCalendar(
