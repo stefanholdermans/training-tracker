@@ -11,7 +11,15 @@ public class WeekViewModel
 
     public required decimal TotalDistanceKm { get; init; }
 
+    /// <summary>
+    /// The volume the runner has completed this week.
+    /// </summary>
+    public decimal CompletedDistanceKm { get; init; }
+
     public required double IntensityFraction { get; init; }
 
     public required string IntensityColor { get; init; }
+
+    // Placeholder: the "completed of planned" summary follows under unit tests.
+    public string ProgressSummary => $"{CompletedDistanceKm:0}K";
 }

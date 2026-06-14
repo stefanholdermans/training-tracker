@@ -1,33 +1,27 @@
-# Plan: The one where I see what I've actually done
+# Plan: The one where I track my weekly progress
 
-As a runner, I want to see which sessions I've completed versus what was
-planned, so that I can quickly assess my adherence to the programme.
+As a runner, I want to see my completed volume compared to the planned
+volume for the week, so that I can gauge whether I'm on track.
 
 ## Design
 
-Adherence is a property of the whole programme: how many of the planned
-sessions has the runner actually done? A planned session is any day that
-carries a session (rest days do not count); a completed session is a
-planned session the runner has checked off.
+Each week already reports its planned volume as `TotalDistanceKm`. The
+completed volume is the same sum restricted to the sessions the runner
+has checked off, so it belongs alongside it on `TrainingWeek` as
+`CompletedDistanceKm`.
 
-The counts are derived from the calendar the query already produces, so
-they belong on `TrainingCalendar` as `PlannedSessionCount` and
-`CompletedSessionCount`, alongside the existing peak/lowest-week
-calculations. The view model surfaces both counts and a short summary
-string ("3 of 5 sessions completed") for the page header, and refreshes
-them whenever a session is checked off or undone, exactly as the weeks
-already refresh.
+The week view model surfaces the completed distance and a short
+"5K of 13K" progress summary for the week's total column. A rest week
+(no planned volume) has no progress to report, so its summary is empty.
 
-No new plumbing is needed: the figures ride the existing repository ->
-query -> view-model pipeline.
+The figures ride the existing repository -> query -> view-model
+pipeline; no new plumbing is needed.
 
 ## Tasks
 
-- [x] Add the adherence fixture and skipped acceptance tests
-- [x] `TrainingCalendar.PlannedSessionCount` counts days with a session
-- [x] `TrainingCalendar.CompletedSessionCount` counts completed sessions
-- [x] View model exposes `PlannedSessionCount` and `CompletedSessionCount`
-- [x] View model exposes `AdherenceSummary` ("3 of 5 sessions completed")
-- [x] Counts refresh after marking a session completed or uncompleted
-- [x] Show the adherence summary in the calendar page
-- [x] Unmark the acceptance tests and tick the story off
+- [ ] Add the weekly-progress fixture and skipped acceptance tests
+- [ ] `TrainingWeek.CompletedDistanceKm` sums the completed sessions
+- [ ] Map the completed weekly distance onto the week view model
+- [ ] Summarise weekly progress as "completed of planned"
+- [ ] Show the weekly progress in the calendar's total column
+- [ ] Unmark the acceptance tests and tick the story off
