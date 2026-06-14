@@ -94,7 +94,7 @@
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <Label Text="{Binding Days[0].Session.DistanceKm, StringFormat='{0:0}K'}"
+                                <Label Text="{Binding Days[0].Session.Distance}"
                                        FontSize="13" />
                                 <Label Text="✓ Done"
                                        IsVisible="{Binding Days[0].IsCompleted}"
@@ -153,7 +153,7 @@
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <Label Text="{Binding Days[1].Session.DistanceKm, StringFormat='{0:0}K'}"
+                                <Label Text="{Binding Days[1].Session.Distance}"
                                        FontSize="13" />
                                 <Label Text="✓ Done"
                                        IsVisible="{Binding Days[1].IsCompleted}"
@@ -212,7 +212,7 @@
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <Label Text="{Binding Days[2].Session.DistanceKm, StringFormat='{0:0}K'}"
+                                <Label Text="{Binding Days[2].Session.Distance}"
                                        FontSize="13" />
                                 <Label Text="✓ Done"
                                        IsVisible="{Binding Days[2].IsCompleted}"
@@ -271,7 +271,7 @@
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <Label Text="{Binding Days[3].Session.DistanceKm, StringFormat='{0:0}K'}"
+                                <Label Text="{Binding Days[3].Session.Distance}"
                                        FontSize="13" />
                                 <Label Text="✓ Done"
                                        IsVisible="{Binding Days[3].IsCompleted}"
@@ -330,7 +330,7 @@
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <Label Text="{Binding Days[4].Session.DistanceKm, StringFormat='{0:0}K'}"
+                                <Label Text="{Binding Days[4].Session.Distance}"
                                        FontSize="13" />
                                 <Label Text="✓ Done"
                                        IsVisible="{Binding Days[4].IsCompleted}"
@@ -389,7 +389,7 @@
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <Label Text="{Binding Days[5].Session.DistanceKm, StringFormat='{0:0}K'}"
+                                <Label Text="{Binding Days[5].Session.Distance}"
                                        FontSize="13" />
                                 <Label Text="✓ Done"
                                        IsVisible="{Binding Days[5].IsCompleted}"
@@ -448,7 +448,7 @@
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <Label Text="{Binding Days[6].Session.DistanceKm, StringFormat='{0:0}K'}"
+                                <Label Text="{Binding Days[6].Session.Distance}"
                                        FontSize="13" />
                                 <Label Text="✓ Done"
                                        IsVisible="{Binding Days[6].IsCompleted}"

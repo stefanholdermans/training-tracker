@@ -16,6 +16,11 @@ public class SessionViewModel
     /// </summary>
     public int? Strides { get; init; }
 
-    // Placeholder: the strides-aware display text follows under unit tests.
-    public string Distance => $"{DistanceKm:0}K";
+    /// <summary>
+    /// The distance shown in the calendar: whole kilometres, with the strides
+    /// appended when there are some, as in "6K + 8 ST".
+    /// </summary>
+    public string Distance => Strides is { } strides
+        ? $"{DistanceKm:0}K + {strides} ST"
+        : $"{DistanceKm:0}K";
 }
