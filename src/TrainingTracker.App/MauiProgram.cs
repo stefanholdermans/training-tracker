@@ -34,6 +34,9 @@ public static class MauiProgram
         builder.Services
             .AddSingleton<IMarkSessionCompletedCommand,
                 MarkSessionCompletedCommand>();
+        builder.Services
+            .AddSingleton<IMarkSessionUncompletedCommand,
+                MarkSessionUncompletedCommand>();
 #if MACCATALYST
         // One object both picks the runner's file and remembers it across
         // launches, so it serves as picker and location alike.

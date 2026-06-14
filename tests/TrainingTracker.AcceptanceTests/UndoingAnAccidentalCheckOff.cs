@@ -77,7 +77,7 @@ public sealed class UndoingAnAccidentalCheckOff : IDisposable
             && flag.GetBoolean();
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void UnmarkingARunShowsItAsUncompleted()
     {
         DayOn(_viewModel, EasyRunDay).IsCompleted.Should().BeTrue();
@@ -87,7 +87,7 @@ public sealed class UndoingAnAccidentalCheckOff : IDisposable
         DayOn(_viewModel, EasyRunDay).IsCompleted.Should().BeFalse();
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void OtherSessionsStayCompleted()
     {
         _viewModel.MarkUncompleted(EasyRunDay);
@@ -95,7 +95,7 @@ public sealed class UndoingAnAccidentalCheckOff : IDisposable
         DayOn(_viewModel, IntervalsDay).IsCompleted.Should().BeTrue();
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void UncompletionIsWrittenToTheRunnersOwnFileOnDisk()
     {
         _viewModel.MarkUncompleted(EasyRunDay);
@@ -103,7 +103,7 @@ public sealed class UndoingAnAccidentalCheckOff : IDisposable
         CompletedInMyPlanFile("2026-09-07").Should().BeFalse();
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void UncompletionSurvivesARestart()
     {
         _viewModel.MarkUncompleted(EasyRunDay);

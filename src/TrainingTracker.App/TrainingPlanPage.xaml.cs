@@ -45,13 +45,21 @@ public partial class TrainingPlanPage : ContentPage
     }
 
     /// <summary>
-    /// Checks off the tapped day's run, when it has one that the runner has not
-    /// already completed.
+    /// Toggles the tapped day's run between completed and uncompleted, so a
+    /// check-off made by mistake can be undone with another tap.
     /// </summary>
     private void OnDayTapped(object? sender, TappedEventArgs e)
     {
-        if (e.Parameter is DayViewModel { IsRestDay: false, IsCompleted: false }
-            day)
+        if (e.Parameter is not DayViewModel { IsRestDay: false } day)
+        {
+            return;
+        }
+
+        if (day.IsCompleted)
+        {
+            _viewModel.MarkUncompleted(day.Date);
+        }
+        else
         {
             _viewModel.MarkCompleted(day.Date);
         }
