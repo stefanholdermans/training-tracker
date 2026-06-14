@@ -630,6 +630,35 @@ public class TrainingPlanViewModelTests
     }
 
     [Fact]
+    public void LoadPlanRaisesPropertyChangedSoBoundHeadersRefresh()
+    {
+        _query.Execute().Returns(
+            new TrainingCalendar([]),
+            new TrainingCalendar(
+            [
+                new TrainingWeek(new DateOnly(2026, 3, 2),
+                [
+                    new TrainingDay(
+                        new DateOnly(2026, 3, 2),
+                        new TrainingSession(TrainingType.EasyRun, 5.0m))
+                ])
+            ])
+            {
+                Title = "2026 Rotterdam Marathon"
+            });
+        var viewModel = new TrainingPlanViewModel(
+            _query, _loadCommand, _markCommand, _unmarkCommand);
+        using var monitored = viewModel.Monitor();
+
+        viewModel.LoadPlan("/runner/my-plan.json");
+
+        monitored.Should().RaisePropertyChangeFor(vm => vm.Title);
+        monitored.Should().RaisePropertyChangeFor(vm => vm.AdherenceSummary);
+        monitored.Should().RaisePropertyChangeFor(vm => vm.PlannedSessionCount);
+        monitored.Should().RaisePropertyChangeFor(vm => vm.CompletedSessionCount);
+    }
+
+    [Fact]
     public void IsCompletedReflectsTheCalendarDay()
     {
         _query.Execute().Returns(new TrainingCalendar(
@@ -789,6 +818,39 @@ public class TrainingPlanViewModelTests
 
         viewModel.CompletedSessionCount.Should().Be(1);
         viewModel.AdherenceSummary.Should().Be("1 of 1 sessions completed");
+    }
+
+    [Fact]
+    public void MarkCompletedRaisesPropertyChangedForTheAdherenceHeader()
+    {
+        _query.Execute().Returns(
+            new TrainingCalendar(
+            [
+                new TrainingWeek(new DateOnly(2026, 3, 2),
+                [
+                    new TrainingDay(
+                        new DateOnly(2026, 3, 2),
+                        new TrainingSession(TrainingType.EasyRun, 5.0m))
+                ])
+            ]),
+            new TrainingCalendar(
+            [
+                new TrainingWeek(new DateOnly(2026, 3, 2),
+                [
+                    new TrainingDay(
+                        new DateOnly(2026, 3, 2),
+                        new TrainingSession(TrainingType.EasyRun, 5.0m),
+                        Completed: true)
+                ])
+            ]));
+        var viewModel = new TrainingPlanViewModel(
+            _query, _loadCommand, _markCommand, _unmarkCommand);
+        using var monitored = viewModel.Monitor();
+
+        viewModel.MarkCompleted(new DateOnly(2026, 3, 2));
+
+        monitored.Should().RaisePropertyChangeFor(vm => vm.AdherenceSummary);
+        monitored.Should().RaisePropertyChangeFor(vm => vm.CompletedSessionCount);
     }
 
     [Fact]

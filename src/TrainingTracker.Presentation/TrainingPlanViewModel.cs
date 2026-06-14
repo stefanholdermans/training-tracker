@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using TrainingTracker.Application;
 using TrainingTracker.Domain;
 
@@ -7,7 +8,7 @@ namespace TrainingTracker.Presentation;
 /// <summary>
 /// Exposes the training plan as a sequence of calendar weeks for display.
 /// </summary>
-public class TrainingPlanViewModel
+public class TrainingPlanViewModel : INotifyPropertyChanged
 {
     /// <summary>
     /// Smallest visible fraction, so the lowest active week still reads as
@@ -52,6 +53,12 @@ public class TrainingPlanViewModel
         _markUncompletedCommand = markUncompletedCommand;
         Populate(query.Execute());
     }
+
+    /// <summary>
+    /// Raised when the header figures change, so bound labels re-read them.
+    /// The <see cref="Weeks"/> collection notifies through its own observable.
+    /// </summary>
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     public IReadOnlyList<WeekViewModel> Weeks => _weeks;
 
@@ -118,7 +125,15 @@ public class TrainingPlanViewModel
         _plannedSessionCount = plan.PlannedSessionCount;
         _completedSessionCount = plan.CompletedSessionCount;
         _title = plan.Title ?? string.Empty;
+
+        Notify(nameof(Title));
+        Notify(nameof(AdherenceSummary));
+        Notify(nameof(PlannedSessionCount));
+        Notify(nameof(CompletedSessionCount));
     }
+
+    private void Notify(string propertyName) =>
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
     private static IReadOnlyList<WeekViewModel> MapWeeks(
         TrainingCalendar plan) =>
