@@ -132,6 +132,20 @@ public class GetTrainingPlanQueryTests
     }
 
     [Fact]
+    public void StampsTheCalendarWithTheTitleFromTheRepository()
+    {
+        _repository.GetAll().Returns(
+        [
+            new ScheduledSession(
+                new DateOnly(2026, 3, 5),
+                new TrainingSession(TrainingType.Intervals, 8.0m))
+        ]);
+        _repository.GetTitle().Returns("2026 Rotterdam Marathon");
+
+        _query.Execute().Title.Should().Be("2026 Rotterdam Marathon");
+    }
+
+    [Fact]
     public void SpansAllWeeksBetweenFirstAndLastSession()
     {
         // Sessions two weeks apart; the empty middle week must still appear.

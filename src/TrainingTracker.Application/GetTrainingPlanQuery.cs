@@ -24,7 +24,7 @@ public class GetTrainingPlanQuery(
         var sessions = repository.GetAll();
 
         if (sessions.Count == 0)
-            return new([]) { Today = clock.Today };
+            return new([]) { Today = clock.Today, Title = repository.GetTitle() };
 
         var firstMonday = StartOfWeek(sessions.Min(s => s.Date));
         var lastMonday = StartOfWeek(sessions.Max(s => s.Date));
@@ -43,7 +43,11 @@ public class GetTrainingPlanQuery(
             weeks.Add(new TrainingWeek(monday, days));
         }
 
-        return new TrainingCalendar(weeks) { Today = clock.Today };
+        return new TrainingCalendar(weeks)
+        {
+            Today = clock.Today,
+            Title = repository.GetTitle()
+        };
     }
 
     private static TrainingDay MapDay(DateOnly date, ScheduledSession? scheduled)

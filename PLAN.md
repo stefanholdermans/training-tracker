@@ -20,7 +20,7 @@ title gives an empty header.
 
 - [x] Read and preserve the plan title in the JSON repository
 - [x] Add the title acceptance tests (skipped)
-- [ ] Stamp the calendar with the plan title from the repository
+- [x] Stamp the calendar with the plan title from the repository
 - [ ] Surface the title on the view model (empty when there is none)
 - [ ] Show the plan title in the calendar page
 - [ ] Unmark the acceptance tests and tick the story off
