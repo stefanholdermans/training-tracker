@@ -447,4 +447,49 @@ public class TrainingPlanViewModelTests
         viewModel.Weeks.Should().BeSameAs(weeks);
         viewModel.Weeks[0].Days[0].IsCompleted.Should().BeTrue();
     }
+
+    [Fact]
+    public void MarkUncompletedClearsTheSessionThroughTheCommand()
+    {
+        _query.Execute().Returns(new TrainingCalendar([]));
+        var viewModel = new TrainingPlanViewModel(
+            _query, _loadCommand, _markCommand, _unmarkCommand);
+
+        viewModel.MarkUncompleted(new DateOnly(2026, 3, 2));
+
+        _unmarkCommand.Received(1).Execute(new DateOnly(2026, 3, 2));
+    }
+
+    [Fact]
+    public void MarkUncompletedRefreshesTheDaySoItReadsAsUncompleted()
+    {
+        _query.Execute().Returns(
+            new TrainingCalendar(
+            [
+                new TrainingWeek(new DateOnly(2026, 3, 2),
+                [
+                    new TrainingDay(
+                        new DateOnly(2026, 3, 2),
+                        new TrainingSession(TrainingType.EasyRun, 5.0m),
+                        Completed: true)
+                ])
+            ]),
+            new TrainingCalendar(
+            [
+                new TrainingWeek(new DateOnly(2026, 3, 2),
+                [
+                    new TrainingDay(
+                        new DateOnly(2026, 3, 2),
+                        new TrainingSession(TrainingType.EasyRun, 5.0m))
+                ])
+            ]));
+        var viewModel = new TrainingPlanViewModel(
+            _query, _loadCommand, _markCommand, _unmarkCommand);
+        var weeks = viewModel.Weeks;
+
+        viewModel.MarkUncompleted(new DateOnly(2026, 3, 2));
+
+        viewModel.Weeks.Should().BeSameAs(weeks);
+        viewModel.Weeks[0].Days[0].IsCompleted.Should().BeFalse();
+    }
 }

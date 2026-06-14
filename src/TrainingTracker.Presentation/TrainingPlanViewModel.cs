@@ -74,8 +74,11 @@ public class TrainingPlanViewModel
     /// Marks the session on the given date as uncompleted and refreshes the
     /// calendar.
     /// </summary>
-    public void MarkUncompleted(DateOnly date) =>
-        throw new NotImplementedException();
+    public void MarkUncompleted(DateOnly date)
+    {
+        _markUncompletedCommand.Execute(date);
+        Populate(_query.Execute());
+    }
 
     private void Populate(TrainingCalendar plan)
     {
