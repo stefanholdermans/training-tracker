@@ -56,14 +56,12 @@ public class TrainingPlanViewModel
 
     /// <summary>
     /// The number of planned sessions across the programme; rest days do not
-    /// count. Populated from the calendar; placeholder wiring pending under
-    /// unit tests.
+    /// count.
     /// </summary>
     public int PlannedSessionCount => _plannedSessionCount;
 
     /// <summary>
-    /// The number of planned sessions the runner has completed. Populated from
-    /// the calendar; placeholder wiring pending under unit tests.
+    /// The number of planned sessions the runner has completed.
     /// </summary>
     public int CompletedSessionCount => _completedSessionCount;
 
@@ -110,9 +108,8 @@ public class TrainingPlanViewModel
             _weeks.Add(week);
         }
 
-        // Placeholder: the real adherence counts are wired under unit tests.
-        _plannedSessionCount = 0;
-        _completedSessionCount = 0;
+        _plannedSessionCount = plan.PlannedSessionCount;
+        _completedSessionCount = plan.CompletedSessionCount;
     }
 
     private static IReadOnlyList<WeekViewModel> MapWeeks(

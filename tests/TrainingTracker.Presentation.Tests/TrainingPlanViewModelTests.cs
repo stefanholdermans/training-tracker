@@ -483,6 +483,84 @@ public class TrainingPlanViewModelTests
     }
 
     [Fact]
+    public void ExposesPlannedAndCompletedSessionCountsFromTheCalendar()
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            new TrainingWeek(new DateOnly(2026, 3, 2),
+            [
+                new TrainingDay(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(TrainingType.EasyRun, 5.0m),
+                    Completed: true),
+                new TrainingDay(new DateOnly(2026, 3, 3), null),
+                new TrainingDay(
+                    new DateOnly(2026, 3, 5),
+                    new TrainingSession(TrainingType.Intervals, 8.0m))
+            ])
+        ]));
+
+        var viewModel = new TrainingPlanViewModel(
+            _query, _loadCommand, _markCommand, _unmarkCommand);
+
+        viewModel.PlannedSessionCount.Should().Be(2);
+        viewModel.CompletedSessionCount.Should().Be(1);
+    }
+
+    [Fact]
+    public void AdherenceSummaryReadsAsCompletedOfPlanned()
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            new TrainingWeek(new DateOnly(2026, 3, 2),
+            [
+                new TrainingDay(
+                    new DateOnly(2026, 3, 2),
+                    new TrainingSession(TrainingType.EasyRun, 5.0m),
+                    Completed: true),
+                new TrainingDay(
+                    new DateOnly(2026, 3, 5),
+                    new TrainingSession(TrainingType.Intervals, 8.0m))
+            ])
+        ]));
+
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
+            .AdherenceSummary.Should().Be("1 of 2 sessions completed");
+    }
+
+    [Fact]
+    public void MarkCompletedRefreshesTheAdherenceCounts()
+    {
+        _query.Execute().Returns(
+            new TrainingCalendar(
+            [
+                new TrainingWeek(new DateOnly(2026, 3, 2),
+                [
+                    new TrainingDay(
+                        new DateOnly(2026, 3, 2),
+                        new TrainingSession(TrainingType.EasyRun, 5.0m))
+                ])
+            ]),
+            new TrainingCalendar(
+            [
+                new TrainingWeek(new DateOnly(2026, 3, 2),
+                [
+                    new TrainingDay(
+                        new DateOnly(2026, 3, 2),
+                        new TrainingSession(TrainingType.EasyRun, 5.0m),
+                        Completed: true)
+                ])
+            ]));
+        var viewModel = new TrainingPlanViewModel(
+            _query, _loadCommand, _markCommand, _unmarkCommand);
+
+        viewModel.MarkCompleted(new DateOnly(2026, 3, 2));
+
+        viewModel.CompletedSessionCount.Should().Be(1);
+        viewModel.AdherenceSummary.Should().Be("1 of 1 sessions completed");
+    }
+
+    [Fact]
     public void MarkUncompletedClearsTheSessionThroughTheCommand()
     {
         _query.Execute().Returns(new TrainingCalendar([]));
