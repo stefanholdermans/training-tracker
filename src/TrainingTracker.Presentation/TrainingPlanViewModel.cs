@@ -140,9 +140,14 @@ public class TrainingPlanViewModel
             TotalDistanceKm = week.TotalDistanceKm,
             CompletedDistanceKm = week.CompletedDistanceKm,
             IntensityFraction = fraction,
-            IntensityColor = IntensityColor(fraction, week.TotalDistanceKm)
+            IntensityColor = IntensityColor(fraction, week.TotalDistanceKm),
+            OverviewHeightFraction =
+                OverviewHeightFraction(week.TotalDistanceKm, peak)
         };
     }
+
+    private static double OverviewHeightFraction(decimal total, decimal peak) =>
+        peak <= 0 ? 0.0 : (double)(total / peak);
 
     private static double IntensityFraction(
         decimal total, decimal peak, decimal? lowestActive)

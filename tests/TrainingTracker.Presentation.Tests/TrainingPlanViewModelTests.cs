@@ -517,6 +517,47 @@ public class TrainingPlanViewModelTests
     }
 
     [Fact]
+    public void OverviewHeightFractionIsOneForThePeakWeek()
+    {
+        GivenAProgramme();
+
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
+            .Weeks[3].OverviewHeightFraction.Should().BeApproximately(1.0, 1e-9);
+    }
+
+    [Fact]
+    public void OverviewHeightFractionIsThePlainProportionOfThePeak()
+    {
+        GivenAProgramme();
+
+        // Week 3 is 16K against a 20K peak: a plain 0.8, with no floor.
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
+            .Weeks[2].OverviewHeightFraction.Should().BeApproximately(0.8, 1e-9);
+    }
+
+    [Fact]
+    public void OverviewHeightFractionIsZeroForARestWeek()
+    {
+        GivenAProgramme();
+
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
+            .Weeks[1].OverviewHeightFraction.Should().Be(0.0);
+    }
+
+    [Fact]
+    public void OverviewHeightFractionIsZeroWhenThereIsNoLoadAtAll()
+    {
+        _query.Execute().Returns(new TrainingCalendar(
+        [
+            Week(new DateOnly(2026, 3, 2), 0.0m),
+            Week(new DateOnly(2026, 3, 9), 0.0m)
+        ]));
+
+        new TrainingPlanViewModel(_query, _loadCommand, _markCommand, _unmarkCommand)
+            .Weeks[0].OverviewHeightFraction.Should().Be(0.0);
+    }
+
+    [Fact]
     public void IntensityColorIsThePeakLoadColourForThePeakWeek()
     {
         GivenAProgramme();

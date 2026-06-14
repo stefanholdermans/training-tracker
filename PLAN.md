@@ -20,7 +20,7 @@ the bars in a compact row above the calendar.
 
 ## Tasks
 
-- [ ] Add the overview acceptance tests (skipped)
-- [ ] `WeekViewModel.OverviewHeightFraction` is volume against the peak
+- [x] Add the overview acceptance tests (skipped)
+- [x] `WeekViewModel.OverviewHeightFraction` is volume against the peak
 - [ ] Render the compact overview strip on the calendar page
 - [ ] Unmark the acceptance tests and tick the story off
