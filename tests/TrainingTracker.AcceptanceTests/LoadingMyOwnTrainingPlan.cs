@@ -6,29 +6,30 @@ using TrainingTracker.Presentation;
 namespace TrainingTracker.AcceptanceTests;
 
 /// <summary>
-/// Given the app showing the bundled plan, with the runner's own plan
-/// (my-training-plan.json) sitting elsewhere on disk.
+/// Given the app already showing a plan (a copy of the bundled
+/// training-plan.json), with the runner's own plan (my-training-plan.json)
+/// sitting elsewhere on disk.
 /// </summary>
 public sealed class LoadingMyOwnTrainingPlan : IDisposable
 {
-    private readonly string _activePlanPath;
+    private readonly string _currentPlanPath;
     private readonly string _myPlanPath;
     private readonly TrainingPlanViewModel _viewModel;
 
     public LoadingMyOwnTrainingPlan()
     {
-        // The active plan store starts seeded with the bundled plan.
-        _activePlanPath = Path.GetTempFileName();
+        // A plan is already loaded; use a copy so the fixture is left untouched.
+        _currentPlanPath = Path.GetTempFileName();
         File.Copy(
             Path.Combine(AppContext.BaseDirectory, "training-plan.json"),
-            _activePlanPath,
+            _currentPlanPath,
             overwrite: true);
 
         // The runner's own plan lives somewhere else on disk.
         _myPlanPath = Path.Combine(
             AppContext.BaseDirectory, "my-training-plan.json");
 
-        var repository = new JsonTrainingPlanRepository(_activePlanPath);
+        var repository = new JsonTrainingPlanRepository(_currentPlanPath);
         _viewModel = new TrainingPlanViewModel(
             new GetTrainingPlanQuery(repository),
             new LoadTrainingPlanCommand(repository),
@@ -37,7 +38,7 @@ public sealed class LoadingMyOwnTrainingPlan : IDisposable
 
     public void Dispose()
     {
-        File.Delete(_activePlanPath);
+        File.Delete(_currentPlanPath);
         GC.SuppressFinalize(this);
     }
 
