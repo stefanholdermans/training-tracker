@@ -125,6 +125,7 @@ public class TrainingPlanViewModelTests
     [InlineData(TrainingType.Repetitions, "#C04040")]
     [InlineData(TrainingType.Intervals, "#7050C0")]
     [InlineData(TrainingType.LongRun, "#4080C0")]
+    [InlineData(TrainingType.PaceRun, "#205090")]
     [InlineData(TrainingType.Race, "#C09020")]
     public void MapsTrainingTypeToColor(
         TrainingType type, string expectedColor)

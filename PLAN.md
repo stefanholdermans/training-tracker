@@ -25,7 +25,7 @@ How much of the run is done at race pace is out of scope for this story.
 - [x] Acceptance tests for the story (skipped, "pending implementation")
 - [x] Read `PaceRun` sessions in `JsonTrainingPlanRepository`
 - [x] Map `PaceRun` to the display name "Pace Run"
-- [ ] Map `PaceRun` to its colour
+- [x] Map `PaceRun` to its colour
 - [ ] Document `PaceRun` in the README
 - [ ] Unskip acceptance tests
 - [ ] Mark story complete in `STORIES.md`
