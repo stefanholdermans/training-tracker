@@ -47,3 +47,6 @@ As a runner, I want certain sessions to carry a number of strides (short acceler
 
 [x] **The one where I pick up the race pace**:
 As a runner, I want pace runs (long runs with portions done at the intended race pace, such as marathon pace) to be shown as a session type of their own, so that I can tell them apart from ordinary long runs at a glance.
+
+[ ] **The one where a plan I can't read doesn't lock me out**:
+As a runner, I want the app to tell me when it cannot read my training plan (for example, because it contains a session type the app does not know) and let me pick another plan, rather than crash, so that a single unreadable session never stops me from opening the app.
