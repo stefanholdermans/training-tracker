@@ -45,5 +45,5 @@ As a runner, I want a compact overview of every week's planned volume across the
 [x] **The one where I tack on some strides**:
 As a runner, I want certain sessions to carry a number of strides (short accelerations of roughly 100 m) shown alongside the planned distance, such as "6K + 8 ST", so that I can see at a glance when a run finishes with strides.
 
-[ ] **The one where I pick up the race pace**:
+[x] **The one where I pick up the race pace**:
 As a runner, I want pace runs (long runs with portions done at the intended race pace, such as marathon pace) to be shown as a session type of their own, so that I can tell them apart from ordinary long runs at a glance.

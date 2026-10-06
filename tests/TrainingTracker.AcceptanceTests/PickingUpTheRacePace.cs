@@ -29,20 +29,20 @@ public class PickingUpTheRacePace
     private SessionViewModel SessionOn(DateOnly date) =>
         _viewModel.Weeks[0].Days.Single(d => d.Date == date).Session!;
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void APaceRunIsShownAsAPaceRun()
     {
         SessionOn(new DateOnly(2026, 3, 8)).DisplayName.Should().Be("Pace Run");
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void APaceRunIsColourCodedApartFromALongRun()
     {
         SessionOn(new DateOnly(2026, 3, 8)).Color.Should()
             .NotBe(SessionOn(new DateOnly(2026, 3, 2)).Color);
     }
 
-    [Fact(Skip = "pending implementation")]
+    [Fact]
     public void APaceRunCountsTowardsTheWeeksVolume()
     {
         _viewModel.Weeks[0].TotalDistanceKm.Should().Be(44.0m);
