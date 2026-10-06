@@ -21,7 +21,7 @@ Training Tracker displays a running programme in a calendar view, one week per r
 - **See your whole plan** in a calendar laid out a week at a time, Monday to Sunday.
 - **Take in the whole arc** from a slim overview bar, one column per week, sized against the peak week so the build-up and taper read in a single glance.
 - **Know which race you're training for** from the programme's title in the header.
-- **Tell session types apart** at a glance — easy runs, threshold runs, repetitions, intervals, long runs, and the race itself are each colour-coded.
+- **Tell session types apart** at a glance — easy runs, threshold runs, repetitions, intervals, long runs, pace runs (long runs with portions at race pace), and the race itself are each colour-coded.
 - **See rest days** clearly distinguished from training days.
 - **Spot strides** tacked onto a run, shown alongside the distance as, for example, `10K + 8 ST`.
 - **Check off completed sessions** with a tap, and undo an accidental check-off with another.
@@ -52,7 +52,7 @@ A plan is a JSON file with an optional `title` and a list of `sessions`. Each se
 | Field        | Required | Notes                                                                                          |
 | ------------ | -------- | ---------------------------------------------------------------------------------------------- |
 | `date`       | yes      | The day of the session, as `YYYY-MM-DD`.                                                        |
-| `type`       | yes      | One of `EasyRun`, `ThresholdRun`, `Repetitions`, `Intervals`, `LongRun`, `Race`.                |
+| `type`       | yes      | One of `EasyRun`, `ThresholdRun`, `Repetitions`, `Intervals`, `LongRun`, `PaceRun`, `Race`.     |
 | `distanceKm` | yes      | The planned distance in kilometres.                                                            |
 | `strides`    | no       | The number of strides (short accelerations of roughly 100 m) tacked onto the run.              |
 | `completed`  | no       | Whether the session has been done; defaults to `false`. The app updates this as you check off. |
