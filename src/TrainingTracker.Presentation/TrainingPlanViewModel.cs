@@ -225,6 +225,7 @@ public class TrainingPlanViewModel : INotifyPropertyChanged
                 TrainingType.Repetitions => "Repetitions",
                 TrainingType.Intervals => "Intervals",
                 TrainingType.LongRun => "Long Run",
+                TrainingType.PaceRun => "Pace Run",
                 TrainingType.Race => "Race",
                 _ => session.Type.ToString()
             },
