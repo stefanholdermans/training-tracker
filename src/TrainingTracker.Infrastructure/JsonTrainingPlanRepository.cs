@@ -115,10 +115,15 @@ public class JsonTrainingPlanRepository : ITrainingPlanRepository
         var completed = element.TryGetProperty("completed", out var flag)
             && flag.GetBoolean();
 
+        if (!Enum.TryParse<TrainingType>(type, out var trainingType))
+        {
+            throw new InvalidPlanException(
+                $"Unknown session type '{type}'.");
+        }
+
         return new ScheduledSession(
             DateOnly.Parse(date, CultureInfo.InvariantCulture),
-            new TrainingSession(
-                Enum.Parse<TrainingType>(type), distanceKm, strides),
+            new TrainingSession(trainingType, distanceKm, strides),
             completed);
     }
 }

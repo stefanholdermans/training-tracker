@@ -35,6 +35,7 @@ public class TrainingPlanViewModel : INotifyPropertyChanged
     private int _plannedSessionCount;
     private int _completedSessionCount;
     private string _title = string.Empty;
+    private string? _planReadError;
 
     public TrainingPlanViewModel(
         IGetTrainingPlanQuery query,
@@ -51,7 +52,14 @@ public class TrainingPlanViewModel : INotifyPropertyChanged
         _loadCommand = loadCommand;
         _markCompletedCommand = markCompletedCommand;
         _markUncompletedCommand = markUncompletedCommand;
-        Populate(query.Execute());
+        try
+        {
+            Populate(query.Execute());
+        }
+        catch (InvalidPlanException ex)
+        {
+            _planReadError = ex.Message;
+        }
     }
 
     /// <summary>
@@ -78,6 +86,12 @@ public class TrainingPlanViewModel : INotifyPropertyChanged
     /// The number of planned sessions the runner has completed.
     /// </summary>
     public int CompletedSessionCount => _completedSessionCount;
+
+    /// <summary>
+    /// Set when the current plan cannot be read; describes why. Cleared when a
+    /// plan is successfully loaded.
+    /// </summary>
+    public string? PlanReadError => _planReadError;
 
     /// <summary>
     /// A short summary of adherence, such as "3 of 5 sessions completed".
@@ -116,6 +130,7 @@ public class TrainingPlanViewModel : INotifyPropertyChanged
 
     private void Populate(TrainingCalendar plan)
     {
+        _planReadError = null;
         _weeks.Clear();
         foreach (WeekViewModel week in MapWeeks(plan))
         {
@@ -130,6 +145,7 @@ public class TrainingPlanViewModel : INotifyPropertyChanged
         Notify(nameof(AdherenceSummary));
         Notify(nameof(PlannedSessionCount));
         Notify(nameof(CompletedSessionCount));
+        Notify(nameof(PlanReadError));
     }
 
     private void Notify(string propertyName) =>

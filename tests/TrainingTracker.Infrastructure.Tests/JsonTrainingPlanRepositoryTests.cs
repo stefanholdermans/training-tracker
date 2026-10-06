@@ -1,4 +1,5 @@
 using FluentAssertions;
+using TrainingTracker.Application;
 using TrainingTracker.Domain;
 using TrainingTracker.Infrastructure;
 
@@ -33,6 +34,36 @@ public class JsonTrainingPlanRepositoryTests
             sessions[0].Date.Should().Be(new DateOnly(2026, 3, 2));
             sessions[0].Session.Type.Should().Be(TrainingType.EasyRun);
             sessions[0].Session.DistanceKm.Should().Be(5.0m);
+        }
+        finally
+        {
+            File.Delete(filePath);
+        }
+    }
+
+    [Fact]
+    public void ThrowsInvalidPlanExceptionForAnUnknownSessionType()
+    {
+        string json = """
+            {
+              "sessions": [
+                { "date": "2026-03-02", "type": "SpeedWork", "distanceKm": 8.0 }
+              ]
+            }
+            """;
+
+        string filePath = Path.GetTempFileName();
+
+        try
+        {
+            File.WriteAllText(filePath, json);
+
+            var repository = new JsonTrainingPlanRepository(filePath);
+
+            var act = () => repository.GetAll();
+
+            act.Should().Throw<InvalidPlanException>()
+                .WithMessage("*SpeedWork*");
         }
         finally
         {

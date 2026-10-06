@@ -10,6 +10,8 @@ public partial class TrainingPlanPage : ContentPage
     private readonly TrainingPlanViewModel _viewModel;
     private readonly IPlanFilePicker _filePicker;
 
+    private bool _startupErrorShown;
+
     public TrainingPlanPage(
         TrainingPlanViewModel viewModel, IPlanFilePicker filePicker)
     {
@@ -17,6 +19,22 @@ public partial class TrainingPlanPage : ContentPage
         _viewModel = viewModel;
         _filePicker = filePicker;
         BindingContext = viewModel;
+    }
+
+    /// <summary>
+    /// Shows a one-time alert when the plan stored from a previous session
+    /// cannot be read, so the runner knows what happened and can pick another.
+    /// </summary>
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (!_startupErrorShown && _viewModel.PlanReadError is { } error)
+        {
+            _startupErrorShown = true;
+            await DisplayAlertAsync("Couldn't read plan", error, "OK")
+                .ConfigureAwait(true);
+        }
     }
 
     /// <summary>
