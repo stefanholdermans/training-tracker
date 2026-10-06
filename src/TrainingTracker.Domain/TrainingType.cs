@@ -10,5 +10,6 @@ public enum TrainingType
     Repetitions,
     Intervals,
     LongRun,
+    PaceRun,
     Race
 }

@@ -41,6 +41,34 @@ public class JsonTrainingPlanRepositoryTests
     }
 
     [Fact]
+    public void ReadsAPaceRunFromTheJsonFile()
+    {
+        string json = """
+            {
+              "sessions": [
+                { "date": "2026-03-08", "type": "PaceRun", "distanceKm": 24.0 }
+              ]
+            }
+            """;
+
+        string filePath = Path.GetTempFileName();
+
+        try
+        {
+            File.WriteAllText(filePath, json);
+
+            var repository = new JsonTrainingPlanRepository(filePath);
+
+            repository.GetAll()[0].Session.Type.Should()
+                .Be(TrainingType.PaceRun);
+        }
+        finally
+        {
+            File.Delete(filePath);
+        }
+    }
+
+    [Fact]
     public void ReadsTheCompletedFlagFromTheJsonFile()
     {
         string json = """
